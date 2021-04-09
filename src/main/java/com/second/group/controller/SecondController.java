@@ -9,4 +9,9 @@ public class SecondController {
 	public String SecondBoardList() throws Exception {
 		return "/second/SecondBoardList";
 	}
+	
+	@RequestMapping("/second/recipeDetailed")
+	public String SecondDetail() throws Exception {
+		return "/second/recipeDetailed";
+	}
 }
