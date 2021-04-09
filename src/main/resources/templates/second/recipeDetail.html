@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>레시피 상세</title>
+
+  <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+
+  <style>
+    body {
+      background-color: wheat;
+    }
+
+    input {
+      width: 100%;
+      border-radius: 20px;
+      border: 1px solid #bbb;
+      margin: 10px 0;
+      padding: 10px 12px;
+      font-family: fontAwesome;
+    }
+
+    ul>li {
+      list-style: none;
+      padding-right: 28px;
+      float: left;
+    }
+
+    .pictureBox {
+      width: 409px;
+      height: 614px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .imgCover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .bubble {
+      position: relative;
+      width: 220px;
+      height: 110px;
+      padding: 0px;
+      background: #faf5eb;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      border: #d2c8be solid 1px;
+    }
+
+    .bubble:after {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 6px 7px 6px 0;
+      border-color: transparent #faf5eb;
+      display: block;
+      width: 0;
+      z-index: 1;
+      left: -7px;
+      top: 15px;
+    }
+
+    .bubble:before {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 6px 7px 6px 0;
+      border-color: transparent #d2c8be;
+      display: block;
+      width: 0;
+      z-index: 0;
+      left: -8px;
+      top: 15px;
+    }
+
+    .bubble2 {
+      position: relative;
+      width: 380px;
+      height: 90px;
+      padding: 0px;
+      background: #faf5eb;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      border: #d2c8be solid 1px;
+    }
+
+    .bubble2:after {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 6px 7px;
+      border-color: #faf5eb transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      top: -7px;
+      left: 21px;
+    }
+
+    .bubble2:before {
+      content: '';
+      position: absolute;
+      border-style: solid;
+      border-width: 0 6px 7px;
+      border-color: #d2c8be transparent;
+      display: block;
+      width: 0;
+      z-index: 0;
+      top: -8px;
+      left: 21px;
+    }
+
+    .Tableigredient>td {
+      padding: 8px 5px;
+    }
+
+    td {
+      width: 20%;
+      word-break: break-all;
+      vertical-align: top;
+      padding: 18px 15px;
+      border-bottom: 1px dotted #d2c8be;
+    }
+
+    .contents {
+      width: 500px;
+    }
+
+    .tag {
+      padding: 20px 15px 15px;
+      margin: 0 auto;
+    }
+
+    .profileBox>li {
+      list-style: none;
+    }
+
+    section {
+      border: 1px solid #d2c8be;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      resize: none;
+      outline: none;
+      border: 1px solid #d2c8be;
+    }
+
+    btn {
+      outline: none;
+    }
+
+    ul::after {
+      content: "";
+      clear: both;
+    }
+
+
+    a:hover {
+      text-decoration: none;
+    }
+  </style>
+
+  <script src="https://kit.fontawesome.com/3c25fcea14.js" crossorigin="anonymous"></script>
+  <script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
+  <script src="/js/popper.js" th:src="@{/js/popper.js}"></script>
+  <script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+</head>
+
+<body>
+  <header style="background-color: white;">
+    <div class="row">
+      <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
+        <div class="col-md-2">
+          <a class="display-4 text-warning" style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+            href="/second">HOME recipe</a>
+        </div>
+
+        <div class="col-md-6">
+          <form action="" method="GET" class="form-group">
+            <div class="input-group">
+              <input name="" type="search" class="form-control" placeholder="&#xf002; Search...">
+
+              <button type="submit" class="btn btn-outline-success" style="border: 0;">
+                <i class="fas fa-search" style="font-size: 1.5em;"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="input-group-append col-md-2 ">
+          <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+            <i class="far fa-user ml-5"></i>
+          </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+            <i class="far fa-edit ml-5"></i>
+          </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+            <i class="fas fa-book ml-5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="container mt-4 p-0 pb-3"
+            style="border: 1px dotted #d2c8be; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.2); background-color: white;">
+            <div class="recipeNameArea">
+              <h1 class="recipeName mt-3 pl-4" style="display: inline-block;">레시피 타이틀</h1>
+              <ul class="recipeInfo mt-4 p-0">
+                <li class="update" style="padding-left: 25px;">
+                  <p class="recipeDay"><i class="far fa-calendar-check pr-2"></i>2021.04.07</p>
+                </li>
+                <li class="recipeID">
+                  <p><span class="mr-1" style="background-color: darkgoldenrod; color: white;">사용자 ID</span> honggildong
+                  </p>
+                </li>
+                <li class="recipeType"><span class="mr-1"
+                    style="background-color: darkgoldenrod; color: white;">분류</span> 주식</li>
+              </ul>
+              <ul class="justify-content-end d-flex">
+                <li class="">
+                  <div>
+                    <a href="#"><i class="far fa-thumbs-up"></i> 좋아요</a>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <a href="#"><i class="fas fa-heart"></i> 즐겨찾기</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="recipeBlock container">
+              <div class="row">
+                <div class="pictureBox ml-4 mr-3 col-md-7 p-0"
+                  style="border : 2px solid #fff; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.3); display: inline-block;">
+                  <img class="p-1 imgCover" src="./images/파스타.PNG" alt="">
+                  <div class="subPicture"></div>
+                </div>
+                <div class="detail col-md-4">
+                  <div class="bubble m-0" style="height:160px; padding: 10px;">
+                    <p class="comment pb-1 mb-0">코멘트</p>
+                    <p class="commentText pt-1" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
+                  </div>
+                  <p class="time mt-2 m-0"><i class="far fa-clock"></i>조리시간 : 15분</p>
+                  <p class="igredient mt-2 mb-0 pb-1" style="border-bottom: 1px solid #d2c8be;"><span>재료</span></p>
+                  <table>
+                    <tbody>
+                      <tr class="Tableigredient p-1" style="border-bottom: 1px dotted #d2c8be;">
+                        <td class="">우유</td>
+                        <td>1팩</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="stepBox container pt-5">
+              <p class="pb-2" style="border-bottom: 1px solid #d2c8be;">조리 과정</p>
+              <table style="width: 100%;">
+                <tbody>
+                  <tr class="step">
+                    <td>1</td>
+                    <td class="contents">스파게티면을 8분정도 삶아주었어요
+                      개인차가 있겠지만 저는 8분정도 끓여주어야 꼬들하니 식감이 좋더라구요^^
+                      8분이 지난 스파게티면은 찬물에 헹구지 말고 체에 걸러서 물기만 제거해주세요.</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td class="contents">파스타 조리</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td class="contents">파스타 조리</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td class="contents">파스타 조리</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="bubble2 m-3" style="height:100px; padding: 10px;">
+                <p class="comment pb-1 mb-0">코멘트</p>
+                <p class="commentText pt-1" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
+              </div>
+            </div>
+            <div class="keyword" style="width: auto; border-top: 1px dotted #d2c8be;">
+              <div class="tag d-flex">
+                <dl class="pr-4">이 레시피의 키워드</dl>
+                <dd>
+                  <a href="#">키워드</a>
+                  <a href="#">키워드</a>
+                  <a href="#">키워드</a>
+                  <a href="#">키워드</a>
+                  <a href="#">키워드</a>
+                  <a href="#">키워드</a>
+                  </dd>
+              </div>
+            </div>
+          </div>
+          <section class="commentBox mt-5 bg-white">
+            <div class="p-2" style="border-bottom: 1px solid #d2c8be; border-top: 3px solid #5a320a;">
+              <h2>코멘트 박스</h2>
+            </div>
+            <div class="reviewBox container p-4">
+              <div class="reviewArea p-3" style="background: #f5f5f0;">
+                <form action="" id="reviewForm" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="mode" id="review-mode" value="post_review">
+                  <input type="hidden" name="last_review_id" id="last-review-id" value="0">
+                  <input type="hidden" name="recipe_id" value="408846">
+                  <input type="hidden" name="user_id" value="230316">
+                  <textarea class="p-1" name="commentArea" id="review-comment" placeholder="맛있습니다."></textarea>
+                  <div id="review-message"></div>
+                  <div>
+                    <button class="btn btn-block mt-3"
+                      style="background : #5a320a; color: white; font-size: 13px;">작성</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="col-md-3">
+          <div class="profileBox mt-4 p-2 pb-0"
+            style="border: 1px solid #d2c8be; border-top: 3px solid #5a320a; background-color: white; width: 100%;">
+            <li style="border-bottom: 1px solid #d2c8be;">
+              <h4>프로필</h4>
+            </li>
+            <li>
+              <a href="">
+                <div class="Thumbnail">
+                  <div class="photoThumb pt-2 d-flex mb-5">
+                    <div>
+                      <img class="" src="./images/pengsu03.jpg" alt=""
+                        style="width: 100%; max-width: 130px; height: 100%;">
+                    </div>
+                    <div class="detailThumb pl-2">
+                      <p class="userName m-0">펭수</p>
+                      <p>파스타파스파스타파스파스타파스파스타파스</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <button class="btn btn-block" style="background : #5a320a; color: white; font-size: 13px;">레시피 일람</button>
+            </li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="bg-primary" style="height: 200px;"></div>
+  </footer>
+</body>
+
+</html>
