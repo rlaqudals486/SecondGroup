@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>레시피 작성</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+
+    <style>
+        body {
+            background-color: wheat;
+        }
+
+        li {
+            list-style: none;
+            margin-left: 115px;
+            margin-bottom: 15px;
+        }
+
+        .header-input {
+            width: 100%;
+            border-radius: 20px;
+            border: 1px solid #bbb;
+            margin: 10px 0;
+            padding: 10px 12px;
+            font-family: fontAwesome;
+        }
+
+        .recipe-write,
+        .recipe-ingredient,
+        .recipe-step {
+            border: 1px solid #d2c8be;
+            background: #faf5eb;
+        }
+
+        .input-write {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #d2c8be;
+            padding-left: 10px;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        .input-ingre {
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #d2c8be;
+            padding-left: 10px;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        label {
+            width: 140px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 45px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .writeCooking {
+            width: 420px;
+            border-radius: 4px;
+            resize: none;
+            outline: none;
+            border: 1px solid #d2c8be;
+        }
+
+        .photoBox {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .errorlabel {
+            width: 110px;
+            margin-right: 10px;
+        }
+    </style>
+
+    <script src="https://kit.fontawesome.com/3c25fcea14.js" crossorigin="anonymous"></script>
+    <script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script src="/js/popper.min" th:src="@{/js/popper.min}"></script>
+    <script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+    <script>
+        $(document).ready(function(){
+          $("#btn-ingre").click(function(){
+            $("ul").append("<li><input class='input-ingre' type='text' name='ingre-name' id='ingre-name' placeholder='예) 돼지고기'><input class='input-ingre ml-4' type='text' name='ingre-size' id='ingre-size' placeholder='예) 300g'></li>");
+          });
+
+        });
+
+        const countEL = document.getElementById('step-count');
+        const count = countEL.innerText;
+        countEL.innerText = parseInt(count) + 1;
+    </script>
+</head>
+
+<body>
+    <header style="background-color: white;">
+        <div class="row">
+            <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
+                <div class="col-md-2">
+                    <a class="display-4 text-warning"
+                        style="font-size: 2.5em; font-weight: bold; text-decoration: none;" href="/second">HOME
+                        recipe</a>
+                </div>
+
+                <div class="col-md-6">
+                    <form action="" method="GET" class="form-group">
+                        <div class="input-group">
+                            <input name="" type="search" class="header-input form-control"
+                                placeholder="&#xf002; Search...">
+
+                            <button type="submit" class="btn btn-outline-success" style="border: 0;">
+                                <i class="fas fa-search" style="font-size: 1.5em;"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="input-group-append col-md-2 ">
+                    <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                        <i class="far fa-user ml-5"></i>
+                    </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                        <i class="far fa-edit ml-5"></i>
+                    </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                        <i class="fas fa-book ml-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container recipe-write mt-4 p-3">
+            <h4>레시피 등록</h4>
+            <div class="d-flex pt-2">
+                <label for="recipe-title">레시피 작성</label>
+                <input class="input-write form-control" type="text" name="recipe-title" id="recipe-title" value="title">
+            </div>
+            <div class="row" style="margin-bottom: 30px;">
+                <label for="introCook col-md">요리 소개</label>
+                <textarea class="writeCooking" name="introCook" id="introCook" rows="5"></textarea>
+                <label for="pointCook col-md">요리 팁</label>
+                <textarea class="writeCooking" name="pointCook" id="pointCook" rows="5"></textarea>
+            </div>
+            <div class="photoBox" style="margin-bottom: 30px;">
+                <label class="errorlabel" for="photo">요리 사진</label>
+                <img src="./images/pic_none4.gif" alt="" id="photo" style="width: 250px; height: 250px; cursor:pointer">
+            </div>
+            <div class="classification">
+                <label class="errorlabel" for="categori">카테고리</label>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">드랍다운 버튼</button>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">구분1 링크1</a>
+                    <a href="#" class="dropdown-item">구분1 링크2</a>
+                    <a href="#" class="dropdown-item">구분1 링크3</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">구분２ 링크1</a>
+                    <a href="#" class="dropdown-item">구분２ 링크2</a>
+                </div>
+            </div>
+            <div class="information">
+                <label class="errorlabel" for="cookinfo">요리 정보</label>
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">드랍다운 버튼</button>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">구분1 링크1</a>
+                    <a href="#" class="dropdown-item">구분1 링크2</a>
+                    <a href="#" class="dropdown-item">구분1 링크3</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">구분２ 링크1</a>
+                    <a href="#" class="dropdown-item">구분２ 링크2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container recipe-ingredient mt-4 p-3">
+            <div class="">
+                <label class="errorlabel">요리 재료</label>
+                <ul id="ingreUl">
+                    <li>
+                        <input class="input-ingre" type="text" name="ingre-name" id="ingre-name" placeholder="예) 돼지고기">
+                        <input class="input-ingre ml-4" type="text" name="ingre-size" id="ingre-size" placeholder="예) 300g">
+                    </li>
+                </ul>
+                <div class="text-center">
+                    <button class="btn btn-success" id="btn-ingre" style="position: relative; right: 82px;">
+                        재료 추가
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container recipe-step mt-4 p-3">
+            <div>
+                <label class="errorlabel" for="">요리 순서</label>
+                <div class="">
+                    Step <span id="step-count">1</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
