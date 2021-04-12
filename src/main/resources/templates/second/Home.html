@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" href="/css/bootstrap.css"
+	th:href="@{/css/bootstrap.css}">
+<script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
+<script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+	rel="stylesheet">
+
+
+
+
+<script>
+	// 랜덤 이미지 출력
+	// 	var testFolder = './img/*.jpg';
+	// 	var fs = require('fs');
+
+	// 	fs.readdir(testFolder, function(error, filelist) {
+
+	// 		var bestImgs = [ filelist ];
+	// 		for(a = 0; a <= filelist.length; a++){
+	// 		var imageURLs = [ "a" ];
+
+	// 		}
+	// 		function getImageTag() {
+	// 			var img = '<img src=\"';
+	// 			var randomIndex = Math.floor(Math.random() * imageURLs.length);
+	// 			img += imageURLs[randomIndex];
+	// 			img += '\" alt=\"Some alt text\"/>';
+	// 			return img;
+	// 		}
+	// 	})
+</script>
+
+<style>
+html {
+	height: 100%;
+}
+
+#main, footer {
+	min-height: 100%;
+	background-image: url("./img/배경.webp");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+input {
+	width: 100%;
+	border-radius: 20px;
+	border: 1px solid #bbb;
+	margin: 10px 0;
+	padding: 10px 12px;
+	font-family: fontAwesome;
+}
+
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropbtn {
+	color: white;
+	font-size: 2rem;
+	border: none;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
+</style>
+
+</head>
+<body>
+	<header class="bg-whight">
+		<div class="row">
+			<div class="text-center mx-auto mt-5 search-bar input-group mb-3">
+				<div class="col-sm-2">
+					<a class="display-4 text-warning"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+						href="/second">HOME recipe</a>
+				</div>
+
+				<div class="col-sm-6">
+					<form action="" method="GET" class="form-group">
+						<div class="input-group">
+							<input name="" type="search" class="form-control"
+								placeholder="&#xf002; Search...">
+
+							<button type="submit" class="btn btn-outline-danger"
+								style="border: 0;">
+								<i class="fas fa-search" style="font-size: 1.5em;"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="input-group-append col-sm-2 ">
+					<a class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-user ml-5"></i>
+					</a> <a class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-edit ml-5"></i>
+					</a> <a class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="fas fa-book ml-5"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+
+	</header>
+	<main id="main">
+		<!--  -->
+		<div class="bg-danger">
+			<div class="container">
+				<nav class="topnav d-flex justify-content-center mb-4" id="myTopnav">
+					<div class="dropdown px-5">
+						<a class="dropbtn" data-toggle="dropdown">목록</a>
+						<div class="dropdown-menu ">
+							<a href="#" class="dropdown-item">홈</a> <a href="#"
+								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<a class="dropbtn" data-toggle="dropdown">찌게</a>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> <a href="#"
+								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<a class="dropbtn" data-toggle="dropdown">구이</a>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> <a href="#"
+								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<!-- 랜덤 이미지 부분 -->
+		<div class="container">
+			<div class="row">
+				<div class="carousel slide col-sm-8 " id="main-carousel"
+					data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#main-carousel" data-slide-to="0" class="active"></li>
+						<li data-target="#main-carousel" data-slide-to="1"></li>
+						<li data-target="#main-carousel" data-slide-to="2"></li>
+						<li data-target="#main-carousel" data-slide-to="3"></li>
+					</ol>
+					<!-- /.carousel-indicators -->
+
+					<div class="carousel-inner">
+						<div class="carousel-item active" data-interval="500">
+							<img class="d-block img-fluid"
+								src="https://s19.postimg.cc/lmubh3h0j/slide2.jpg" alt="">
+							<div class="carousel-caption d-none d-md-block">
+								<h1>Mountain</h1>
+							</div>
+						</div>
+						<div class="carousel-item" data-interval="500">
+							<img class="d-block img-fluid"
+								src="https://s19.postimg.cc/lmubh3h0j/slide2.jpg" alt="">
+							<div class="carousel-caption d-none d-md-block">
+								<h3>Mountain</h3>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Adipisci esse vitae exercitationem fugit, numquam minus!</p>
+							</div>
+						</div>
+						<div class="carousel-item" data-interval="500">
+							<img class="d-block img-fluid"
+								src="https://s19.postimg.cc/99hh9lr5v/slide3.jpg" alt="">
+							<div class="carousel-caption d-none d-md-block">
+								<h3>Mountain</h3>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Adipisci esse vitae exercitationem fugit, numquam minus!</p>
+							</div>
+						</div>
+						<div class="carousel-item" data-interval="500">
+							<img src="https://s19.postimg.cc/nenabzsnn/slide4.jpg" alt=""
+								class="d-block img-fluid">
+							<div class="carousel-caption d-none d-md-block">
+								<h3>Mountain</h3>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Adipisci esse vitae exercitationem fugit, numquam minus!</p>
+							</div>
+						</div>
+					</div>
+					<!-- /.carousel-inner -->
+
+					<a href="#main-carousel" class="carousel-control-prev"
+						data-slide="prev"> <span class="carousel-control-prev-icon"></span>
+						<span class="sr-only" aria-hidden="true">Prev</span>
+					</a> <a href="#main-carousel" class="carousel-control-next"
+						data-slide="next"> <span class="carousel-control-next-icon"></span>
+						<span class="sr-only" aria-hidden="true">Next</span>
+					</a>
+				</div>
+				<!-- /.carousel -->
+
+				<!-- /.container -->
+				<div class="d-felx  col-sm-2 text-center ml-5">
+					<h3 class="text-white">인기 레시피</h3>
+					<div class="bg-white">
+						<ul class="">
+							<li>목록1</li>
+							<li>목록2</li>
+							<li>목록3</li>
+							<li>목록4</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8 mt-5">
+					<h1 class="text-center text-white">새로운 레시피</h1>
+					<ul class="bg-white">
+						<li>목록1</li>
+						<li>목록2</li>
+						<li>목록3</li>
+						<li>목록4</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8 mt-5">
+					<img alt="" src="./img/광고1.png">
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="col-sm-8 mt-5">
+				<h1 class="text-center text-white">후기글</h1>
+				<ul class="bg-white">
+					<li>목록1</li>
+					<li>목록2</li>
+					<li>목록3</li>
+					<li>목록4</li>
+				</ul>
+			</div>
+		</div>
+
+		<br><br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
+		<div class="container">
+			<h5 class="text-center">Made by 2조</h5>
+		</div>
+	</main>
+</body>
+</html>
