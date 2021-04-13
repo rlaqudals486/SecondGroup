@@ -4,15 +4,17 @@ import lombok.Data;
 
 @Data
 public class SecondRecipeDto {
-	private int idx;
-	private String title;
-	private String createdDatetime;
-	private String cooking;
-	private String cookTime;
-	private String cookComment;
-	private String cookPoint;
-	private char recipeDeletedYn;
-	private String recipeCoverImg;
-	private String recipeFilePath;
-	private int userUserIdx;
+	public int idx;
+	public String title;
+	public String createdDatetime;
+	public String ingredient;
+	public String cooking;
+	public String cookTime;
+	public String cookComment;
+	public String cookPoint;
+	public String recipeDeletedYn;
+	public String recipeCoverImg;
+	public String recipeFilePath;
+	public String userUserIdx;
+	public String recommend;
 }
