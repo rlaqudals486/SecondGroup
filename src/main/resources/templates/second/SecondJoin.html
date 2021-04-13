@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>회원가입 페이지</title>
+<title>로그인 페이지</title>
 
 <link rel="stylesheet" href="./css/style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -17,11 +17,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.41.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 
 <script>
+
 	/* 달력 */
 	$(function() {
 		$("#datePicker").datepicker({
@@ -31,7 +30,7 @@
 			todayHighlight: true
 		});
 	});
-	
+		
 	/* 비밀번호 확인 */
 	function pwConfirm() {
 		var p1 = document.getElementById('userPw').value;
@@ -52,7 +51,8 @@
 			$("#alert-danger").css('display', 'none');
 		}
 	}
-	
+		
+		
 </script>
 
 <style>
@@ -94,6 +94,18 @@
 	.btn { font-size: 18px; background-color: warning; height: 57px; margin-top:28px;}
 	.btn:hover { background-color: coral; color: warning; }
 	
+	.id_overlap_button { 
+		
+		font-size: 14px; 
+		background-color: warning; 
+		height: 40px; 
+		margin-top:10px;
+	}
+	
+	.id_overlap_button:hover { 
+		color: warning; 
+		background-color: coral;
+	}
 	
 	.atag {
 		text-align: center;
@@ -108,6 +120,19 @@
 		color: light;
 	}
 	
+	
+	/* 중복아이디 존재하지 않는경우 */
+	#id_input_re_1{
+		color : #28BD22;
+		display : none;
+		font-weight: bold;
+	}
+	/* 중복아이디 존재하는 경우 */
+	#id_input_re_2{
+		color : #d92742;
+		display : none;
+		font-weight: bold;
+	}
 </style>
 
 
@@ -119,7 +144,7 @@
 		<div class="mx-auto">
 			<div class="text-center mx-auto mt-3 mb-5">
 				<div class="col-md">
-					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="/second/recipeDetailed">HOME recipe</a>
+					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="">HOME recipe</a>
 				</div>
 			</div>
 		</div>
@@ -128,11 +153,14 @@
 	<main class="container">
 		<section class="row">
 			<article class="col-sm-6 mx-auto">
-				<form action="/second/SecondJoin" id="jfrm" name="jfrm" method="POST">
-				<!-- userId, userPw, userYear, userPhone, userGender, userComment, fileName, storedFilePath -->
+				<form action="/second/SecondLogin" method="POST">
+					<!-- userId, userPw, userYear, userGender, userComment,  -->
 					<div class="form-group">
 						<label for="userId" class="ml-1">아이디</label>
-						<input type="text" class="form-control" id="userId" name="userId" placeholder="ID">
+						<input type="text" class="form-control" id="userId" name="userId">
+						<!-- <button type="button" class="id_overlap_button ml-1 btn-warning btn-block text-white form-control" onclick="id_overlap_check()">중복검사</button> -->
+						<span id="id_input_re_1" class="ml-1">사용 가능한 아이디입니다.</span>
+						<span id="id_input_re_2" class="ml-1">아이디가 이미 존재합니다.</span>
 					</div>
 					<div class="form-group">
 						<label for="userPw" class="ml-1">비밀번호</label>
@@ -195,58 +223,76 @@
 	
 	<!-- 프로필사진 -->
 	<script type="text/javascript">
+	/** 
+	onchange event handler for the file input field.
+	It emplements very basic validation using the file extension.
+	If the filename passes validation it will show the image using it's blob URL  
+	and will hide the input field and show a delete button to allow the user to remove the image
+	*/
+	$('#fileName').on('change', function() {
+		
+		ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+		
+		//배열에 추출한 확장자가 존재하는지 체크
+		if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+			resetFormElement($(this)); //폼 초기화
+			window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+		} else {
+			file = $('#fileName').prop("files")[0];
+			blobURL = window.URL.createObjectURL(file);
+			$('#image_preview img').attr('src', blobURL);
+			$('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+			$(this).slideUp(); //파일 양식 감춤
+		}
+	});
 
-
-    /** 
-    onchange event handler for the file input field.
-    It emplements very basic validation using the file extension.
-    If the filename passes validation it will show the image using it's blob URL  
-    and will hide the input field and show a delete button to allow the user to remove the image
-    */
-
-    $('#fileName').on('change', function() {
-        
-        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-        
-        //배열에 추출한 확장자가 존재하는지 체크
-        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            resetFormElement($(this)); //폼 초기화
-            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-        } else {
-            file = $('#fileName').prop("files")[0];
-            blobURL = window.URL.createObjectURL(file);
-            $('#image_preview img').attr('src', blobURL);
-            $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
-            $(this).slideUp(); //파일 양식 감춤
-        }
-    });
-
-    /**
-    onclick event handler for the delete button.
-    It removes the image, clears and unhides the file input field.
-    */
-    $('#image_preview a').bind('click', function() {
-        resetFormElement($('#fileName')); //전달한 양식 초기화
-        $('#fileName').slideDown(); //파일 양식 보여줌
-        $(this).parent().slideUp(); //미리 보기 영역 감춤
-        return false; //기본 이벤트 막음
-    });
-        
-
-    /** 
-    * 폼요소 초기화 
-    * Reset form element
-    * 
-    * @param e jQuery object
-    */
-    function resetFormElement(e) {
-        e.wrap('<form>').closest('form').get(0).reset(); 
-        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
-        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
-        //DOM에서 제공하는 초기화 메서드 reset()을 호출
-        e.unwrap(); //감싼 <form> 태그를 제거
-    }
-
+	/**
+	onclick event handler for the delete button.
+	It removes the image, clears and unhides the file input field.
+	*/
+	$('#image_preview a').bind('click', function() {
+		resetFormElement($('#fileName')); //전달한 양식 초기화
+		$('#fileName').slideDown(); //파일 양식 보여줌
+		$(this).parent().slideUp(); //미리 보기 영역 감춤
+		return false; //기본 이벤트 막음
+	});
+	
+	
+	/** 
+	* 폼요소 초기화 
+	* Reset form element
+	* 
+	* @param e jQuery object
+	*/
+	function resetFormElement(e) {
+		e.wrap('<form>').closest('form').get(0).reset(); 
+		//리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
+		//요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+		//DOM에서 제공하는 초기화 메서드 reset()을 호출
+		e.unwrap(); //감싼 <form> 태그를 제거
+	}
+	
+	
+	//아이디 중복검사
+	$('.id_input').on("propertychange change keyup paste input", function(){
+	
+		var memberId = $('.id_input').val();			// .id_input에 입력되는 값
+		var data = {memberId : memberId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+		
+		$.ajax({
+			type : "post",
+			url : "/member/memberIdChk",
+			data : data
+		}); // ajax 종료
+		
+	});// function 종료
+	
 	</script>
 </body>
 </html>
+
+
+
+
+
+

@@ -53,6 +53,18 @@ public class SecondController {
 		return "redirect:/second/SecondLogin";
 	}
 	
+//	아이디 중복검사
+	/*
+	 * @RequestMappding(value="/memberIdChk", method=RequestMethod.POST)
+	 * 
+	 * @ResponseBody public String memberIdChkPOST(String memberId) throws Exception
+	 * {
+	 * 
+	 * int result = SecondService.idCheck(memberId);
+	 * 
+	 * if(result != 0) { return "fail"; } else { return "success"; } }
+	 */
+	
 }
 
 
