@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.second.group.dto.SecondRecipeDto;
+import com.second.group.dto.SecondUserDto;
 import com.second.group.mapper.SecondMapper;
 
 @Service
@@ -17,6 +18,11 @@ public class SecondServiceImpl implements SecondService {
 	@Override
 	public List<SecondRecipeDto> selectSecondList() throws Exception {
 		return secondMapper.selectSecondList();
+	}
+	
+	@Override
+	public void insertSecondJoin(SecondUserDto userData) throws Exception {
+		secondMapper.insertSecondJoin(userData);
 	}
 
 }

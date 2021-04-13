@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.second.group.dto.SecondRecipeDto;
+import com.second.group.dto.SecondUserDto;
 import com.second.group.service.SecondService;
 
 @Controller
@@ -41,8 +42,15 @@ public class SecondController {
 	}
 	
 	@RequestMapping(value="/second/SecondJoin", method=RequestMethod.GET)
-	public String SecondJoin() throws Exception {
+	public String writeSecondJoin() throws Exception {
 		return "/second/SecondJoin";
+	}
+	
+	@RequestMapping(value="/second/SecondJoin", method=RequestMethod.POST)
+	public String insertSecondJoin(SecondUserDto userData) throws Exception {
+		secondService.insertSecondJoin(userData);
+		
+		return "redirect:/second/SecondLogin";
 	}
 	
 }

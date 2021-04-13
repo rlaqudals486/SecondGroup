@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>로그인 페이지</title>
+<title>회원가입 페이지</title>
 
 <link rel="stylesheet" href="./css/style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -17,18 +17,42 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.41.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 
-<!-- 달력 -->
 <script>
-		$(function() {
-			$("#datePicker").datepicker({
-				format: "yyyy-mm-dd",
-				showOn: 'button',
-				langurage:"kr",
-				todayHighlight: true
-			});
+	/* 달력 */
+	$(function() {
+		$("#datePicker").datepicker({
+			format: "yyyy-mm-dd",
+			showOn: 'button',
+			langurage:"kr",
+			todayHighlight: true
 		});
+	});
+	
+	/* 비밀번호 확인 */
+	function pwConfirm() {
+		var p1 = document.getElementById('userPw').value;
+		var p2 = document.getElementById('pwCheck').value;
+		
+		if(p1.length < 6) {
+			alert('입력한 글자가 6글자 이상이어야 합니다.');
+			return false;
+		}
+		
+		if ( p1 != p2 ) {
+			$("#alert-success").css('display', 'none');
+			$("#alert-danger").css('display', 'inline-block');
+		}
+		
+		else {
+			$("#alert-success").css('display', 'inline-block');
+			$("#alert-danger").css('display', 'none');
+		}
+	}
+	
 </script>
 
 <style>
@@ -95,7 +119,7 @@
 		<div class="mx-auto">
 			<div class="text-center mx-auto mt-3 mb-5">
 				<div class="col-md">
-					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="">HOME recipe</a>
+					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="/second/recipeDetailed">HOME recipe</a>
 				</div>
 			</div>
 		</div>
@@ -104,19 +128,21 @@
 	<main class="container">
 		<section class="row">
 			<article class="col-sm-6 mx-auto">
-				<form action="/second/SecondLogin" method="POST">
-					<!-- userId, userPw, userYear, userGender, userComment,  -->
+				<form action="/second/SecondJoin" id="jfrm" name="jfrm" method="POST">
+				<!-- userId, userPw, userYear, userPhone, userGender, userComment, fileName, storedFilePath -->
 					<div class="form-group">
 						<label for="userId" class="ml-1">아이디</label>
-						<input type="text" class="form-control" id="userId" name="userId">
+						<input type="text" class="form-control" id="userId" name="userId" placeholder="ID">
 					</div>
 					<div class="form-group">
-						<label for="userPw1" class="ml-1">비밀번호</label>
-						<input type="text" class="form-control" id="userPw1" name="userPw1">
+						<label for="userPw" class="ml-1">비밀번호</label>
+						<input type="password" class="form-control" id="userPw" name="userPw" placeholder="password">
 					</div>
 					<div class="form-group">
-						<label for="userPw2" class="ml-1">비밀번호 재확인</label>
-						<input type="text" class="form-control" id="userPw2" name="userPw2" placeholder="">
+						<label for="pwCheck" class="ml-1">비밀번호 확인</label>
+						<input type="password" class="form-control" id="pwCheck" name="pwCheck" placeholder="password" onclick="pwConfirm()">
+						<span id="alert-success" style="display: none; color: #28BD22; font-weight: bold; " class="ml-1">비밀번호가 일치합니다.</span>
+						<span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; " class="ml-1">비밀번호가 일치하지 않습니다.</span>
 					</div>
 					<div class="form-group">
 						<label for="userYear" class="ml-1">생년월일</label>
@@ -168,7 +194,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
 	
 	<!-- 프로필사진 -->
-		<script type="text/javascript">
+	<script type="text/javascript">
 
 
     /** 
@@ -220,6 +246,7 @@
         //DOM에서 제공하는 초기화 메서드 reset()을 호출
         e.unwrap(); //감싼 <form> 태그를 제거
     }
-    </script>
+
+	</script>
 </body>
 </html>

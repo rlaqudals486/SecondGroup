@@ -15,4 +15,15 @@
 			ORDER BY idx DESC
 		]]>
 	</select>
+	
+	<select id="insertSecondJoin" parameterType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			INSERT INTO user 
+				(user_id, user_pw, user_phone, user_gender, user_year,
+				 user_comment)
+			VALUES 
+				(#{userId}, #{userPw}, #{userPhone}, #{userGender},
+				 #{userYear}, #{userComment})
+		]]>
+	</select>
 </mapper>
