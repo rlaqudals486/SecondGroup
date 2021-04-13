@@ -3,7 +3,7 @@ package com.second.group.dto;
 import lombok.Data;
 
 @Data
-public class recipe {
+public class RecipeDto {
 	private int idx;
 	private String title;
 	private String createdDatetime;

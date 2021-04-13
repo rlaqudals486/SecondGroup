@@ -223,34 +223,40 @@ input {
 				</div>
 				<!-- /.carousel -->
 
-				<!-- /.container -->
-				<div class="d-felx  col-sm-2 text-center ml-5">
-					<h3 class="text-white">인기 레시피</h3>
-					<div class="bg-white">
-						<ul class="">
-							<li>목록1</li>
-							<li>목록2</li>
-							<li>목록3</li>
-							<li>목록4</li>
-						</ul>
-					</div>
-				</div>
 
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-8 mt-5">
+
+				<div class="col-sm-8">
 					<h1 class="text-center text-white">새로운 레시피</h1>
-					<ul class="bg-white">
-						<li>목록1</li>
-						<li>목록2</li>
-						<li>목록3</li>
-						<li>목록4</li>
-					</ul>
+					<table class="table table-hover table-striped">
+						<colgroup>
+							<col width="15%" />
+							<col width="*%" />
+							<col width="15%" />
+							<col width="20%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th></th>
+
+							</tr>
+						</thead>
+						<tbody class="bg-white">
+							<tr th:if="${#lists.size(datas)} > 0" th:each="item : ${datas}">
+								<td th:text="${item.idx}"></td>
+								<td><a href="#" th:attrappend="href=${item.idx}"
+									th:text="${item.title}"></a></td>
+								<td th:text="${item.createdDatetime}"></td>
+							</tr>
+							<tr th:unless="${#lists.size(datas)} > 0">
+								<td colspan="4">조회된 결과가 없습니다.</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
+
+
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8 mt-5">
@@ -259,28 +265,42 @@ input {
 			</div>
 		</div>
 		<div class="container">
-			<div class="col-sm-8 mt-5">
-				<h1 class="text-center text-white">후기글</h1>
-				<ul class="bg-white">
-					<li>목록1</li>
-					<li>목록2</li>
-					<li>목록3</li>
-					<li>목록4</li>
-				</ul>
+			<div class="row">
+				<div class="col-sm-8">
+					<h1 class="text-center text-white">후기글</h1>
+					<table class="table table-hover table-striped">
+						<colgroup>
+							<col width="15%" />
+							<col width="*%" />
+							<col width="15%" />
+							<col width="20%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th></th>
+
+							</tr>
+						</thead>
+						<tbody class="bg-white">
+							<tr th:if="${#lists.size(comment)} > 0"
+								th:each="commentList : ${comment}">
+								<td th:text="${commentList.cmtidx}"></td>
+								<td><a href="#" th:attrappend="href=${commentList.cmtidx}"
+									th:text="${commentList.cmtContent}"></a></td>
+								<td th:text="${commentList.cmtDatetime}"></td>
+							</tr>
+							<tr th:unless="${#lists.size(comment)} > 0">
+								<td colspan="4">조회된 결과가 없습니다.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 
-		<br><br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		
+		<br> <br> <br> <br> <br> <br> <br>
+		<br> <br> <br> <br>
+
 		<div class="container">
 			<h5 class="text-center">Made by 2조</h5>
 		</div>
