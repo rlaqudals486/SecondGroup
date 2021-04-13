@@ -35,4 +35,35 @@ public class SecondController {
 		return "/second/recipeDetailed";
 	}
 	
+	@RequestMapping(value="/second/SecondLogin", method=RequestMethod.GET)
+	public String SecondLogin() throws Exception {
+		return "/second/SecondLogin";
+	}
+	
+	@RequestMapping(value="/second/SecondJoin", method=RequestMethod.GET)
+	public String SecondJoin() throws Exception {
+		return "/second/SecondJoin";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
