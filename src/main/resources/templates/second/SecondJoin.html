@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>로그인 페이지</title>
+
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+<!-- 폰트어썸 -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.41.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+
+<!-- 달력 -->
+<script>
+		$(function() {
+			$("#datePicker").datepicker({
+				format: "yyyy-mm-dd",
+				showOn: 'button',
+				langurage:"kr",
+				todayHighlight: true
+			});
+		});
+</script>
+
+<style>
+	
+	* {
+		box-sizing: border-box;
+		font-family: fontAwesome;
+	}
+
+	html, body {
+		margin: 0px;
+		padding: 0px;
+		height: 100%;
+	}
+	
+	.bg, .bg header {
+		background-color: #f2f2f2;
+	}
+	
+	main article {
+		bottom: 100px;
+	}	
+		
+	input {
+		width: 100%;
+		border-radius: 20px;
+		border: 1px solid #bbb;
+		margin: 10px 0;
+		padding: 10px 12px;
+	}
+	
+	.form-group input {
+		height: 55px;
+		margin: 5px;
+		width: 100%;
+	}
+	
+	
+	.btn { font-size: 18px; background-color: warning; height: 57px; margin-top:28px;}
+	.btn:hover { background-color: coral; color: warning; }
+	
+	
+	.atag {
+		text-align: center;
+	}
+	
+	
+	#footer {
+		position:absolute;
+		width: 100%;
+		height: 10%;
+		text-align: center;
+		color: light;
+	}
+	
+</style>
+
+
+
+</head>
+
+<body class="bg">
+	<header class="jumbotron">
+		<div class="mx-auto">
+			<div class="text-center mx-auto mt-3 mb-5">
+				<div class="col-md">
+					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="">HOME recipe</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<main class="container">
+		<section class="row">
+			<article class="col-sm-6 mx-auto">
+				<form action="/second/SecondLogin" method="POST">
+					<!-- userId, userPw, userYear, userGender, userComment,  -->
+					<div class="form-group">
+						<label for="userId" class="ml-1">아이디</label>
+						<input type="text" class="form-control" id="userId" name="userId">
+					</div>
+					<div class="form-group">
+						<label for="userPw1" class="ml-1">비밀번호</label>
+						<input type="text" class="form-control" id="userPw1" name="userPw1">
+					</div>
+					<div class="form-group">
+						<label for="userPw2" class="ml-1">비밀번호 재확인</label>
+						<input type="text" class="form-control" id="userPw2" name="userPw2" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="userYear" class="ml-1">생년월일</label>
+						<input type="text" class="form-control" id="datePicker" name="userYear" placeholder="선택하세요">
+					</div>
+					<div class="form-group">
+						<label for="userPhone" class="ml-1">휴대전화</label>
+						<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="'-'을 제외한 숫자 11자리를 입력하세요">
+					</div>
+					<div class="form-group">
+						<label for="userGender" class="ml-1">성별</label>
+						<select class="form-control flex-fill" id="userGender">
+							<option value="" selected disabled hidden>선택하세요</option>
+							<option value="1">남성</option>
+							<option value="2">여성</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="image">프로필 사진</label>
+						<br>
+						<input type="file" class="form-controll" name="fileName" id="fileName">
+					</div>
+					<div id="image_preview" class="text-center">
+						<img src="#"/>
+						<br>
+						<br>
+						<a href="#" class="text-warning" style="font-size: 1em; font-weight: bold; text-decoration: none;">이미지삭제</a>
+					</div>
+					<div class="form-group">
+					<br>
+						<label for="userComment">한줄소개</label>
+						<textarea id="userComment" name="userComment" class="form-control" cols="30" rows="5" placeholder="내용을 입력하세요"></textarea>
+					</div>
+					<button type="submit" class="btn btn-warning btn-block text-white form-control" id="btnSubmit">가입하기</button>
+				</form>
+			</article>
+		</section>
+	</main>
+	
+	<footer class="jumbotron">
+		<div class="container">
+			<h5 class="text-center text-light">made by HOME recipe</h5>
+		</div>
+	</footer>
+	
+	<!-- 생년월일 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+	
+	<!-- 프로필사진 -->
+		<script type="text/javascript">
+
+
+    /** 
+    onchange event handler for the file input field.
+    It emplements very basic validation using the file extension.
+    If the filename passes validation it will show the image using it's blob URL  
+    and will hide the input field and show a delete button to allow the user to remove the image
+    */
+
+    $('#fileName').on('change', function() {
+        
+        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+        
+        //배열에 추출한 확장자가 존재하는지 체크
+        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+            resetFormElement($(this)); //폼 초기화
+            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+        } else {
+            file = $('#fileName').prop("files")[0];
+            blobURL = window.URL.createObjectURL(file);
+            $('#image_preview img').attr('src', blobURL);
+            $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+            $(this).slideUp(); //파일 양식 감춤
+        }
+    });
+
+    /**
+    onclick event handler for the delete button.
+    It removes the image, clears and unhides the file input field.
+    */
+    $('#image_preview a').bind('click', function() {
+        resetFormElement($('#fileName')); //전달한 양식 초기화
+        $('#fileName').slideDown(); //파일 양식 보여줌
+        $(this).parent().slideUp(); //미리 보기 영역 감춤
+        return false; //기본 이벤트 막음
+    });
+        
+
+    /** 
+    * 폼요소 초기화 
+    * Reset form element
+    * 
+    * @param e jQuery object
+    */
+    function resetFormElement(e) {
+        e.wrap('<form>').closest('form').get(0).reset(); 
+        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
+        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+        //DOM에서 제공하는 초기화 메서드 reset()을 호출
+        e.unwrap(); //감싼 <form> 태그를 제거
+    }
+    </script>
+</body>
+</html>
