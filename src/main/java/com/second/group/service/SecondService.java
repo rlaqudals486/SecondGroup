@@ -8,8 +8,8 @@ import com.second.group.dto.SecondUserDto;
 
 public interface SecondService {
 
-	List<SecondRecipeDto> selectSecondList() throws Exception;
+	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
 	List<SecondUserDto> selectUserList() throws Exception;
-	List<SecondCommentDto> selectCommentList() throws Exception;
+	List<SecondCommentDto> selectCommentHomeList() throws Exception;
 
 }

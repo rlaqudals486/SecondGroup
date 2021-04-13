@@ -28,8 +28,8 @@ public class SecondController {
 	public ModelAndView HomeList() throws Exception{
 		ModelAndView mv = new ModelAndView("/second/Home");
 		
-		List<SecondRecipeDto> list = secondService.selectSecondList();
-		List<SecondCommentDto> comment = secondService.selectCommentList();
+		List<SecondRecipeDto> list = secondService.selectSecondHomeList();
+		List<SecondCommentDto> comment = secondService.selectCommentHomeList();
 		
 		mv.addObject("comment", comment);
 		mv.addObject("datas", list);

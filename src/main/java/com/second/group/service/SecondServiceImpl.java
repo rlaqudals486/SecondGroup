@@ -17,7 +17,7 @@ public class SecondServiceImpl implements SecondService {
 	SecondMapper secondMapper;
 	
 	@Override
-	public List<SecondRecipeDto> selectSecondList() throws Exception {
+	public List<SecondRecipeDto> selectSecondHomeList() throws Exception {
 		return secondMapper.selectSecondHomeList();
 	}
 	
@@ -26,7 +26,7 @@ public class SecondServiceImpl implements SecondService {
 		return null;
 	}
 	@Override
-	public List<SecondCommentDto> selectCommentList() throws Exception{
+	public List<SecondCommentDto> selectCommentHomeList() throws Exception{
 		return secondMapper.selectCommentHomeList();
 	}
 	
