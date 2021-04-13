@@ -85,6 +85,10 @@ input {
 .dropdown:hover .dropdown-menu {
 	display: block;
 }
+#main-carousel {
+ width: 100%;
+	
+}
 </style>
 
 </head>
@@ -175,42 +179,50 @@ input {
 					</ol>
 					<!-- /.carousel-indicators -->
 
-					<div class="carousel-inner">
-						<div class="carousel-item active" data-interval="500">
-							<img class="d-block img-fluid"
-								src="https://s19.postimg.cc/lmubh3h0j/slide2.jpg" alt="">
-							<div class="carousel-caption d-none d-md-block">
-								<h1>Mountain</h1>
+					<div class="carousel-inner" >
+						<th:block th:if="${listStat.index} == 0" th:each="list : ${datas}">
+							<div class="carousel-item active" data-interval="500">
+								<img alt="계란볶음밥" src="/images/001.jpg" th:src="@{${list.recipeFilePath}}" class="mx-auto d-block w-100">
+								<div class="carousel-caption d-none d-md-block">
+									
+								</div>
 							</div>
-						</div>
-						<div class="carousel-item" data-interval="500">
-							<img class="d-block img-fluid"
-								src="https://s19.postimg.cc/lmubh3h0j/slide2.jpg" alt="">
-							<div class="carousel-caption d-none d-md-block">
-								<h3>Mountain</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Adipisci esse vitae exercitationem fugit, numquam minus!</p>
+						</th:block>
+						<th:block th:unless="${listStat.index} == 0" th:each="list : ${datas}">
+							<div  class="carousel-item" data-interval="500">
+								<img alt="계란볶음밥" src="/images/001.jpg" th:src="@{${list.recipeFilePath}}" class="mx-auto d-block w-100">
+								<div class="carousel-caption d-none d-md-block">
+									
+								</div>
 							</div>
-						</div>
-						<div class="carousel-item" data-interval="500">
-							<img class="d-block img-fluid"
-								src="https://s19.postimg.cc/99hh9lr5v/slide3.jpg" alt="">
-							<div class="carousel-caption d-none d-md-block">
-								<h3>Mountain</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Adipisci esse vitae exercitationem fugit, numquam minus!</p>
-							</div>
-						</div>
-						<div class="carousel-item" data-interval="500">
-							<img src="https://s19.postimg.cc/nenabzsnn/slide4.jpg" alt=""
-								class="d-block img-fluid">
-							<div class="carousel-caption d-none d-md-block">
-								<h3>Mountain</h3>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Adipisci esse vitae exercitationem fugit, numquam minus!</p>
-							</div>
-						</div>
+						</th:block>
 					</div>
+						
+<!-- 						<div class="carousel-item" data-interval="500"> -->
+<!-- 							<img alt="길거리토스트" th:src="@{/img/002.jpg}" class="mx-auto d-block"> -->
+<!-- 							<div class="carousel-caption d-none d-md-block"> -->
+<!-- 								<h3>Mountain</h3> -->
+<!-- 								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
+<!-- 									Adipisci esse vitae exercitationem fugit, numquam minus!</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="carousel-item" data-interval="500"> -->
+<!-- 							<img src="/img/떡볶이.jpg" th:src="@{datas}" class="mx-auto d-block"> -->
+<!-- 							<div class="carousel-caption d-none d-md-block"> -->
+<!-- 								<h3>Mountain</h3> -->
+<!-- 								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
+<!-- 									Adipisci esse vitae exercitationem fugit, numquam minus!</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="carousel-item" data-interval="500"> -->
+<!-- 							<img alt="떡볶이" src="/img/떡볶이.jpg" th:src="@{datas.recipeFilePath}" class="mx-auto d-block"> -->
+<!-- 							<div class="carousel-caption d-none d-md-block"> -->
+<!-- 								<h3>Mountain</h3> -->
+<!-- 								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
+<!-- 									Adipisci esse vitae exercitationem fugit, numquam minus!</p> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+					
 					<!-- /.carousel-inner -->
 
 					<a href="#main-carousel" class="carousel-control-prev"

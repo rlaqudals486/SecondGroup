@@ -7,15 +7,16 @@
 	<select id="selectSecondHomeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
-				idx, title,
+				idx, title, user_user_idx,
 			DATE_FORMAT
-				(created_datetime, '%Y.%m.%d') 
+				(created_datetime, '%Y.%m.%d %H:%i:%s') 
 			AS 
-				created_datetime
+				created_datetime, 
+				recipe_cover_img, recipe_file_path
 			FROM 
 				recipe
 			WHERE
-			    idx
+			   idx;
 		]]>
 	</select>
 	<select id="selectCommentHomeList" resultType="com.second.group.dto.SecondCommentDto">
@@ -34,4 +35,5 @@
 		]]>
 	
 	</select>
+	
 </mapper>
