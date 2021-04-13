@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class SecondUserDto {
+
 	public int userIdx;
 	public String userId;
 	public String userPw;
@@ -15,4 +16,5 @@ public class SecondUserDto {
 	public String fileName;
 	public String storedFilePath;
 	public String userDeletedyn;
+
 }

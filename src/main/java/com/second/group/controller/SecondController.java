@@ -10,12 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.second.group.dto.SecondRecipeDto;
 import com.second.group.service.SecondService;
+import com.second.group.dto.SecondCommentDto;
 
 @Controller
 public class SecondController {
-	
+
 	@Autowired
-	SecondService secondService;
+	private SecondService secondService;
 	
 	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
 	public String SecondBoardList() throws Exception {
@@ -35,6 +36,17 @@ public class SecondController {
 		return "/second/recipeDetailed";
 	}
 	
+	@RequestMapping(value="/second", method=RequestMethod.GET)
+	public ModelAndView HomeList() throws Exception{
+		ModelAndView mv = new ModelAndView("/second/Home");
+		
+		List<SecondRecipeDto> list = secondService.selectSecondHomeList();
+		List<SecondCommentDto> comment = secondService.selectCommentHomeList();
+		
+		mv.addObject("comment", comment);
+		mv.addObject("datas", list);
+		return mv;
+
 	@RequestMapping(value="/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {
 		return "/second/SecondLogin";
@@ -43,6 +55,7 @@ public class SecondController {
 	@RequestMapping(value="/second/SecondJoin", method=RequestMethod.GET)
 	public String SecondJoin() throws Exception {
 		return "/second/SecondJoin";
+
 	}
 	
 }

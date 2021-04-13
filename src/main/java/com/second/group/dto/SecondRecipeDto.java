@@ -12,7 +12,7 @@ public class SecondRecipeDto {
 	public String cookTime;
 	public String cookComment;
 	public String cookPoint;
-	public String recipeDeletedyn;
+	public String recipeDeletedYn;
 	public String recipeCoverImg;
 	public String recipeFilePath;
 	public String userUserIdx;
