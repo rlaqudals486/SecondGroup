@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.second.group.dto.CommentDto;
-import com.second.group.dto.RecipeDto;
+import com.second.group.dto.SecondCommentDto;
+import com.second.group.dto.SecondRecipeDto;
 import com.second.group.service.SecondService;
 
 @Controller
@@ -28,8 +28,8 @@ public class SecondController {
 	public ModelAndView HomeList() throws Exception{
 		ModelAndView mv = new ModelAndView("/second/Home");
 		
-		List<RecipeDto> list = secondService.selectSecondList();
-		List<CommentDto> comment = secondService.selectCommentList();
+		List<SecondRecipeDto> list = secondService.selectSecondList();
+		List<SecondCommentDto> comment = secondService.selectCommentList();
 		
 		mv.addObject("comment", comment);
 		mv.addObject("datas", list);

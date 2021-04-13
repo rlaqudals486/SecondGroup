@@ -3,7 +3,7 @@ package com.second.group.dto;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class SecondUserDto {
 	private int userIdx;
 	private String userId;
 	private String userPw;

@@ -2,14 +2,14 @@ package com.second.group.service;
 
 import java.util.List;
 
-import com.second.group.dto.CommentDto;
-import com.second.group.dto.RecipeDto;
-import com.second.group.dto.UserDto;
+import com.second.group.dto.SecondCommentDto;
+import com.second.group.dto.SecondRecipeDto;
+import com.second.group.dto.SecondUserDto;
 
 public interface SecondService {
 
-	List<RecipeDto> selectSecondList() throws Exception;
-	List<UserDto> selectUserList() throws Exception;
-	List<CommentDto> selectCommentList() throws Exception;
+	List<SecondRecipeDto> selectSecondList() throws Exception;
+	List<SecondUserDto> selectUserList() throws Exception;
+	List<SecondCommentDto> selectCommentList() throws Exception;
 
 }

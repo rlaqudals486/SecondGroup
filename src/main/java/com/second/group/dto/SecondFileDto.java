@@ -3,7 +3,7 @@ package com.second.group.dto;
 import lombok.Data;
 
 @Data
-public class FileDto {
+public class SecondFileDto {
 	private int fidx;
 	private int boardIdx;
 	private String fileName;

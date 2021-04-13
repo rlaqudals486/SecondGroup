@@ -3,7 +3,7 @@ package com.second.group.dto;
 import lombok.Data;
 
 @Data
-public class CommentDto {
+public class SecondCommentDto {
 	private int cmtidx;
 	private String cmtReply;
 	private String cmtSecret;

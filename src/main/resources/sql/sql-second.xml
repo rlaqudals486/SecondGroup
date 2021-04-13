@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.second.group.mapper.SecondMapper">
-	<select id="selectSecondList" resultType="com.second.group.dto.RecipeDto">
+	<select id="selectSecondHomeList" resultType="com.second.group.dto.RecipeDto">
 		<![CDATA[
 			SELECT 
 				idx, title,
@@ -18,7 +18,7 @@
 			    idx
 		]]>
 	</select>
-	<select id="selectCommentList" resultType="com.second.group.dto.CommentDto">
+	<select id="selectCommentHomeList" resultType="com.second.group.dto.CommentDto">
 		<![CDATA[ 
 		SELECT 
 			cmtidx, cmt_content, 

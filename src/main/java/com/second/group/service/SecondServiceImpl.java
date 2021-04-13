@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.second.group.dto.CommentDto;
-import com.second.group.dto.RecipeDto;
-import com.second.group.dto.UserDto;
+import com.second.group.dto.SecondCommentDto;
+import com.second.group.dto.SecondRecipeDto;
+import com.second.group.dto.SecondUserDto;
 import com.second.group.mapper.SecondMapper;
 
 
@@ -17,17 +17,17 @@ public class SecondServiceImpl implements SecondService {
 	SecondMapper secondMapper;
 	
 	@Override
-	public List<RecipeDto> selectSecondList() throws Exception {
-		return secondMapper.selectSecondList();
+	public List<SecondRecipeDto> selectSecondList() throws Exception {
+		return secondMapper.selectSecondHomeList();
 	}
 	
 	@Override
-	public List<UserDto> selectUserList() throws Exception{
+	public List<SecondUserDto> selectUserList() throws Exception{
 		return null;
 	}
 	@Override
-	public List<CommentDto> selectCommentList() throws Exception{
-		return secondMapper.selectCommentList();
+	public List<SecondCommentDto> selectCommentList() throws Exception{
+		return secondMapper.selectCommentHomeList();
 	}
 	
 	
