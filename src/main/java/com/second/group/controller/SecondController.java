@@ -17,7 +17,7 @@ public class SecondController {
 	@Autowired
 	SecondService secondService;
 	
-	@RequestMapping(value="/second/mypage", method=RequestMethod.PUT)
+	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
 	public String SecondBoardList() throws Exception {
 		return "/second/mypage";
 	}
