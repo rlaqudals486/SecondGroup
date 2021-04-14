@@ -29,11 +29,11 @@ public class SecondController {
 	public ModelAndView HomeList() throws Exception{
 		ModelAndView mv = new ModelAndView("/second/Home");
 		
-//		List<SecondRecipeDto> list = secondService.selectSecondHomeList();
+		List<SecondRecipeDto> lists = secondService.selectSecondHomeList();
 		List<SecondCommentDto> comment = secondService.selectCommentHomeList();
 		
 		
-		//images test용
+		//images test용(img폴더 설정되면 지우고 lists에 연결 해야됨.)
 		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
 		SecondRecipeDto item1 = new SecondRecipeDto();
 		SecondRecipeDto item2 = new SecondRecipeDto();
@@ -52,6 +52,7 @@ public class SecondController {
 		
 		mv.addObject("comment", comment);
 		mv.addObject("datas", list);
+		mv.addObject("data", lists);
 		return mv;
 	}
 	

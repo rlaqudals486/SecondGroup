@@ -10,7 +10,7 @@
 			SELECT 
 				idx, title, user_user_idx,
 			DATE_FORMAT
-				(created_datetime, '%Y.%m.%d %H:%i:%s') 
+				(created_datetime, '%Y.%m.%d') 
 			AS 
 				created_datetime, 
 				recipe_cover_img, recipe_file_path
