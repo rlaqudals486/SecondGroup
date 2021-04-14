@@ -14,4 +14,9 @@ public interface SecondMapper {
 	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
 	List<SecondRecipeDto> selectSecondList() throws Exception;
+	
+	SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
+	
+	void insertRecipe(SecondRecipeDto recipe) throws Exception;
+
 }

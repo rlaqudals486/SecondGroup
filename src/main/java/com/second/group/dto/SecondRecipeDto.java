@@ -16,5 +16,6 @@ public class SecondRecipeDto {
 	public String recipeCoverImg;
 	public String recipeFilePath;
 	public String userUserIdx;
+	public int classificationClassCode;
 	public String recommend;
 }
