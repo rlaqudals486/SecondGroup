@@ -24,10 +24,27 @@ public class SecondServiceImpl implements SecondService {
 	}
 	
 	@Override
+	public void insertSecondJoin(SecondUserDto userData) throws Exception {
+		secondMapper.insertSecondJoin(userData);
+	}
+	
+	@Override
+	public int idCheck(String userId) throws Exception {
+		return secondMapper.idCheck(userId);
+	}
+	
+	@Override
+	public int selectUserInfoYn(String userId, String userPw) throws Exception {
+		return secondMapper.selectUserInfoYn(userId, userPw);
+	}
+  
+	public List<SecondUserDto> selectUserList() throws Exception{
+		return null;
+	}
+  
+	@Override
 	public List<SecondCommentDto> selectCommentHomeList() throws Exception{
 		return secondMapper.selectCommentHomeList();
 	}
-	
-
 
 }
