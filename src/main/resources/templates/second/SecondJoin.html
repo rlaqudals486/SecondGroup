@@ -19,17 +19,41 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 
-<!-- 달력 -->
 <script>
-		$(function() {
-			$("#datePicker").datepicker({
-				format: "yyyy-mm-dd",
-				showOn: 'button',
-				langurage:"kr",
-				todayHighlight: true
-			});
+
+	/* 달력 */
+	$(function() {
+		$("#datePicker").datepicker({
+			format: "yyyy-mm-dd",
+			showOn: 'button',
+			langurage:"kr",
+			todayHighlight: true
 		});
+	});
+		
+	/* 비밀번호 확인 */
+	function pwConfirm() {
+		var p1 = document.getElementById('userPw').value;
+		var p2 = document.getElementById('pwCheck').value;
+		
+		if(p1.length < 6) {
+			alert('입력한 글자가 6글자 이상이어야 합니다.');
+			return false;
+		}
+		
+		if ( p1 != p2 ) {
+			$("#alert-success").css('display', 'none');
+			$("#alert-danger").css('display', 'inline-block');
+		}
+		
+		else {
+			$("#alert-success").css('display', 'inline-block');
+			$("#alert-danger").css('display', 'none');
+		}
+	}
+	
 </script>
+
 
 <style>
 	
@@ -70,6 +94,18 @@
 	.btn { font-size: 18px; background-color: warning; height: 57px; margin-top:28px;}
 	.btn:hover { background-color: coral; color: warning; }
 	
+	.id_overlap_button { 
+		
+		font-size: 14px; 
+		background-color: warning; 
+		height: 40px; 
+		margin-top:10px;
+	}
+	
+	.id_overlap_button:hover { 
+		color: warning; 
+		background-color: coral;
+	}
 	
 	.atag {
 		text-align: center;
@@ -84,6 +120,19 @@
 		color: light;
 	}
 	
+	
+	/* 중복아이디 존재하지 않는경우 */
+	#id_input_re_1{
+		color : #28BD22;
+		display : none;
+		font-weight: bold;
+	}
+	/* 중복아이디 존재하는 경우 */
+	#id_input_re_2{
+		color : #d92742;
+		display : none;
+		font-weight: bold;
+	}
 </style>
 
 
@@ -109,14 +158,18 @@
 					<div class="form-group">
 						<label for="userId" class="ml-1">아이디</label>
 						<input type="text" class="form-control" id="userId" name="userId">
+						<span id="id_input_re_1" class="ml-1">사용 가능한 아이디입니다.</span>
+						<span id="id_input_re_2" class="ml-1">아이디가 이미 존재합니다.</span>
 					</div>
 					<div class="form-group">
-						<label for="userPw1" class="ml-1">비밀번호</label>
-						<input type="text" class="form-control" id="userPw1" name="userPw1">
+						<label for="userPw" class="ml-1">비밀번호</label>
+						<input type="password" class="form-control" id="userPw" name="userPw" placeholder="password">
 					</div>
 					<div class="form-group">
-						<label for="userPw2" class="ml-1">비밀번호 재확인</label>
-						<input type="text" class="form-control" id="userPw2" name="userPw2" placeholder="">
+						<label for="pwCheck" class="ml-1">비밀번호 확인</label>
+						<input type="password" class="form-control" id="pwCheck" name="pwCheck" placeholder="password" onclick="pwConfirm()">
+						<span id="alert-success" style="display: none; color: #28BD22; font-weight: bold; " class="ml-1">비밀번호가 일치합니다.</span>
+						<span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; " class="ml-1">비밀번호가 일치하지 않습니다.</span>
 					</div>
 					<div class="form-group">
 						<label for="userYear" class="ml-1">생년월일</label>
@@ -124,7 +177,7 @@
 					</div>
 					<div class="form-group">
 						<label for="userPhone" class="ml-1">휴대전화</label>
-						<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="'-'을 제외한 숫자 11자리를 입력하세요">
+						<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="'-'을 제외한 숫자 11자리를 입력하세요" maxlength="13">
 					</div>
 					<div class="form-group">
 						<label for="userGender" class="ml-1">성별</label>
@@ -168,58 +221,130 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
 	
 	<!-- 프로필사진 -->
-		<script type="text/javascript">
+	<script type="text/javascript">
+	/** 
+	onchange event handler for the file input field.
+	It emplements very basic validation using the file extension.
+	If the filename passes validation it will show the image using it's blob URL  
+	and will hide the input field and show a delete button to allow the user to remove the image
+	*/
+	$('#fileName').on('change', function() {
+		
+		ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+		
+		//배열에 추출한 확장자가 존재하는지 체크
+		if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+			resetFormElement($(this)); //폼 초기화
+			window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
+		} else {
+			file = $('#fileName').prop("files")[0];
+			blobURL = window.URL.createObjectURL(file);
+			$('#image_preview img').attr('src', blobURL);
+			$('#image_preview').slideDown(); //업로드한 이미지 미리보기 
+			$(this).slideUp(); //파일 양식 감춤
+		}
+	});
 
+	/**
+	onclick event handler for the delete button.
+	It removes the image, clears and unhides the file input field.
+	*/
+	$('#image_preview a').bind('click', function() {
+		resetFormElement($('#fileName')); //전달한 양식 초기화
+		$('#fileName').slideDown(); //파일 양식 보여줌
+		$(this).parent().slideUp(); //미리 보기 영역 감춤
+		return false; //기본 이벤트 막음
+	});
+	
+	
+	/** 
+	* 폼요소 초기화 
+	* Reset form element
+	* 
+	* @param e jQuery object
+	*/
+	function resetFormElement(e) {
+		e.wrap('<form>').closest('form').get(0).reset(); 
+		//리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
+		//요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
+		//DOM에서 제공하는 초기화 메서드 reset()을 호출
+		e.unwrap(); //감싼 <form> 태그를 제거
+	}
+	
+	
+	//아이디 중복검사
+	$('#userId').on("propertychange change keyup paste input", function(){
+	
+		var userId = $('#userId').val();
+		var data = {userId : userId}
+		
+		$.ajax({
+			type : "post",
+			url : "/second/idCheck",
+			data : data,
+			success : function(result){
+				
+				if(result != 'fail'){
+					$('#id_input_re_1').css("display","inline-block");
+					$('#id_input_re_2').css("display", "none");
+				}
+				else {
+					$('#id_input_re_2').css("display","inline-block");
+					$('#id_input_re_1').css("display", "none");
+				}
+				
+			}
+		});
+		
+	});
+	
+	
+	/* 전화번호 - 자동 입력 */
+	var autoHypenPhone = function(str) {
+		
+		str = str.replace(/[^0-9]/g, '');
+		var tmp = '';
+		if ( str.length < 4){
+			return str;
+		}
+		else if (str.length < 7) {
+			tmp += str.substr(0, 3);
+			tmp += '-';
+			tmp += str.substr(3);
+			return tmp;
+		}
+		else if (str.length < 11) {
+			tmp += str.substr(0, 3);
+			tmp += '-';
+			tmp += str.substr(3, 3);
+			tmp += '-';
+			tmp += str.substr(6);
+			return tmp;
+		}
+		else {
+			tmp += str.substr(0, 3);
+			tmp += '-';
+			tmp += str.substr(3, 4);
+			tmp += '-';
+			tmp += str.substr(7);
+			return tmp;
+		}
+		
+		return str;
+	}
 
-    /** 
-    onchange event handler for the file input field.
-    It emplements very basic validation using the file extension.
-    If the filename passes validation it will show the image using it's blob URL  
-    and will hide the input field and show a delete button to allow the user to remove the image
-    */
-
-    $('#fileName').on('change', function() {
-        
-        ext = $(this).val().split('.').pop().toLowerCase(); //확장자
-        
-        //배열에 추출한 확장자가 존재하는지 체크
-        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-            resetFormElement($(this)); //폼 초기화
-            window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-        } else {
-            file = $('#fileName').prop("files")[0];
-            blobURL = window.URL.createObjectURL(file);
-            $('#image_preview img').attr('src', blobURL);
-            $('#image_preview').slideDown(); //업로드한 이미지 미리보기 
-            $(this).slideUp(); //파일 양식 감춤
-        }
-    });
-
-    /**
-    onclick event handler for the delete button.
-    It removes the image, clears and unhides the file input field.
-    */
-    $('#image_preview a').bind('click', function() {
-        resetFormElement($('#fileName')); //전달한 양식 초기화
-        $('#fileName').slideDown(); //파일 양식 보여줌
-        $(this).parent().slideUp(); //미리 보기 영역 감춤
-        return false; //기본 이벤트 막음
-    });
-        
-
-    /** 
-    * 폼요소 초기화 
-    * Reset form element
-    * 
-    * @param e jQuery object
-    */
-    function resetFormElement(e) {
-        e.wrap('<form>').closest('form').get(0).reset(); 
-        //리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
-        //요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
-        //DOM에서 제공하는 초기화 메서드 reset()을 호출
-        e.unwrap(); //감싼 <form> 태그를 제거
-    }
-    </script>
+	var userPhone = document.getElementById('userPhone');
+	
+	userPhone.onkeyup = function(){
+		console.log(this.value);
+		this.value = autoHypenPhone( this.value ) ;
+	}
+	</script>
 </body>
 </html>
+
+
+
+
+
+
