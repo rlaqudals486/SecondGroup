@@ -23,8 +23,6 @@ public class SecondController {
 
 	@Autowired
 	private SecondService secondService;
-
-	
 	
 	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
 	public String SecondBoardList() throws Exception {
@@ -78,11 +76,6 @@ public class SecondController {
 			return "redirect:/second/loginFail";
 		}
   }
-
-	@RequestMapping(value="/second/SecondJoin", method=RequestMethod.GET)
-	public String SecondJoin() throws Exception {
-		return "/second/SecondJoin";
-	}
 	
 	@RequestMapping(value="/second/loginOK", method=RequestMethod.GET)
 	public String loginOK(HttpServletRequest request) throws Exception {
