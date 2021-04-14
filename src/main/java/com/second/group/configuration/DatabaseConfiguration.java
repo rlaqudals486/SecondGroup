@@ -54,4 +54,6 @@ public class DatabaseConfiguration {
 	public org.apache.ibatis.session.Configuration mybatisConfig() throws Exception {
 		return new org.apache.ibatis.session.Configuration();
 	}
+
 }
+

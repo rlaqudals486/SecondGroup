@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.second.group.dto.SecondCommentDto;
 import com.second.group.dto.SecondRecipeDto;
 import com.second.group.dto.SecondUserDto;
 import com.second.group.service.SecondService;
@@ -21,9 +22,11 @@ import com.second.group.service.SecondService;
 public class SecondController {
 
 	@Autowired
-	SecondService secondService;
+	private SecondService secondService;
 
-	@RequestMapping(value = "/second/mypage", method = RequestMethod.GET)
+	
+	
+	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
 	public String SecondBoardList() throws Exception {
 		return "/second/mypage";
 	}
@@ -40,12 +43,25 @@ public class SecondController {
 	public String SecondDetail() throws Exception {
 		return "/second/recipeDetailed";
 	}
+	
+	@RequestMapping(value="/second", method=RequestMethod.GET)
+	public ModelAndView HomeList() throws Exception{
+		ModelAndView mv = new ModelAndView("/second/Home");
+		
+		List<SecondRecipeDto> list = secondService.selectSecondHomeList();
+		List<SecondCommentDto> comment = secondService.selectCommentHomeList();
+		
+		mv.addObject("comment", comment);
+		mv.addObject("datas", list);
+		return mv;
+	}
 
 	@RequestMapping(value = "/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {
 		return "/second/SecondLogin";
 	}
 	
+
 	@RequestMapping(value="/second/loginCheck", method=RequestMethod.POST)
 	public String loginCheck(@RequestParam String userId, @RequestParam String userPw, HttpServletRequest request) throws Exception {
 		
@@ -61,6 +77,11 @@ public class SecondController {
 		else {
 			return "redirect:/second/loginFail";
 		}
+  }
+
+	@RequestMapping(value="/second/SecondJoin", method=RequestMethod.GET)
+	public String SecondJoin() throws Exception {
+		return "/second/SecondJoin";
 	}
 	
 	@RequestMapping(value="/second/loginOK", method=RequestMethod.GET)

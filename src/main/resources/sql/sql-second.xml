@@ -4,6 +4,36 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.second.group.mapper.SecondMapper">
+
+	<select id="selectSecondHomeList" resultType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[
+			SELECT 
+				idx, title,
+			DATE_FORMAT
+				(created_datetime, '%Y.%m.%d') 
+			AS 
+				created_datetime
+			FROM 
+				recipe
+			WHERE
+			    idx
+		]]>
+	</select>
+	<select id="selectCommentHomeList" resultType="com.second.group.dto.SecondCommentDto">
+		<![CDATA[ 
+		SELECT 
+			cmtidx, cmt_content, 
+		DATE_FORMAT
+			(cmt_datetime, '%Y.%m.%d') 
+		AS 
+			cmt_datetime
+		FROM 
+			comment
+		WHERE
+			cmtidx
+		
+		]]>
+	</select>
 	<select id="selectSecondList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT
