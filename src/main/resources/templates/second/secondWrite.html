@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>레시피 작성</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+
+    <script src="https://kit.fontawesome.com/3c25fcea14.js" crossorigin="anonymous"></script>
+    <script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+    <script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+    <script>
+        var count1 = 1;
+
+        $(document).ready(function () {
+        	$("textarea").keyup(function() {
+        		if($(this).val().length > 100) {
+        			$(this).val($(this).val().substring(0, 100));
+        		}
+        		
+        	});
+        	
+            $("#btn-ingre").click(function () {
+                $("ul").append(
+                    "<li><input class='input-ingre' type='text' name='ingre-name' id='ingre-name' placeholder='예) 돼지고기'><input class='input-ingre ml-4' type='text' name='ingre-size' id='ingre-size' placeholder='예) 300g'></li>"
+                );
+            });
+
+            $("#btn-step").click(function () {
+                count1++;
+                var tagFormat = "<div class='container d-flex mb-3 mt-2'>";
+                tagFormat += "<p class='step-p ml-4 mt-5'>Step ";
+                tagFormat += "<span id='step-count'>" + count1 + "</span></p>";
+                tagFormat +=
+                    "<textarea class='stepBox p-2' name='stepText' id='stepText' rows='5'  style='margin-left: 24px;'  placeholder='예) 돼지고기를 익혀주세요'></textarea>";
+                tagFormat += "<img src='./images/pic_none3.gif' alt=''></div>";
+
+                $("#stepDiv").append(tagFormat);
+            });
+
+            stepCountInit();
+        });
+
+        function stepCountInit() {
+            $("#step-count").text(count1);
+        }
+
+        function submitComment() {
+
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: wheat;
+        }
+
+        li {
+            list-style: none;
+            margin-left: 115px;
+            margin-bottom: 15px;
+        }
+
+        .header-input {
+            width: 100%;
+            border-radius: 20px;
+            border: 1px solid #bbb;
+            margin: 10px 0;
+            padding: 10px 12px;
+            font-family: fontAwesome;
+        }
+
+        .recipe-write,
+        .recipe-ingredient,
+        .recipe-step,
+        .recipe-tag,
+        .recipe-submit {
+            border: 1px solid #d2c8be;
+            background: #faf5eb;
+        }
+
+        .input-write {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #d2c8be;
+            padding-left: 10px;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        .input-ingre {
+            width: 300px;
+            border-radius: 4px;
+            border: 1px solid #d2c8be;
+            padding-left: 10px;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        label {
+            width: 140px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 45px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        select {
+            border-radius: 4px;
+            border: 1px solid #d2c8be;
+            padding-left: 10px;
+            height: 50px;
+            font-size: 16px;
+        }
+
+        .writeCooking {
+            width: 420px;
+            border-radius: 4px;
+            resize: none;
+            outline: none;
+            border: 1px solid #d2c8be;
+        }
+
+        .stepBox {
+            width: 420px;
+            border-radius: 4px;
+            resize: none;
+            outline: none;
+            border: 1px solid #d2c8be;
+            height: 142.5px;
+            position: relative;
+            top: 10px;
+        }
+
+        .photoBox {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .errorlabel {
+            width: 110px;
+            margin-right: 10px;
+        }
+
+        .step-li {
+            display: inline;
+        }
+
+        img {
+            border: 1px solid #d2c8be;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .lastbtn {
+            width: 10%;
+            height: 50px;
+        }
+
+        .step-p {
+            color: greenyellow;
+            font-weight: bold;
+            font-size: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header style="background-color: white;">
+        <div class="row">
+            <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
+                <div class="col-md-2">
+                    <a class="display-4 text-warning"
+                        style="font-size: 2.5em; font-weight: bold; text-decoration: none;" href="/second">HOME
+                        recipe</a>
+                </div>
+
+                <div class="col-md-6">
+                    <form action="" method="GET" class="form-group">
+                        <div class="input-group">
+                            <input name="" type="search" class="header-input form-control"
+                                placeholder="&#xf002; Search...">
+
+                            <button type="submit" class="btn btn-outline-success" style="border: 0;">
+                                <i class="fas fa-search" style="font-size: 1.5em;"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="input-group-append col-md-2 ">
+                    <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                        <i class="far fa-user ml-5"></i>
+                    </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                        <i class="far fa-edit ml-5"></i>
+                    </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                        <i class="fas fa-book ml-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <form action="/second/recipeInsert" method="POST">
+            <div class="container recipe-write mt-4 p-3">
+                <h4>레시피 등록</h4>
+                <div class="d-flex pt-2">
+                    <label for="title">레시피 작성</label>
+                    <input class="input-write form-control" type="text" name="title" id="title"
+                        placeholder="제목을 작성해 주세요">
+                </div>
+                <div class="row" style="margin-bottom: 30px;">
+                    <label for="cookComment col-md">요리 소개</label>
+                    <textarea class="writeCooking" name="cookComment" id="cookComment" rows="5" placeholder="100자 이내로 입력해주세요."></textarea>
+                    <label for="cookPoint col-md">요리 팁</label>
+                    <textarea class="writeCooking" name="cookPoint" id="cookPoint" rows="5" placeholder="100자 이내로 입력해주세요."></textarea>
+                </div>
+                <div class="photoBox" style="margin-bottom: 30px;">
+                    <label class="errorlabel" for="photo">요리 사진</label>
+                    <img src="./images/pic_none4.gif" alt="" id="photo" style="width: 250px; height: 250px; margin: 0;">
+                </div>
+                <div class="classification">
+                    <label class="errorlabel" for="categori">카테고리</label>
+                    <select name="classCode" id="classCode">
+                        <option value="" selected>분류</option>
+                        <option value="1">밑반찬</option>
+                        <option value="2">메인반찬</option>
+                        <option value="3">국/탕</option>
+                        <option value="4">찌개</option>
+                        <option value="5">디저트</option>
+                        <option value="6">면/만두</option>
+                        <option value="7">밥/죽/떡</option>
+                        <option value="8">퓨전</option>
+                        <option value="9">김치/젓갈/장류</option>
+                        <option value="10">양념/소스/잼</option>
+                        <option value="11">양식</option>
+                        <option value="12">샐러드</option>
+                        <option value="13">스프</option>
+                        <option value="14">빵</option>
+                        <option value="15">과자</option>
+                        <option value="16">차/음료/술</option>
+                        <option value="17">기타</option>
+                    </select>
+                </div>
+                <div class="information">
+                    <label class="errorlabel" for="cookTime">조리 시간</label>
+                    <input class="input-ingre" type="text" name="cookTime" id="cookTime" placeholder="예) 10분 이내">
+                </div>
+            </div>
+
+            <div class="container recipe-ingredient mt-4 p-3">
+                <div>
+                    <label class="errorlabel m-0">요리 재료</label>
+                    <ul id="ingreUl">
+                        <li>
+                            <input class="input-ingre" type="text" name="ingredient" id="ingredient"
+                                placeholder="예) 돼지고기">
+                            <input class="input-ingre ml-4" type="text" name="ingre-size" id="ingre-size"
+                                placeholder="예) 300g">
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success" id="btn-ingre" style="position: relative; right: 82px;">재료
+                            추가</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container recipe-step mt-4 p-3">
+                <div id="stepDiv">
+                    <label class="errorlabel" for="">요리 순서</label>
+                    <div class="container d-flex mb-2">
+                        <p class="step-p ml-4 mt-5">Step <span id="step-count">1</span></p>
+                        <textarea class="stepBox p-2" name="stepText" id="stepText" rows="5" style="margin-left: 24px;"
+                            placeholder="예) 돼지고기를 익혀주세요"></textarea>
+                        <img src="./images/pic_none3.gif" alt="">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-success mb-2" id="btn-step"
+                        style="position: relative; right: 82px; top: 20px">순서 추가</button>
+                </div>
+
+                <div class="d-flex">
+                    <label for="errorlabel">요리 완성 사진</label>
+                    <img src="./images/pic_none3.gif" alt="">
+                    <img src="./images/pic_none3.gif" alt="">
+                    <img src="./images/pic_none3.gif" alt="">
+                    <img src="./images/pic_none3.gif" alt="">
+                </div>
+            </div>
+
+            <div class="container recipe-tag mt-4 p-3">
+                <div class="d-flex">
+                    <label class="errorlabel" for="tag">태그</label>
+                    <input class="input-write" type="text" name="tag" id="tag">
+                </div>
+            </div>
+
+            <div class="container recipe-submit mt-4 mb-5 p-3">
+                <div class="text-center m-3">
+                    <button class="lastbtn btn btn-success mr-2" type="submit" value="save">저장</button>
+                    <button class="lastbtn btn btn-danger" type="reset" value="cancle" onclick = "location.href = '/second/secondList'">취소</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
