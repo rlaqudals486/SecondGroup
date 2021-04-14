@@ -1,5 +1,6 @@
 package com.second.group.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +21,19 @@ import com.second.group.service.SecondService;
 
 @Controller
 public class SecondController {
-
 	@Autowired
 	private SecondService secondService;
 	
-	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
+
+	
+	@RequestMapping("/second/SecondBoardList")
 	public String SecondBoardList() throws Exception {
+		return "/second/SecondBoardList";
+	}
+	
+
+	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
+	public String SecondMypage() throws Exception {
 		return "/second/mypage";
 	}
 
@@ -41,18 +49,42 @@ public class SecondController {
 	public String SecondDetail() throws Exception {
 		return "/second/recipeDetailed";
 	}
+
 	
 	@RequestMapping(value="/second", method=RequestMethod.GET)
 	public ModelAndView HomeList() throws Exception{
 		ModelAndView mv = new ModelAndView("/second/Home");
 		
-		List<SecondRecipeDto> list = secondService.selectSecondHomeList();
+		List<SecondRecipeDto> lists = secondService.selectSecondHomeList();
 		List<SecondCommentDto> comment = secondService.selectCommentHomeList();
+		
+		
+		//images test용(img폴더 설정되면 지우고 lists에 연결 해야됨.)
+		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
+		SecondRecipeDto item1 = new SecondRecipeDto();
+		SecondRecipeDto item2 = new SecondRecipeDto();
+		SecondRecipeDto item3 = new SecondRecipeDto();
+		SecondRecipeDto item4 = new SecondRecipeDto();
+			
+		item1.setRecipeFilePath("/img/001.jpg");
+		item2.setRecipeFilePath("/img/002.jpg");
+		item3.setRecipeFilePath("/img/003.jpg");
+		item4.setRecipeFilePath("/img/004.jpg");
+		list.add(item1);
+		list.add(item2);
+		list.add(item3);
+		list.add(item4);
+		
 		
 		mv.addObject("comment", comment);
 		mv.addObject("datas", list);
+		mv.addObject("data", lists);
 		return mv;
+
 	}
+	
+
+
 
 	@RequestMapping(value = "/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {
@@ -120,4 +152,5 @@ public class SecondController {
 		
 	}
 		
+
 }

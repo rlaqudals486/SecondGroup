@@ -16,8 +16,6 @@ public interface SecondService {
 	int selectUserInfoYn(String userId, String userPw) throws Exception;
 
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
-  List<SecondRecipeDto> selectSecondList() throws Exception;
-	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
 
 }

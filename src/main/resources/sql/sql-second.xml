@@ -8,15 +8,16 @@
 	<select id="selectSecondHomeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
-				idx, title,
+				idx, title, user_user_idx,
 			DATE_FORMAT
 				(created_datetime, '%Y.%m.%d') 
 			AS 
-				created_datetime
+				created_datetime, 
+				recipe_cover_img, recipe_file_path
 			FROM 
 				recipe
 			WHERE
-			    idx
+			   idx;
 		]]>
 	</select>
 	<select id="selectCommentHomeList" resultType="com.second.group.dto.SecondCommentDto">
@@ -45,7 +46,7 @@
 			ORDER BY idx DESC
 		]]>
 	</select>
-	
+
 	<!-- 회원가입 -->
 	<select id="insertSecondJoin" parameterType="com.second.group.dto.SecondUserDto">
 		<![CDATA[
