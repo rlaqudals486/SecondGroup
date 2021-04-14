@@ -9,4 +9,9 @@ public interface SecondService {
 	List<SecondRecipeDto> selectSecondList() throws Exception;
 	
 	void insertSecondJoin(SecondUserDto userData) throws Exception;
+	
+//	아이디 중복 검사
+	int idCheck(String userId) throws Exception;
+	
+	int selectUserInfoYn(String userId, String userPw) throws Exception;
 }

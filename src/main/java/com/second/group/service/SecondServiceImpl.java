@@ -24,5 +24,15 @@ public class SecondServiceImpl implements SecondService {
 	public void insertSecondJoin(SecondUserDto userData) throws Exception {
 		secondMapper.insertSecondJoin(userData);
 	}
+	
+	@Override
+	public int idCheck(String userId) throws Exception {
+		return secondMapper.idCheck(userId);
+	}
+	
+	@Override
+	public int selectUserInfoYn(String userId, String userPw) throws Exception {
+		return secondMapper.selectUserInfoYn(userId, userPw);
+	}
 
 }
