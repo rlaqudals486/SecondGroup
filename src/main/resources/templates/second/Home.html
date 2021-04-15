@@ -39,6 +39,13 @@
 	// 		}
 	// 	})
 </script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#btn1").on("click", function(){
+        location("#")
+    });
+});
+</script>
 
 <style>
 html {
@@ -77,7 +84,7 @@ input {
 }
 
 .dropbtn {
-	color: white;
+/* 	color: white; */
 	font-size: 2rem;
 	border: none;
 }
@@ -87,17 +94,18 @@ input {
 }
 
 .carousel-inner> .carousel-item> a > img {
-  	width : 640px;
+  	width : 777px;
 	height : 500px;
 }
+
 
 </style>
 
 </head>
-<body>
+<body >
 	<header class="bg-whight">
 		<div class="row">
-			<div class="text-center mx-auto mt-5 search-bar input-group mb-3">
+			<div class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3">
 				<div class="col-sm-2">
 					<a class="display-4 text-warning"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
@@ -119,61 +127,60 @@ input {
 				</div>
 
 				<div class="input-group-append col-sm-2 ">
-					<a class="text-dark"
+					<a href="/second/SecondLogin" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="far fa-user ml-5"></i>
-					</a> <a class="text-dark"
+					</a> <a href="/second/recipeDetailed" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="far fa-edit ml-5"></i>
-					</a> <a class="text-dark"
+					</a> <a href="#" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-book ml-5"></i>
 					</a>
 				</div>
 			</div>
 		</div>
-
-
-
-	</header>
-	<main id="main">
-		<!--  -->
-		<div class="bg-danger">
+<div class="bg-danger">
 			<div class="container">
-				<nav class="topnav d-flex justify-content-center mb-4" id="myTopnav">
+				<nav class="topnav d-flex justify-content-center" id="myTopnav">
 					<div class="dropdown px-5">
-						<a class="dropbtn" data-toggle="dropdown">목록</a>
+						<button id="btn1" class="dropbtn btn btn-danger " data-toggle="dropdown">목록</button>
 						<div class="dropdown-menu ">
-							<a href="#" class="dropdown-item">홈</a> <a href="#"
-								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
 							<a href="#" class="dropdown-item">오시는길</a>
 						</div>
 					</div>
 					<div class="dropdown px-5">
-						<a class="dropbtn" data-toggle="dropdown">찌게</a>
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">찌게</button>
 						<div class="dropdown-menu">
-							<a href="#" class="dropdown-item">홈</a> <a href="#"
-								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
 							<a href="#" class="dropdown-item">오시는길</a>
 						</div>
 					</div>
 					<div class="dropdown px-5">
-						<a class="dropbtn" data-toggle="dropdown">구이</a>
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">구이</button>
 						<div class="dropdown-menu">
-							<a href="#" class="dropdown-item">홈</a> <a href="#"
-								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#" class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
 							<a href="#" class="dropdown-item">오시는길</a>
 						</div>
 					</div>
 				</nav>
 			</div>
 		</div>
+
+	</header>
+	<main id="main">
 		<!-- 랜덤 이미지 부분 -->
-		<div class="container">
-			<div class="row">
-				<div class="carousel slide col-sm-8 " id="main-carousel"
+		<div class="container ">
+				<div class="carousel slide " id="main-carousel"
 					data-ride="carousel">
-					<ol class="carousel-indicators">
+					<ol class="carousel-indicators ">
 						<li data-target="#main-carousel" data-slide-to="0" class="active"></li>
 						<li data-target="#main-carousel" data-slide-to="1"></li>
 						<li data-target="#main-carousel" data-slide-to="2"></li>
@@ -181,25 +188,25 @@ input {
 					</ol>
 					<!-- /.carousel-indicators -->
 
-					<div class="carousel-inner" >
-						<th:block th:if="${listStat.index} == 0" th:each="list : ${datas}">
-							<div class=" carousel-item active" data-interval="500">
-							<a href="#">	<img alt="계란볶음밥" src="/images/001.jpg"
-									th:src="@{${list.recipeFilePath}}"
-									class="mx-auto d-block w-100"></a>
+					<div class="carousel-inner " >
+						<th:block th:if="${listStat.index} == 0" th:each="list : ${data}">
+							<div class="carousel-item active" data-interval="2000">
+							<a href="#"><img th:src="@{${list.recipeFilePath}}"
+									class="mx-auto d-block " th:title="${list.title}" th:alt="${list.title}"></a>
 								<div class="carousel-caption d-none d-md-block">
-									<h1 class="text-dark" th:text="${list.title}"></h1>
+									<h1 style=" background-color: black;
+        opacity: 0.5;" class="text-white m-auto py-5" th:text="${list.title}"></h1>
 								</div>
 							</div>
 						</th:block>
-						<th:block th:unless="${listStat.index} == 0"
-							th:each="list : ${datas}">
-							<div class=" carousel-item" data-interval="500">
-								<a href="#"><img alt="계란볶음밥" src="/images/001.jpg"
-									th:src="@{${list.recipeFilePath}}"
-									class="mx-auto d-block w-100"></a>
-								<div class="carousel-caption d-none d-md-block"></div>
-								<h1 th:text="${list.title}"></h1>
+						<th:block th:unless="${listStat.index} == 0" th:each="list : ${data}">
+							<div class="carousel-item" data-interval="2000">
+								<a href="#"><img th:src="@{${list.recipeFilePath}}"
+									class="mx-auto d-block " th:title="${list.title}" th:alt="${list.title}"></a>
+							<div class="carousel-caption d-none d-md-block">
+								<h1 style="background-color: black;
+        opacity: 0.5;" class="text-white m-auto py-5" th:text="${list.title}"></h1>
+							</div>
 							</div>
 						</th:block>
 					</div>
@@ -240,51 +247,47 @@ input {
 					</a>
 				</div>
 				<!-- /.carousel -->
-
-
-				<div class="col-sm-8">
-					<h1 class="text-center text-white">새로운 레시피</h1>
-					<table class="table table-hover table-striped">
+				<div>
+				<!--  -->
+				</div>
+				
+				<div class="">
+					<h1 class="text-center text-white mt-4 mb-4">새로운 레시피</h1>
+					<table class="table table-striped table-hover">
 						<colgroup>
 							<col width="15%" />
 							<col width="*%" />
 							<col width="15%" />
 							<col width="20%" />
 						</colgroup>
-						<thead>
-							<tr>
-								<th></th>
-
-							</tr>
-						</thead>
+						
 						<tbody class="bg-white">
-							<th:block th:if="${#lists.size(data)} > 0" th:each="item : ${data}">
+							<tr th:if="${#lists.size(data)} > 0" th:each="item : ${data}">
 								<td th:text="${item.idx}"></td>
-								<td><a href="#" th:attrappend="href=${item.idx}"
+								<td><a href="/second/recipeDetailed?idx=" th:attrappend="href=${item.idx}"
 									th:text="${item.title}"></a></td>
 								<td th:text="${item.createdDatetime}"></td>
-							</th:block>
-							<th:block th:unless="${#lists.size(data)} > 0">
+							</tr>
+							<tr th:unless="${#lists.size(data)} > 0">
 								<td colspan="4">조회된 결과가 없습니다.</td>
-							</th:block>
+							</tr>
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
+				</div>
+			
 
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-8 mt-5">
-					<img alt="" src="./img/광고1.png">
+			<div class="">
+				<div class="d-flex justify-content-center mt-5">
+					<img class="w-100" alt="" src="./img/광고1.png">
 				</div>
 			</div>
 		</div>
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-8">
-					<h1 class="text-center text-white">후기글</h1>
-					<table class="table table-hover table-striped">
+			
+					<h1 class="text-center text-white mt-4">후기글</h1>
+					<table class="table table-hover table-striped text-center">
 						<colgroup>
 							<col width="15%" />
 							<col width="*%" />
@@ -294,7 +297,6 @@ input {
 						<thead>
 							<tr>
 								<th></th>
-
 							</tr>
 						</thead>
 						<tbody class="bg-white">
@@ -311,8 +313,7 @@ input {
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
+	
 
 		<br> <br> <br> <br> <br> <br> <br>
 		<br> <br> <br> <br>
