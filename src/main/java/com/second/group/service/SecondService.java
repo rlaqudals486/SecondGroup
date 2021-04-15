@@ -13,6 +13,7 @@ public interface SecondService {
 	int idCheck(String userId) throws Exception;
 	
 	int selectUserInfoYn(String userId, String userPw) throws Exception;
+	SecondUserDto selectUserInfo(String userId, String userPw) throws Exception;
 
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
 	List<SecondRecipeDto> selectSecondList() throws Exception;

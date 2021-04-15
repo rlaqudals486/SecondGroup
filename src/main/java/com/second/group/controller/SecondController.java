@@ -33,7 +33,10 @@ public class SecondController {
 	
 
 	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
-	public String SecondMypage() throws Exception {
+	public String SecondMypage(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		session.getAttribute("userId");
+		session.getAttribute("userPhone");
 		return "/second/mypage";
 	}
 
@@ -126,9 +129,13 @@ public class SecondController {
 		System.out.println(userId + userPw);
 		int count = secondService.selectUserInfoYn(userId, userPw); 
 		if (count == 1) {
+			SecondUserDto userInfo = secondService.selectUserInfo(userId, userPw);
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
-			session.setMaxInactiveInterval(5); 
+			session.setAttribute("userYear", userInfo.getUserYear().toString());
+			session.setAttribute("userPhone", userInfo.getUserPhone().toString());
+			session.setAttribute("userGender", userInfo.getUserGender().toString());
+			session.setMaxInactiveInterval(600); 
 			
 			return "redirect:/second/loginOK";
 		}
@@ -178,6 +185,12 @@ public class SecondController {
 		
 		if(result != 0) { return "fail"; } else { return "success"; } 
 		
+	}
+	
+	@RequestMapping(value = "/second/mypageUpdate", method = {RequestMethod.GET, RequestMethod.PUT})
+	public String mypageUpdate() throws Exception {
+
+		return "/second/mypageUpdate";
 	}
 		
 

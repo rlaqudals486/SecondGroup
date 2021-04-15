@@ -16,7 +16,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
 <script type="text/javascript">
-	
+	$(document).ready(function() {
+		$("#btnEdit").on("click", function() {
+			var frm = $("#frm")[0];
+			frm.action = "updateMyPage";
+			frm.submit();
+		});
+	});
 </script>
 
 <style>
@@ -75,7 +81,6 @@
                   <i class="fas fa-book ml-5"></i>
                </a>
             </div>
-            
             <div th:if="${session.userId} != null">
 				<p th:text="|${session.userId} 님 안녕하세요|"></p>
 				<a href="/second/logout" class="btn btn-outline-primary" id="btnLogout">로그 아웃</a>
@@ -100,72 +105,88 @@
 									</svg>
 									<h4 class="m-0 pl-3">내 정보</h4>
 								</a>
-								<a href="/second/myBoard" class="form-inline pt-4">
+								<a href="#" class="form-inline pt-4">
 									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 16">
 										 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
 										 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
 									</svg>
 									<h4 class="m-0 pl-3">내 게시글 관리</h4>
 								</a>
+								<!-- <a href="#" class="form-inline pt-4">
+									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 16">
+										 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+										 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+									</svg>
+									<h4 class="m-0 pl-3">관리자 페이지</h4>
+								</a> -->
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-9">
 					<div class="p-4">
-						<h3 class="pt-5"><strong>내 게시글 관리</strong></h3><hr>
+						<h3 class="pt-5"><strong>내 정보</strong></h3><hr>
 					</div>
 					
-					<div class="form-action">
-						<div class="row pb-5 pl-4 pr-4">
-							<div class="col-sm-3 bg-light pt-3 pb-3" style="border: 1px solid black; border-right: 2px solid black;">
-								<h5 class="text-center pt-3"><strong>내 게시글 검색</strong></h5>
-							</div>
-							
-							<div class="col-sm-9 bg-light pt-3 pb-3" style="border:1px solid black">
-								<div class="input-group bg-white" style="border: 1px solid black">
-									<input type="text" class="form-control mb-2" id="textsearch" name="textsearch" placeholder="내용을 입력하세요." style="width: 80%; border: none;">
-									<button type="submit" class="pr-4 bg-white" style="border: none;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-											<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-										</svg>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
+					<div>
+						<form id="frm" method="POST">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th scope="row" class="align-middle text-center">이름</th>
+										<td><input type="text" class="form-control" th:value="${userId}" id="userId" name="userId" placeholder="이름"></td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">비밀번호</th>
+										<td><input type="password" class="form-control" th:value="${userPw}" id="userPw" name="userPw" placeholder="비밀번호"></td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">생년월일</th>
+										<td>
+											<div class="form-group">
+												<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+													<input type="text" th:value="${userYear}" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="01/11/2020">
+														<div class="input-group-append pt-2" data-target="#datetimepicker1" data-toggle="datetimepicker">
+															<div class="input-group-text">
+																<i class="fa fa-calendar"></i>
+															</div>
+													</div>
+												</div>
+											</div>
+									    </td>
+									    <script type="text/javascript">
+									    $(function () { $('#datetimepicker1').datetimepicker({ format: 'L'}); $('#datetimepicker2').datetimepicker({ format: 'L', useCurrent: false }); $("#datetimepicker1").on("change.datetimepicker", function (e) { $('#datetimepicker2').datetimepicker('minDate', e.date); }); $("#datetimepicker2").on("change.datetimepicker", function (e) { $('#datetimepicker1').datetimepicker('maxDate', e.date); }); });
+									    </script>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">휴대폰</th>
+										<td><input type="text" class="form-control" th:value="${userPhone}" id="phone" name="phone" placeholder="휴대폰"></td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">성별</th>
+										<td>
+											<div class="custom-control custom-radio">
+												<input type="radio" name="userGender" th:value="${userGender}" id="male" class="custom-control-input">
+												<label class="custom-control-label" for="male">남자</label>
+											</div>
+											<div class="custom-control custom-radio">
+												<input type="radio" name="userGender" th:value="${userGender}" id="female" class="custom-control-input">
+												<label class="custom-control-label" for="female">여자</label>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">프로필 수정</th>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
 						
-					<div class="form-action pt-5">
-						<table class="table">
-							<colgroup>
-								<col width="15%" />
-								<col width="*%" />
-								<col width="40%" />
-								<col width="15%" />
-							</colgroup>
-							<thead>
-								<tr>
-									<th>글번호</th>
-									<th>작성일시</th>
-									<th>제목</th>
-									<th>추천</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:if="${#lists.size(data)} > 0" th:each="list : ${data}">
-									<td th:text="${list.idx}"></td>
-									<td th:text="${list.createdDatetime}"></td>
-									<td th:text="${list.title}"></td>
-									<td th:text="${list.recommend}"></td>
-								</tr>
-								<tr th:unless="${#lists.size(data)} > 0">
-									<td colspan="4">조회된 결과가 없습니다.</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="pr-3">
-							<button type="button" class="btn btn-danger float-right" id="btnDel">삭제하기</button>
+						<div class="mt-4">
+							<button type="button" class="btn btn-light float-right pl-3 pr-3" id="btnEdit" style="border: 1px solid black;"><strong>수정</strong></button>
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -173,7 +194,7 @@
 	</main>
 	
 	<footer>
-		
+	
 	</footer>
 </body>
 </html>

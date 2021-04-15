@@ -110,4 +110,16 @@
 		]]>
 	</select>
 	
+	<select id="selectUserInfo" parameterType="map" resultType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				user
+			WHERE
+				user_id = #{userId}
+			AND
+				user_pw = #{userPw}
+		 ]]>
+	</select>
 </mapper>

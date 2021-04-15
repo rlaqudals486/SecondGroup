@@ -36,6 +36,11 @@ public class SecondServiceImpl implements SecondService {
 	public int selectUserInfoYn(String userId, String userPw) throws Exception {
 		return secondMapper.selectUserInfoYn(userId, userPw);
 	}
+	
+	@Override
+	public SecondUserDto selectUserInfo(String userId, String userPw) throws Exception {
+		return secondMapper.selectUserInfo(userId, userPw);
+	}
   
 	public List<SecondUserDto> selectUserList() throws Exception{
 		return null;
