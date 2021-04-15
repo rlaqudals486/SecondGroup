@@ -25,7 +25,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			System.out.println("로그인 상태 : ");
 			System.out.println((String)session.getAttribute("userId"));
 			
-			session.setMaxInactiveInterval(500);
+			session.setMaxInactiveInterval(600);
 			return true;
 		}
 	}

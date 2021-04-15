@@ -7,13 +7,11 @@ import com.second.group.dto.SecondRecipeDto;
 import com.second.group.dto.SecondUserDto;
 
 public interface SecondService {
-	void insertSecondJoin(SecondUserDto userData) throws Exception;
 	
-//	아이디 중복 검사
-	int idCheck(String userId) throws Exception;
-	
-	int selectUserInfoYn(String userId, String userPw) throws Exception;
-	SecondUserDto selectUserInfo(String userId, String userPw) throws Exception;
+	void insertSecondJoin(SecondUserDto userData) throws Exception; // 회원가입
+	int idCheck(String userId) throws Exception; // 아이디 중복 검사
+	int selectUserInfoYn(String userId, String userPw) throws Exception; // 로그인
+  SecondUserDto selectUserInfo(String userId, String userPw) throws Exception;
 
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
 	List<SecondRecipeDto> selectSecondList() throws Exception;

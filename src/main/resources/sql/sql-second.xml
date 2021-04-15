@@ -82,10 +82,10 @@
 		<![CDATA[
 			INSERT INTO user 
 				(user_id, user_pw, user_phone, user_gender, user_year,
-				 user_comment)
+				 user_comment, file_name, stored_file_path)
 			VALUES 
 				(#{userId}, #{userPw}, #{userPhone}, #{userGender},
-				 #{userYear}, #{userComment})
+				 #{userYear}, #{userComment}, #{fileName}, #{storedFilePath})
 		]]>
 	</select>
 	

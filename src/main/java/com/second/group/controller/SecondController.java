@@ -117,12 +117,13 @@ public class SecondController {
 
 	}
 
+	
+//	로그인
 	@RequestMapping(value = "/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {
 		return "/second/SecondLogin";
 	}
 	
-
 	@RequestMapping(value="/second/loginCheck", method=RequestMethod.POST)
 	public String loginCheck(@RequestParam String userId, @RequestParam String userPw, HttpServletRequest request) throws Exception {
 		
@@ -142,7 +143,7 @@ public class SecondController {
 		else {
 			return "redirect:/second/loginFail";
 		}
-  }
+	}
 	
 	@RequestMapping(value="/second/loginOK", method=RequestMethod.GET)
 	public String loginOK(HttpServletRequest request) throws Exception {
@@ -165,6 +166,7 @@ public class SecondController {
 		return "/second/logout";
 	}
 	
+//	회원가입
 	@RequestMapping(value = "/second/SecondJoin", method = RequestMethod.GET)
 	public String writeSecondJoin() throws Exception {
 		return "/second/SecondJoin";
@@ -192,6 +194,15 @@ public class SecondController {
 
 		return "/second/mypageUpdate";
 	}
-		
 
 }
+
+
+
+
+
+
+
+
+
+
