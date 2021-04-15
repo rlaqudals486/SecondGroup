@@ -44,10 +44,41 @@ public class SecondController {
 		mv.addObject("data", list);
 		return mv;
 	}
-
-	@RequestMapping("/second/recipeDetailed")
-	public String SecondDetail() throws Exception {
-		return "/second/recipeDetailed";
+	
+	@RequestMapping("/second/secondList")
+	public ModelAndView SecondList() throws Exception {
+		ModelAndView mv = new ModelAndView("/second/secondList");
+		
+		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
+		
+		mv.addObject("list", recipeList);
+		
+		return mv;
+	}
+	
+	@RequestMapping("/second/secondDetail")
+	public ModelAndView SecondDetail(@RequestParam int idx) throws Exception {
+		ModelAndView mv = new ModelAndView("/second/secondDetail");
+		
+		SecondRecipeDto recipe = secondService.selectRecipeDetail(idx);
+		
+		mv.addObject("recipe", recipe);
+		
+		return mv;
+	}
+	
+	@RequestMapping("/second/secondWrite")
+	public String SecondWrite() throws Exception {
+		
+		return "/second/secondWrite";
+	}
+	
+	@RequestMapping("/second/recipeInsert")
+	public String SecondInsert(SecondRecipeDto recipe) throws Exception {
+		
+		secondService.insertRecipe(recipe);
+		
+		return "redirect:/second/secondList";
 	}
 
 	
@@ -82,9 +113,6 @@ public class SecondController {
 		return mv;
 
 	}
-	
-
-
 
 	@RequestMapping(value = "/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {

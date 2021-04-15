@@ -45,7 +45,21 @@ public class SecondServiceImpl implements SecondService {
 	public List<SecondCommentDto> selectCommentHomeList() throws Exception{
 		return secondMapper.selectCommentHomeList();
 	}
-  
+
+
+	@Override
+	public SecondRecipeDto selectRecipeDetail(int idx) throws Exception {
+		
+		SecondRecipeDto recipe = secondMapper.selectRecipeDetail(idx);
+		
+		return recipe;
+	}
+
+	@Override
+	public void insertRecipe(SecondRecipeDto recipe) throws Exception {
+		secondMapper.insertRecipe(recipe);
+	}
+
   public List<SecondRecipeDto> selectSecondList() throws Exception {
 		return secondMapper.selectSecondList();
 	}

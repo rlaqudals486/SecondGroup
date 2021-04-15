@@ -14,7 +14,9 @@ public interface SecondMapper {
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
 	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
-  List<SecondRecipeDto> selectSecondList() throws Exception;
+	List<SecondRecipeDto> selectSecondList() throws Exception;
+	SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
+	void insertRecipe(SecondRecipeDto recipe) throws Exception;
 	void insertSecondJoin(SecondUserDto userData) throws Exception;
   //	아이디 중복 검사
 	int idCheck(String userId);
