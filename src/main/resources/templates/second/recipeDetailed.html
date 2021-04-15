@@ -215,17 +215,17 @@
           <div class="container mt-4 p-0 pb-3"
             style="border: 1px dotted #d2c8be; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.2); background-color: white;">
             <div class="recipeNameArea">
-              <h1 class="recipeName mt-3 pl-4" style="display: inline-block;" th:text="${recipe.title}"></h1>
+              <h1 class="recipeName mt-3 pl-4" style="display: inline-block;">레시피 타이틀</h1>
               <ul class="recipeInfo mt-4 p-0">
                 <li class="update" style="padding-left: 25px;">
-                  <p class="recipeDay"><i class="far fa-calendar-check pr-2 mr-2"></i> <span th:text="${recipe.createdDatetime}"></span></p>
+                  <p class="recipeDay"><i class="far fa-calendar-check pr-2"></i>2021.04.07</p>
                 </li>
                 <li class="recipeID">
-                  <li><span class="mr-1 pr-1 pl-1" style="background-color: darkgoldenrod; color: white;">레시피 ID</span>
-                  </li>
+                  <p><span class="mr-1" style="background-color: darkgoldenrod; color: white;">사용자 ID</span> honggildong
+                  </p>
                 </li>
-                <li class="recipeType"><span class="mr-1 pr-1 pl-1"
-                    style="background-color: darkgoldenrod; color: white;">분류</span></li>
+                <li class="recipeType"><span class="mr-1"
+                    style="background-color: darkgoldenrod; color: white;">분류</span> 주식</li>
               </ul>
               <ul class="justify-content-end d-flex">
                 <li class="">
@@ -235,6 +235,7 @@
                 </li>
                 <li>
                   <div>
+                    <a href="#"><i class="fas fa-heart"></i> 즐겨찾기</a>
                   </div>
                 </li>
               </ul>
@@ -247,11 +248,11 @@
                   <div class="subPicture"></div>
                 </div>
                 <div class="detail col-md-4">
-                  <div class="bubble m-0" style="height:auto; padding: 10px;">
+                  <div class="bubble m-0" style="height:160px; padding: 10px;">
                     <p class="comment pb-1 mb-0">코멘트</p>
-                    <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
+                    <p class="commentText pt-1" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
                   </div>
-                  <p class="time mt-2 m-0"><i class="far fa-clock mr-2"></i>조리시간 : <span class="mr-2" th:text="cookTime"></span></p>
+                  <p class="time mt-2 m-0"><i class="far fa-clock"></i>조리시간 : 15분</p>
                   <p class="igredient mt-2 mb-0 pb-1" style="border-bottom: 1px solid #d2c8be;"><span>재료</span></p>
                   <table>
                     <tbody>
@@ -292,9 +293,9 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="bubble2 m-3" style="height:auto; padding: 10px;">
+              <div class="bubble2 m-3" style="height:100px; padding: 10px;">
                 <p class="comment pb-1 mb-0">코멘트</p>
-                <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
+                <p class="commentText pt-1" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
               </div>
             </div>
             <div class="keyword" style="width: auto; border-top: 1px dotted #d2c8be;">
@@ -307,7 +308,7 @@
                   <a href="#">키워드</a>
                   <a href="#">키워드</a>
                   <a href="#">키워드</a>
-                </dd>
+                  </dd>
               </div>
             </div>
           </div>

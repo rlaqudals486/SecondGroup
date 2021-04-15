@@ -33,55 +33,21 @@ public class SecondController {
 	
 
 	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
-	public String SecondMypage(HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession();
-		session.getAttribute("userId");
-		session.getAttribute("userPhone");
+	public String SecondMypage() throws Exception {
 		return "/second/mypage";
 	}
 
 	@RequestMapping(value = "/second/myBoard", method = RequestMethod.GET)
 	public ModelAndView SelectSecondList() throws Exception {
 		ModelAndView mv = new ModelAndView("/second/myBoard");
-		List<SecondRecipeDto> list = secondService.selectSecondList();
+		List<SecondRecipeDto> list = secondService.selectSecondHomeList();
 		mv.addObject("data", list);
 		return mv;
 	}
-	
-	@RequestMapping("/second/secondList")
-	public ModelAndView SecondList() throws Exception {
-		ModelAndView mv = new ModelAndView("/second/secondList");
-		
-		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
-		
-		mv.addObject("list", recipeList);
-		
-		return mv;
-	}
-	
-	@RequestMapping("/second/secondDetail")
-	public ModelAndView SecondDetail(@RequestParam int idx) throws Exception {
-		ModelAndView mv = new ModelAndView("/second/secondDetail");
-		
-		SecondRecipeDto recipe = secondService.selectRecipeDetail(idx);
-		
-		mv.addObject("recipe", recipe);
-		
-		return mv;
-	}
-	
-	@RequestMapping("/second/secondWrite")
-	public String SecondWrite() throws Exception {
-		
-		return "/second/secondWrite";
-	}
-	
-	@RequestMapping("/second/recipeInsert")
-	public String SecondInsert(SecondRecipeDto recipe) throws Exception {
-		
-		secondService.insertRecipe(recipe);
-		
-		return "redirect:/second/secondList";
+
+	@RequestMapping("/second/recipeDetailed")
+	public String SecondDetail() throws Exception {
+		return "/second/recipeDetailed";
 	}
 
 	
@@ -94,56 +60,54 @@ public class SecondController {
 		
 		
 		//images test용(img폴더 설정되면 지우고 lists에 연결 해야됨.)
-		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
-		SecondRecipeDto item1 = new SecondRecipeDto();
-		SecondRecipeDto item2 = new SecondRecipeDto();
-		SecondRecipeDto item3 = new SecondRecipeDto();
-		SecondRecipeDto item4 = new SecondRecipeDto();
-			
-		item1.setRecipeFilePath("/img/001.jpg");
-		item2.setRecipeFilePath("/img/002.jpg");
-		item3.setRecipeFilePath("/img/003.jpg");
-		item4.setRecipeFilePath("/img/004.jpg");
-		list.add(item1);
-		list.add(item2);
-		list.add(item3);
-		list.add(item4);
+//		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
+//		SecondRecipeDto item1 = new SecondRecipeDto();
+//		SecondRecipeDto item2 = new SecondRecipeDto();
+//		SecondRecipeDto item3 = new SecondRecipeDto();
+//		SecondRecipeDto item4 = new SecondRecipeDto();
+//			
+//		item1.setRecipeFilePath("/img/001.jpg");
+//		item2.setRecipeFilePath("/img/002.jpg");
+//		item3.setRecipeFilePath("/img/003.jpg");
+//		item4.setRecipeFilePath("/img/004.jpg");
+//		list.add(item1);
+//		list.add(item2);
+//		list.add(item3);
+//		list.add(item4);
 		
 		
 		mv.addObject("comment", comment);
-		mv.addObject("datas", list);
+//		mv.addObject("datas", list);
 		mv.addObject("data", lists);
 		return mv;
 
 	}
-
 	
-//	로그인
+
+
+
 	@RequestMapping(value = "/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {
 		return "/second/SecondLogin";
 	}
 	
+
 	@RequestMapping(value="/second/loginCheck", method=RequestMethod.POST)
 	public String loginCheck(@RequestParam String userId, @RequestParam String userPw, HttpServletRequest request) throws Exception {
 		
 		System.out.println(userId + userPw);
 		int count = secondService.selectUserInfoYn(userId, userPw); 
 		if (count == 1) {
-			SecondUserDto userInfo = secondService.selectUserInfo(userId, userPw);
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
-			session.setAttribute("userYear", userInfo.getUserYear().toString());
-			session.setAttribute("userPhone", userInfo.getUserPhone().toString());
-			session.setAttribute("userGender", userInfo.getUserGender().toString());
-			session.setMaxInactiveInterval(600); 
+			session.setMaxInactiveInterval(5); 
 			
 			return "redirect:/second/loginOK";
 		}
 		else {
 			return "redirect:/second/loginFail";
 		}
-	}
+  }
 	
 	@RequestMapping(value="/second/loginOK", method=RequestMethod.GET)
 	public String loginOK(HttpServletRequest request) throws Exception {
@@ -166,7 +130,6 @@ public class SecondController {
 		return "/second/logout";
 	}
 	
-//	회원가입
 	@RequestMapping(value = "/second/SecondJoin", method = RequestMethod.GET)
 	public String writeSecondJoin() throws Exception {
 		return "/second/SecondJoin";
@@ -188,21 +151,6 @@ public class SecondController {
 		if(result != 0) { return "fail"; } else { return "success"; } 
 		
 	}
-	
-	@RequestMapping(value = "/second/mypageUpdate", method = {RequestMethod.GET, RequestMethod.PUT})
-	public String mypageUpdate() throws Exception {
-
-		return "/second/mypageUpdate";
-	}
+		
 
 }
-
-
-
-
-
-
-
-
-
-

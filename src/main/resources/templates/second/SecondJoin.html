@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>회원가입 페이지</title>
+<title>로그인 페이지</title>
 
 <link rel="stylesheet" href="./css/style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -120,6 +120,7 @@
 		color: light;
 	}
 	
+	
 	/* 중복아이디 존재하지 않는경우 */
 	#id_input_re_1{
 		color : #28BD22;
@@ -131,22 +132,7 @@
 		color : #d92742;
 		display : none;
 		font-weight: bold;
-		
 	}
-	
-	#image_preview {
-		width: 150px;
-		height: 150px; 
-		border-radius: 70%;
-		overflow: hidden;
-	}
-
-	#image_preview img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-	
 </style>
 
 
@@ -167,8 +153,8 @@
 	<main class="container">
 		<section class="row">
 			<article class="col-sm-6 mx-auto">
-				<form id="frm" name="frm" action="/second/SecondJoin" method="POST">
-					<!-- userId, userPw, userYear, userGender, userComment, fileName,  -->
+				<form action="/second/SecondLogin" method="POST">
+					<!-- userId, userPw, userYear, userGender, userComment,  -->
 					<div class="form-group">
 						<label for="userId" class="ml-1">아이디</label>
 						<input type="text" class="form-control" id="userId" name="userId">
@@ -207,10 +193,10 @@
 						<input type="file" class="form-controll" name="fileName" id="fileName">
 					</div>
 					<div id="image_preview" class="text-center">
-						<img id="img1" src="#"/>
+						<img src="#"/>
 						<br>
 						<br>
-						<a href="#" style="font-size: 1em; font-weight: bold; text-decoration: none; color: #FF7F50;">이미지삭제</a>
+						<a href="#" class="text-warning" style="font-size: 1em; font-weight: bold; text-decoration: none;">이미지삭제</a>
 					</div>
 					<div class="form-group">
 					<br>
@@ -234,9 +220,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
 	
+	<!-- 프로필사진 -->
 	<script type="text/javascript">
-	
-	/* 프로필 사진 */
+	/** 
+	onchange event handler for the file input field.
+	It emplements very basic validation using the file extension.
+	If the filename passes validation it will show the image using it's blob URL  
+	and will hide the input field and show a delete button to allow the user to remove the image
+	*/
 	$('#fileName').on('change', function() {
 		
 		ext = $(this).val().split('.').pop().toLowerCase(); //확장자
@@ -245,8 +236,7 @@
 		if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
 			resetFormElement($(this)); //폼 초기화
 			window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
-		}
-		else {
+		} else {
 			file = $('#fileName').prop("files")[0];
 			blobURL = window.URL.createObjectURL(file);
 			$('#image_preview img').attr('src', blobURL);
@@ -254,21 +244,32 @@
 			$(this).slideUp(); //파일 양식 감춤
 		}
 	});
-	/* 이미지 삭제 버튼 */
+
+	/**
+	onclick event handler for the delete button.
+	It removes the image, clears and unhides the file input field.
+	*/
 	$('#image_preview a').bind('click', function() {
 		resetFormElement($('#fileName')); //전달한 양식 초기화
 		$('#fileName').slideDown(); //파일 양식 보여줌
 		$(this).parent().slideUp(); //미리 보기 영역 감춤
 		return false; //기본 이벤트 막음
 	});
-	/** 폼요소 초기화 */
-	/* function resetFormElement(e) {
+	
+	
+	/** 
+	* 폼요소 초기화 
+	* Reset form element
+	* 
+	* @param e jQuery object
+	*/
+	function resetFormElement(e) {
 		e.wrap('<form>').closest('form').get(0).reset(); 
 		//리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
 		//요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
 		//DOM에서 제공하는 초기화 메서드 reset()을 호출
 		e.unwrap(); //감싼 <form> 태그를 제거
-	} */
+	}
 	
 	
 	//아이디 중복검사
@@ -338,7 +339,6 @@
 		console.log(this.value);
 		this.value = autoHypenPhone( this.value ) ;
 	}
-	
 	</script>
 </body>
 </html>

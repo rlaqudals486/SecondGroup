@@ -12,7 +12,7 @@
 <script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
-<!-- 폰트어썸 -->
+<!-- 폰터어썸 -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
@@ -56,8 +56,8 @@
 	}
 	
 	
-	.btn { font-size: 18px; background-color: warning; height: 40px; margin-top:28px;}
-	.btn:hover { background-color: coral; color: white; }
+	.form-group button { font-size: 18px; background-color: warning; height: 57px; margin-top:28px;}
+	.form-group button:hover { background-color: coral; color: warning; }
 	
 	
 	.atag {
@@ -75,14 +75,6 @@
 	
 </style>
 
-<script>
-	$(document).ready(function() {
-		setTimeout(function() {
-			location.href="/second/mypage";
-		}, 2000);
-	});
-</script>
-
 </head>
 
 <body class="bg">
@@ -90,7 +82,7 @@
 		<div class="mx-auto">
 			<div class="text-center mx-auto mt-5 mb-5">
 				<div class="col-md">
-					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="/second">HOME recipe</a>
+					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="">HOME recipe</a>
 				</div>
 			</div>
 		</div>
@@ -98,12 +90,9 @@
 	
 	<main class="container">
 		<section class="row">
-			<article class="text-center col-sm-6 mx-auto  my-4">
-				<span th:if="${session.userId} != null" th:text="|${session.userId}|" style="font-size: 18px; color: #FF7F50; font-weight: bold;"></span>
-				<span style="font-size: 18px; font-weight: bold; color: #505050;">님 안녕하세요</span>
-				<div class="mt-4">
-					<a href="/second/logout" class="btn btn-outline-warning" id="btnLogout">로그아웃</a>
-				</div>
+			<article class="text-center col-sm-6 mx-auto">
+				<p th:if="${session.userId} != null" th:text="|${session.userId} 님 안녕하세요|" style="font-size: 1em; font-weight: bold;"></p>
+				<a href="/second/logout" class="btn btn-outline-warning" id="btnLogout">로그아웃</a>
 			</article>
 		</section>
 	</main>
