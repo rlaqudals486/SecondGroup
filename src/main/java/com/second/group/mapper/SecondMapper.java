@@ -21,4 +21,5 @@ public interface SecondMapper {
   //	아이디 중복 검사
 	int idCheck(String userId);
 	int selectUserInfoYn(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception;
+	SecondUserDto selectUserInfo(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception;
 }
