@@ -20,6 +20,7 @@
 			   idx;
 		]]>
 	</select>
+	
 	<select id="selectCommentHomeList" resultType="com.second.group.dto.SecondCommentDto">
 		<![CDATA[ 
 		SELECT 
@@ -35,6 +36,7 @@
 		
 		]]>
 	</select>
+	
 	<select id="selectSecondList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT
@@ -46,7 +48,35 @@
 			ORDER BY idx DESC
 		]]>
 	</select>
+
+	<select id="selectRecipeDetail" parameterType="int" resultType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[
+			SELECT
+				idx,
+				title,
+				ingredient,
+				DATE_FORMAT(created_datetime, '%Y.%m.%d %H:%i') AS created_datetime,
+				cook_comment,
+				cook_point,
+				cook_time
+			FROM
+				recipe
+			WHERE
+				idx = #{idx}
+		]]>
+	</select>
 	
+	<insert id="insertRecipe" parameterType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[ 
+			INSERT INTO recipe
+			
+				(title, ingredient, cook_comment, cook_point, cook_time, created_datetime)
+				
+			VALUES
+    			(#{title}, #{ingredient}, #{cookComment}, #{cookPoint}, #{cookTime}, NOW());
+		]]>
+	</insert>
+
 	<!-- 회원가입 -->
 	<select id="insertSecondJoin" parameterType="com.second.group.dto.SecondUserDto">
 		<![CDATA[
@@ -80,4 +110,16 @@
 		]]>
 	</select>
 	
+	<select id="selectUserInfo" parameterType="map" resultType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				user
+			WHERE
+				user_id = #{userId}
+			AND
+				user_pw = #{userPw}
+		 ]]>
+	</select>
 </mapper>

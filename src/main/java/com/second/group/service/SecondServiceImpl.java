@@ -36,6 +36,11 @@ public class SecondServiceImpl implements SecondService {
 	public int selectUserInfoYn(String userId, String userPw) throws Exception {
 		return secondMapper.selectUserInfoYn(userId, userPw);
 	}
+	
+	@Override
+	public SecondUserDto selectUserInfo(String userId, String userPw) throws Exception {
+		return secondMapper.selectUserInfo(userId, userPw);
+	}
   
 	public List<SecondUserDto> selectUserList() throws Exception{
 		return null;
@@ -45,7 +50,21 @@ public class SecondServiceImpl implements SecondService {
 	public List<SecondCommentDto> selectCommentHomeList() throws Exception{
 		return secondMapper.selectCommentHomeList();
 	}
-  
+
+
+	@Override
+	public SecondRecipeDto selectRecipeDetail(int idx) throws Exception {
+		
+		SecondRecipeDto recipe = secondMapper.selectRecipeDetail(idx);
+		
+		return recipe;
+	}
+
+	@Override
+	public void insertRecipe(SecondRecipeDto recipe) throws Exception {
+		secondMapper.insertRecipe(recipe);
+	}
+
   public List<SecondRecipeDto> selectSecondList() throws Exception {
 		return secondMapper.selectSecondList();
 	}
