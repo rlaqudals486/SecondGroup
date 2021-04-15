@@ -14,9 +14,8 @@ public interface SecondMapper {
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
 	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
-  List<SecondRecipeDto> selectSecondList() throws Exception;
-	void insertSecondJoin(SecondUserDto userData) throws Exception;
-  //	아이디 중복 검사
-	int idCheck(String userId);
-	int selectUserInfoYn(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception;
+	List<SecondRecipeDto> selectSecondList() throws Exception;
+	void insertSecondJoin(SecondUserDto userData) throws Exception; // 회원가입
+	int idCheck(String userId); // 아이디 중복검사
+	int selectUserInfoYn(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception; // 로그인
 }

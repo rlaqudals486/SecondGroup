@@ -83,15 +83,12 @@ public class SecondController {
 
 	}
 	
-
-
-
+//	로그인
 	@RequestMapping(value = "/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {
 		return "/second/SecondLogin";
 	}
 	
-
 	@RequestMapping(value="/second/loginCheck", method=RequestMethod.POST)
 	public String loginCheck(@RequestParam String userId, @RequestParam String userPw, HttpServletRequest request) throws Exception {
 		
@@ -100,14 +97,14 @@ public class SecondController {
 		if (count == 1) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
-			session.setMaxInactiveInterval(5); 
+			session.setMaxInactiveInterval(600); 
 			
 			return "redirect:/second/loginOK";
 		}
 		else {
 			return "redirect:/second/loginFail";
 		}
-  }
+	}
 	
 	@RequestMapping(value="/second/loginOK", method=RequestMethod.GET)
 	public String loginOK(HttpServletRequest request) throws Exception {
@@ -130,6 +127,7 @@ public class SecondController {
 		return "/second/logout";
 	}
 	
+//	회원가입
 	@RequestMapping(value = "/second/SecondJoin", method = RequestMethod.GET)
 	public String writeSecondJoin() throws Exception {
 		return "/second/SecondJoin";
@@ -151,6 +149,15 @@ public class SecondController {
 		if(result != 0) { return "fail"; } else { return "success"; } 
 		
 	}
-		
 
 }
+
+
+
+
+
+
+
+
+
+
