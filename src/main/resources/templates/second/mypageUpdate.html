@@ -134,18 +134,18 @@
 								<tbody>
 									<tr>
 										<th scope="row" class="align-middle text-center">이름</th>
-										<td><input type="text" class="form-control" th:value="${userId}" id="userId" name="userId" placeholder="이름"></td>
+										<td><input type="text" class="form-control" th:value="${session.userId}" id="userId" name="userId"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="align-middle text-center">비밀번호</th>
-										<td><input type="password" class="form-control" th:value="${userPw}" id="userPw" name="userPw" placeholder="비밀번호"></td>
+										<td><input type="password" class="form-control" th:value="${session.userPw}" id="userPw" name="userPw" placeholder="비밀번호"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="align-middle text-center">생년월일</th>
 										<td>
 											<div class="form-group">
 												<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-													<input type="text" th:value="${userYear}" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="01/11/2020">
+													<input type="text" th:value="${session.userYear}" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="01/11/2020">
 														<div class="input-group-append pt-2" data-target="#datetimepicker1" data-toggle="datetimepicker">
 															<div class="input-group-text">
 																<i class="fa fa-calendar"></i>
@@ -160,7 +160,7 @@
 									</tr>
 									<tr>
 										<th scope="row" class="align-middle text-center">휴대폰</th>
-										<td><input type="text" class="form-control" th:value="${userPhone}" id="phone" name="phone" placeholder="휴대폰"></td>
+										<td><input type="text" class="form-control" th:value="${session.userPhone}" id="phone" name="phone" placeholder="휴대폰"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="align-middle text-center">성별</th>

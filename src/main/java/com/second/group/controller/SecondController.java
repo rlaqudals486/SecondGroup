@@ -132,6 +132,7 @@ public class SecondController {
 			SecondUserDto userInfo = secondService.selectUserInfo(userId, userPw);
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
+			session.setAttribute("userPw", userPw);
 			session.setAttribute("userYear", userInfo.getUserYear().toString());
 			session.setAttribute("userPhone", userInfo.getUserPhone().toString());
 			session.setAttribute("userGender", userInfo.getUserGender().toString());
