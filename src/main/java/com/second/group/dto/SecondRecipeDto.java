@@ -1,5 +1,7 @@
 package com.second.group.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -17,4 +19,7 @@ public class SecondRecipeDto {
 	public String recipeFilePath;
 	public String userUserIdx;
 	public String recommend;
+	public int classificationClassCode;
+	public String classificationClassName;
+	public List<SecondFileDto> fileList; 
 }

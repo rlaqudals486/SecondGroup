@@ -8,7 +8,7 @@ public class SecondFileDto {
 	private int boardIdx;
 	private String fileName;
 	private String storedFilePath;
-	private int fileSize;
+	private long fileSize;
 	private String createdId;
 	private String createdDatetime;
 	private String updatedId;

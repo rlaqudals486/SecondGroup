@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주소록 삭제 페이지</title>
+
+<link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+
+<script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
+<script src="/js/popper.js" th:src="@{/js/popper.js}"></script>
+<script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#btnCancel").on("click", function() {
+			window.history.back();
+		});
+	});
+</script>
+</head>
+<body>
+	<header style="background-color: white;">
+    <div class="row">
+      <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
+        <div class="col-md-2">
+          <a class="display-4 text-warning" style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+            href="/second">HOME recipe</a>
+        </div>
+
+        <div class="col-md-6">
+          <form action="" method="GET" class="form-group">
+            <div class="input-group">
+              <input name="" type="search" class="form-control" placeholder="&#xf002; Search...">
+
+              <button type="submit" class="btn btn-outline-success" style="border: 0;">
+                <i class="fas fa-search" style="font-size: 1.5em;"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="input-group-append col-md-2 ">
+          <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+            <i class="far fa-user ml-5"></i>
+          </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+            <i class="far fa-edit ml-5"></i>
+          </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+            <i class="fas fa-book ml-5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+	<main class="container">
+		<section class="row">
+			<article class="col-sm-8 mx-auto">
+				<form action="/second/secondDelete" method="POST">
+					
+					<div class="form-group">
+						<label>아래의 정보를 삭제하시겠습니까?</label>
+						<input class="form-control" type="text" th:value="${recipe.title}" readonly>
+					</div>
+					<input type="hidden" name="idx" th:value="${recipe.idx}">
+					<div class="d-flex justify-content-center">
+						<button type="submit" class="btn btn-danger mr-2">삭제</button>
+						<button type="button" class="btn btn-secondary" id="btnCancel">취소</button>
+					</div>
+				</form>
+			</article>
+		</section>
+	</main>
+</body>
+</html>

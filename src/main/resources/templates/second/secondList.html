@@ -84,12 +84,6 @@
             padding: 20px;
         }
 
-        /* .list_wrap .item strong {
-            display: block;
-            margin: 0 0 10px 0;
-            font-size: 16px;
-            letter-spacing: -1px;
-        } */
 
         .list_wrap .item p {
             font-size: 13px;
@@ -144,11 +138,10 @@
         </div>
     </header>
     <main>
-        <div class="list_wrap container mt-5 mb-5">
-
-            <ul th:if="${#lists.size(list)} > 0" th:each="list : ${list}">
-                <li class="item item1">
-                    <div class="image">사진</div>
+        <div class="list_wrap container mt-5 mb-5 d-flex justify-content-start flex-wrap">
+            <ul class="mr-3" th:if="${#lists.size(list)} > 0" th:each="list : ${list}">
+                <li class="item item1" style="width:auto">
+                    <div class="image" style=" cursor: pointer;"></div>
                     <div class="cont">	             
                         <a href="/second/secondDetail?idx=" th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
                         <p>등록일<span class="ml-2" th:text="${list.createdDatetime}"></span></p>        
