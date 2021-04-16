@@ -37,7 +37,7 @@
 		]]>
 	</select>
 	
-	<select id="selectSecondRecipeList" resultType="com.second.group.dto.SecondRecipeDto">
+	<select id="selectSecondList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
 				a.idx as idx, a.created_datetime as created_datetime, a.title as title,
@@ -220,5 +220,17 @@
 			AND deleted_yn = 'N'
 		]]>
 	</select>
+	
+	<select id="selectSecondRecipeList" resultType="com.second.group.dto.SecondRecipeDto">
+      <![CDATA[
+         SELECT
+            idx, created_datetime, title, recommend
+         FROM
+             recipe
+         WHERE
+             recipe_deleted_yn = 'N'
+         ORDER BY idx DESC
+      ]]>
+   </select>
 	
 </mapper>

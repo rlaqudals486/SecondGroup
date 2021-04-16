@@ -20,7 +20,7 @@ public interface SecondMapper {
 	
 	List<SecondRecipeDto> selectSecondRecipeList() throws Exception;
   
-  List<SecondRecipeDto> selectSecondList(@Param("userId") String userId) throws Exception;
+	List<SecondRecipeDto> selectSecondList(@Param("userId") String userId) throws Exception;
   
 	List<SecondRecipeDto> searchSecondList(@Param("userId") String userId, @Param("keyword") String keyword) throws Exception;
   
@@ -31,8 +31,6 @@ public interface SecondMapper {
 	void insertRecipe(SecondRecipeDto recipe) throws Exception;
 	
 	void insertSecondFileList(List<SecondFileDto> fileList) throws Exception;
-  
-  SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
 	
 	void updateRecipe(SecondRecipeDto recipe) throws Exception;
 	
