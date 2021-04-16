@@ -37,7 +37,7 @@
 		]]>
 	</select>
 	
-	<select id="selectSecondList" parameterType="String" resultType="com.second.group.dto.SecondRecipeDto">
+	<select id="selectSecondRecipeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
 				a.idx as idx, a.created_datetime as created_datetime, a.title as title,
@@ -76,28 +76,29 @@
 	<select id="selectRecipeDetail" parameterType="int" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT
-				idx,
-				title,
-				ingredient,
-				DATE_FORMAT(created_datetime, '%Y.%m.%d %H:%i') AS created_datetime,
-				cook_comment,
-				cook_point,
-				cook_time
+				a.idx as idx, a.title as title, a.created_datetime as created_datetime, a.ingredient as ingredient,
+				a.cooking as cooking, a.cook_time as cook_time, a.cook_comment as cook_comment, a.cook_point as cook_point,
+				a.recipe_deleted_yn as recipe_deleted_yn, a.recipe_cover_img as recipe_cover_img, a.recipe_file_path as recipe_file_path,
+				a.user_user_id as user_user_idx, a.recommend as recommend, a.classification_class_code as classification_class_code,
+				b.class_name as classification_class_name
 			FROM
-				recipe
-			WHERE
-				idx = #{idx}
+				recipe as a
+			JOIN
+				classification as b
+			ON
+				a.classification_class_code = b.class_code
+			AND 
+				a.idx = #{idx}
 		]]>
 	</select>
 	
 	<insert id="insertRecipe" parameterType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[ 
 			INSERT INTO recipe
-			
-				(title, ingredient, cook_comment, cook_point, cook_time, created_datetime)
+				(title, ingredient, cook_comment, cook_point, cook_time, created_datetime, recipe_cover_img, classification_class_code)
 				
 			VALUES
-    			(#{title}, #{ingredient}, #{cookComment}, #{cookPoint}, #{cookTime}, NOW());
+    			(#{title}, #{ingredient}, #{cookComment}, #{cookPoint}, #{cookTime}, NOW(), #{recipeCoverImg}, #{classificationClassCode});
 		]]>
 	</insert>
 
@@ -145,6 +146,79 @@
 			AND
 				user_pw = #{userPw}
 		 ]]>
+	</select>
+	
+	<insert id="insertSecondFileList" parameterType="com.second.group.dto.SecondFileDto">
+		<![CDATA[
+			INSERT INTO file
+				(board_idx, file_name, stored_file_path, 
+				file_size, created_id, created_datetime)
+			VALUES
+		]]>
+		
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.boardIdx},
+				#{item.fileName},
+				#{item.storedFilePath},
+				#{item.fileSize},
+				'admin',
+				NOW()
+			)
+		</foreach>
+	</insert>
+	
+	<select id="selectSecondFileList" parameterType="int" resultType="com.second.group.dto.SecondFileDto">
+		<![CDATA[
+			SELECT
+				fidx, board_idx, file_name,
+				FORMAT(ROUND(file_size / 1024), 0) AS file_size
+			FROM
+				file
+			WHERE
+				board_idx = #{boardIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+
+	<update id="updateRecipe" parameterType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[
+			UPDATE
+				recipe
+			SET
+				title = #{title},
+				ingredient = #{ingredient},
+				cook_time = #{cookTime},
+				cook_comment = #{cookComment},
+				cook_point = #{cookPoint},
+				classification_class_code = #{classificationClassCode}
+			WHERE
+				idx = #{idx}
+		]]>
+	</update>
+	
+	<update id="deleteRecipe" parameterType="int">
+		<![CDATA[
+			UPDATE recipe 
+			SET 
+			    recipe_deleted_yn = 'Y'
+			WHERE
+			    idx = #{idx}
+		]]>
+	</update>
+	
+	<select id="selectSecondFileInformation" parameterType="map" resultType="com.second.group.dto.SecondFileDto">
+		<![CDATA[
+			SELECT 
+		    	file_name, stored_file_path, file_size
+			FROM
+			    file
+			WHERE
+			    fidx = #{idx}
+			AND board_idx = #{boardIdx}
+			AND deleted_yn = 'N'
+		]]>
 	</select>
 	
 </mapper>

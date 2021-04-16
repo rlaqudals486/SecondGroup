@@ -1,13 +1,21 @@
 package com.second.group.controller;
 
-import java.util.ArrayList;
+
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.FileUtils;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.second.group.dto.SecondCommentDto;
+import com.second.group.dto.SecondFileDto;
 import com.second.group.dto.SecondRecipeDto;
 import com.second.group.dto.SecondUserDto;
 import com.second.group.service.SecondService;
@@ -77,7 +86,7 @@ public class SecondController {
 	public ModelAndView SecondList() throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondList");
 		
-//		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
+		List<SecondRecipeDto> recipeList = secondService.selectSecondRecipeList();
 		
 //		mv.addObject("list", recipeList);
 		
@@ -113,6 +122,70 @@ public class SecondController {
 		return "redirect:/second/secondList";
 	}
 
+	
+	@RequestMapping("/second/secondEdit")
+	public ModelAndView SecondEdit(@RequestParam int idx) throws Exception {
+		ModelAndView mv = new ModelAndView("/second/secondEdit");
+		
+		SecondRecipeDto recipe = secondService.selectRecipeDetail(idx);
+		
+		mv.addObject("recipe", recipe);
+		
+		return mv;
+	}
+	
+	@RequestMapping("/second/secondUpdate")
+	public String SecondUpdate(SecondRecipeDto recipe) throws Exception {
+		secondService.updateRecipe(recipe);
+		
+		return "redirect:/second/secondList";
+	}
+	
+	@RequestMapping("/second/secondRemove")
+	public ModelAndView SecondRemove(@RequestParam int idx) throws Exception {
+		ModelAndView mv = new ModelAndView("/second/secondRemove");
+		
+		SecondRecipeDto recipe = secondService.selectRecipeDetail(idx);
+		
+		mv.addObject("recipe", recipe);
+		
+		return mv;
+	}
+	
+	@RequestMapping("/second/secondFileDownload")
+	public void SecondFileDownload(@RequestParam int fidx, @RequestParam int boardIdx, HttpServletResponse response) throws Exception {
+		SecondFileDto secondFile = secondService.selectSecondFileInformation(fidx, boardIdx);
+		
+		if (ObjectUtils.isEmpty(secondFile) == false) {
+			
+			String fileName = secondFile.getFileName();
+			
+			byte[] files = FileUtils.readFileToByteArray(new File(secondFile.getStoredFilePath()));
+			
+			response.setContentType("application/octet-stream");
+			response.setContentLength(files.length);
+			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			
+			response.getOutputStream().write(files);
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+			
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+	@RequestMapping("/second/secondDelete")
+	public String SecondDelete(int idx) throws Exception {
+		secondService.deleteRecipe(idx);
+		
+		return "redirect:/second/secondList";
+	}
 	
 	@RequestMapping(value="/second", method=RequestMethod.GET)
 	public ModelAndView HomeList() throws Exception{

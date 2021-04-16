@@ -217,15 +217,22 @@
             <div class="recipeNameArea">
               <h1 class="recipeName mt-3 pl-4" style="display: inline-block;" th:text="${recipe.title}"></h1>
               <ul class="recipeInfo mt-4 p-0">
-                <li class="update" style="padding-left: 25px;">
-                  <p class="recipeDay"><i class="far fa-calendar-check pr-2 mr-2"></i> <span th:text="${recipe.createdDatetime}"></span></p>
+                <li class="update pr-0" style="padding-left: 25px;">
+                  <p class="recipeDay"><i class="far fa-calendar-check pr-2"></i> <span
+                      th:text="${recipe.createdDatetime}"></span></p>
                 </li>
-                <li class="recipeID">
-                  <li><span class="mr-1 pr-1 pl-1" style="background-color: darkgoldenrod; color: white;">레시피 ID</span>
-                  </li>
+                <li class="recipeID pr-0">
+                  <ul>
+                    <li class="mr-1 pr-1 pl-1 mr-2" style="background-color: darkgoldenrod; color: white;">레시피 번호
+                    <li th:text="${recipe.idx}"></li>
                 </li>
-                <li class="recipeType"><span class="mr-1 pr-1 pl-1"
-                    style="background-color: darkgoldenrod; color: white;">분류</span></li>
+              </ul>
+              </li>
+              <li class="recipeType">
+              <li class="mr-2 pr-1 pl-1" style="background-color: darkgoldenrod; color: white;">분류</li>
+              <li th:text="${recipe.classificationClassName}">
+              <li></li>
+
               </ul>
               <ul class="justify-content-end d-flex">
                 <li class="">
@@ -249,9 +256,11 @@
                 <div class="detail col-md-4">
                   <div class="bubble m-0" style="height:auto; padding: 10px;">
                     <p class="comment pb-1 mb-0">코멘트</p>
-                    <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
+                    <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;"
+                      th:text="${recipe.cookComment}">코멘트 텍스트</p>
                   </div>
-                  <p class="time mt-2 m-0"><i class="far fa-clock mr-2"></i>조리시간 : <span class="mr-2" th:text="cookTime"></span></p>
+                  <p class="time mt-2 m-0"><i class="far fa-clock mr-2"></i>조리시간 : <span class="mr-2"
+                      th:text="${recipe.cookTime}"></span></p>
                   <p class="igredient mt-2 mb-0 pb-1" style="border-bottom: 1px solid #d2c8be;"><span>재료</span></p>
                   <table>
                     <tbody>
@@ -294,7 +303,8 @@
               </table>
               <div class="bubble2 m-3" style="height:auto; padding: 10px;">
                 <p class="comment pb-1 mb-0">코멘트</p>
-                <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;">코멘트 텍스트</p>
+                <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;" th:text="${recipe.cookPoint}">
+                  코멘트 텍스트</p>
               </div>
             </div>
             <div class="keyword" style="width: auto; border-top: 1px dotted #d2c8be;">
@@ -330,9 +340,17 @@
                   </div>
                 </form>
               </div>
-            </div>
+            </div>    
           </section>
+          <div class="d-flex justify-content-end mt-4">
+            <a href="/second/secondList" class="btn btn-primary">목록으로</a>
+            <a type="button" class="btn btn-success ml-2" href="/second/secondEdit?idx=" th:attrappend="href=${recipe.idx}">수정하기</a>
+            <a type="button" class="btn btn-danger ml-2" href="/second/secondRemove?idx=" th:attrappend="href=${recipe.idx}">삭제하기</a>
+          </div>
         </div>
+          <div>
+          	<a th:each="list : ${recipe.fileList}" th:href="@{/second/secondFileDownload(fidx=${recipe.fidx}, boardIdx=${recipe.boardIdx})}" th:text="|${recipe.fileName} (${recipe.fileSize} kb)|"></a>
+          </div>							
         <div class="col-md-3">
           <div class="profileBox mt-4 p-2 pb-0"
             style="border: 1px solid #d2c8be; border-top: 3px solid #5a320a; background-color: white; width: 100%;">
