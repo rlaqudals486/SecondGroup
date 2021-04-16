@@ -40,50 +40,82 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<header>
+	<header class="bg-whight">
 		<div class="row">
-         <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
-            <div class="col-md-2">
-               <a class="display-4 text-warning"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
-                  href="/second">HOME recipe</a>
-            </div>
+			<div class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3">
+				<div class="col-sm-2">
+					<a class="display-4 text-warning"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+						href="/second">HOME recipe</a>
+				</div>
+	
+				<div class="col-sm-6">
+					<form action="" method="GET" class="form-group">
+						<div class="input-group">
+							<input name="" type="search" class="form-control"
+								placeholder="&#xf002; Search...">
 
-            <div class="col-md-6">
-               <form action="" method="GET" class="form-group">
-                  <div class="input-group">
-                     <input name="" type="search" class="form-control"
-                        placeholder="&#xf002; Search...">
+							<button type="submit" class="btn btn-outline-danger"
+								style="border: 0;">
+								<i class="fas fa-search" style="font-size: 1.5em;"></i>
+							</button>
+						</div>
+					</form>
+				</div>
 
-                     <button type="submit" class="btn btn-outline-success"
-                        style="border: 0;">
-                        <i class="fas fa-search" style="font-size: 1.5em;"></i>
-                     </button>
-                  </div>
-               </form>
-            </div>
-
-            <div class="input-group-append col-md-2 ">
-               <a class="text-dark"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                  <i class="far fa-user ml-5"></i>
-               </a> <a class="text-dark"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                  <i class="far fa-edit ml-5"></i>
-               </a> <a class="text-dark"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                  <i class="fas fa-book ml-5"></i>
-               </a>
-            </div>
-            
-            <div th:if="${session.userId} != null">
-				<p th:text="|${session.userId} 님 안녕하세요|"></p>
-				<a href="/second/logout" class="btn btn-outline-primary" id="btnLogout">로그 아웃</a>
+				<div class="input-group-append col-sm-2 ">
+					<a href="/second/SecondLogin" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-user ml-5"></i>
+					</a> <a href="/second/recipeDetailed" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-edit ml-5"></i>
+					</a> <a href="#" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="fas fa-book ml-5"></i>
+					</a>
+				</div>
 			</div>
-         </div>
-      </div>
+		</div>
+<div class="bg-danger">
+			<div class="container">
+				<nav class="topnav d-flex justify-content-center" id="myTopnav">
+					<div class="dropdown px-5">
+						<button id="btn1" class="dropbtn btn btn-danger " data-toggle="dropdown">목록</button>
+						<div class="dropdown-menu ">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">찌게</button>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">구이</button>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#" class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+
 	</header>
 	
+	
+	
+            
 	<main class="pt-4">
 		<div class="container bg-warning">
 			<div class="row wrapper">
@@ -116,7 +148,7 @@
 						<h3 class="pt-5"><strong>내 게시글 관리</strong></h3><hr>
 					</div>
 					
-					<div class="form-action">
+					<form action="/second/mySearch">
 						<div class="row pb-5 pl-4 pr-4">
 							<div class="col-sm-3 bg-light pt-3 pb-3" style="border: 1px solid black; border-right: 2px solid black;">
 								<h5 class="text-center pt-3"><strong>내 게시글 검색</strong></h5>
@@ -124,7 +156,7 @@
 							
 							<div class="col-sm-9 bg-light pt-3 pb-3" style="border:1px solid black">
 								<div class="input-group bg-white" style="border: 1px solid black">
-									<input type="text" class="form-control mb-2" id="textsearch" name="textsearch" placeholder="내용을 입력하세요." style="width: 80%; border: none;">
+									<input type="text" class="form-control mb-2" id="keyword" name="keyword" placeholder="내용을 입력하세요." style="width: 80%; border: none;">
 									<button type="submit" class="pr-4 bg-white" style="border: none;">
 										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 											<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -133,7 +165,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 						
 					<div class="form-action pt-5">
 						<table class="table">

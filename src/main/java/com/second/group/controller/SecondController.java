@@ -34,17 +34,42 @@ public class SecondController {
 
 	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
 	public String SecondMypage(HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession();
-		session.getAttribute("userId");
-		session.getAttribute("userPhone");
+		
 		return "/second/mypage";
 	}
 
 	@RequestMapping(value = "/second/myBoard", method = RequestMethod.GET)
-	public ModelAndView SelectSecondList() throws Exception {
+	public ModelAndView SelectSecondList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/second/myBoard");
-		List<SecondRecipeDto> list = secondService.selectSecondList();
+		HttpSession session = request.getSession();
+		
+		String userId = "";
+		if (session.getAttribute("userId") != null) {
+			userId = session.getAttribute("userId").toString();
+			List<SecondRecipeDto> list = secondService.selectSecondList(userId);
+			mv.addObject("data", list);
+		}
+		List<SecondRecipeDto> list = secondService.selectSecondList(userId);
 		mv.addObject("data", list);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/second/mySearch", method = RequestMethod.GET)
+	public ModelAndView SearchSecondList(HttpServletRequest request, String keyword) throws Exception {
+		ModelAndView mv = new ModelAndView("/second/myBoard");
+		HttpSession session = request.getSession();
+		String userId = "";
+		
+		try {
+			userId = session.getAttribute("userId").toString();
+			List<SecondRecipeDto> list = secondService.searchSecondList(userId, keyword);
+			mv.addObject("data", list);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return mv;
 	}
 	
@@ -52,9 +77,9 @@ public class SecondController {
 	public ModelAndView SecondList() throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondList");
 		
-		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
+//		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
 		
-		mv.addObject("list", recipeList);
+//		mv.addObject("list", recipeList);
 		
 		return mv;
 	}
@@ -77,8 +102,12 @@ public class SecondController {
 	}
 	
 	@RequestMapping("/second/recipeInsert")
-	public String SecondInsert(SecondRecipeDto recipe) throws Exception {
+	public String SecondInsert(SecondRecipeDto recipe, HttpServletRequest request) throws Exception {
 		
+		HttpSession session = request.getSession();
+		
+		session.getAttribute("userId");
+		recipe.setUserUserId(session.getAttribute("userId").toString());
 		secondService.insertRecipe(recipe);
 		
 		return "redirect:/second/secondList";
@@ -136,7 +165,7 @@ public class SecondController {
 			session.setAttribute("userYear", userInfo.getUserYear().toString());
 			session.setAttribute("userPhone", userInfo.getUserPhone().toString());
 			session.setAttribute("userGender", userInfo.getUserGender().toString());
-			session.setMaxInactiveInterval(600); 
+			session.setMaxInactiveInterval(600);
 			
 			return "redirect:/second/loginOK";
 		}

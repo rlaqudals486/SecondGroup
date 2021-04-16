@@ -14,13 +14,14 @@ public interface SecondMapper {
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
 	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
-	List<SecondRecipeDto> selectSecondList() throws Exception;
+	List<SecondRecipeDto> selectSecondList(@Param("userId") String userId) throws Exception;
+	List<SecondRecipeDto> searchSecondList(@Param("userId") String userId, @Param("keyword") String keyword) throws Exception;
 
 	void insertSecondJoin(SecondUserDto userData) throws Exception; // 회원가입
 	int idCheck(String userId); // 아이디 중복검사
 	int selectUserInfoYn(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception; // 로그인
-  void insertRecipe(SecondRecipeDto recipe) throws Exception;
-  SecondUserDto selectUserInfo(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception;
-  SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
+	void insertRecipe(SecondRecipeDto recipe) throws Exception;
+	SecondUserDto selectUserInfo(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception;
+	SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
 
 }

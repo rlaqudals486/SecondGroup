@@ -16,5 +16,7 @@ public class SecondRecipeDto {
 	public String recipeCoverImg;
 	public String recipeFilePath;
 	public String userUserIdx;
+	public String userUserId;
 	public String recommend;
+	public String keywords;
 }

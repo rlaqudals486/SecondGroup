@@ -37,14 +37,38 @@
 		]]>
 	</select>
 	
-	<select id="selectSecondList" resultType="com.second.group.dto.SecondRecipeDto">
+	<select id="selectSecondList" parameterType="String" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
-			SELECT
-				idx, created_datetime, title, recommend
-			FROM
-			    recipe
+			SELECT 
+				a.idx as idx, a.created_datetime as created_datetime, a.title as title,
+				a.recommend as recommend 
+			FROM 
+				recipe as a
+			JOIN
+				user as b
+            ON
+				a.user_user_id = b.user_id
 			WHERE
-			    recipe_deleted_yn = 'N'
+			   	b.user_id = #{userId}
+			ORDER BY idx DESC
+		]]>
+	</select>
+	
+	<select id="searchSecondList" parameterType="String" resultType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[
+			SELECT 
+				a.idx as idx, a.created_datetime as created_datetime, a.title as title,
+				a.recommend as recommend 
+			FROM 
+				recipe as a
+			JOIN
+				user as b
+            ON
+				a.user_user_id = b.user_id
+			WHERE
+			   b.user_id = #{userId}
+			AND
+				title like CONCAT('%', #{keyword}, '%')
 			ORDER BY idx DESC
 		]]>
 	</select>
@@ -122,4 +146,5 @@
 				user_pw = #{userPw}
 		 ]]>
 	</select>
+	
 </mapper>
