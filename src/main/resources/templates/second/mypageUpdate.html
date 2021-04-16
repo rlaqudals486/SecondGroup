@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>마이 페이지</title>
 
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
 <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
@@ -15,8 +18,34 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
-<script type="text/javascript">
+<script>
+	$(document).ready(function() {
+		$("#btnEdit").on("click", function() {
+			var frm = $("#frm")[0];
+			frm.action = "updateMyPage";
+			frm.submit();
+		});
+	});
 	
+	function pwConfirm() {
+		var p1 = document.getElementById('userPw').value;
+		var p2 = document.getElementById('pwCheck').value;
+		
+		if(p1.length < 6) {
+			alert('입력한 글자가 6글자 이상이어야 합니다.');
+			return false;
+		}
+		
+		if ( p1 != p2 ) {
+			$("#alert-success").css('display', 'none');
+			$("#alert-danger").css('display', 'inline-block');
+		}
+		
+		else {
+			$("#alert-success").css('display', 'inline-block');
+			$("#alert-danger").css('display', 'none');
+		}
+	}
 </script>
 
 <style>
@@ -99,7 +128,7 @@
 									</svg>
 									<h4 class="m-0 pl-3">내 정보</h4>
 								</a>
-								<a href="/second/myBoard" class="form-inline pt-4">
+								<a href="#" class="form-inline pt-4">
 									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 16">
 										 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
 										 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
@@ -122,33 +151,64 @@
 						<h3 class="pt-5"><strong>내 정보</strong></h3><hr>
 					</div>
 					
-					<div class="form-action">
-						<table class="table table-bordered">
-							<tbody>
-								<tr>
-									<th scope="row" class="align-middle text-center">아이디</th>
-									<td><p class="align-middle text-center m-0" th:text="|${session.userId}|"></p></td>
-								</tr>
-								<tr>
-									<th scope="row" class="align-middle text-center">생년월일</th>
-									<td><p class="align-middle text-center m-0" th:text="|${session.userYear}|"></p></td>
-								</tr>
-								<tr>
-									<th scope="row" class="align-middle text-center">휴대폰</th>
-									<td><p class="align-middle text-center m-0" th:text="|${session.userPhone}|"></p></td>
-								</tr>
-								<tr>
-									<th scope="row" class="align-middle text-center">성별</th>
-									<td><p class="align-middle text-center m-0" th:text="|${session.userGender}|"></p></td>
-								</tr>
-								<tr>
-									<th scope="row" class="align-middle text-center">프로필</th>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
+					<div>
+						<form id="frm" method="POST">
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th scope="row" class="align-middle text-center">아이디</th>
+										<td><p class="align-middle text-center m-0" th:text="|${session.userId}|"></p></td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">비밀번호</th>
+										<td><input type="password" class="form-control" id="userPw" name="userPw" placeholder="비밀번호는 6자 이상 입력해주세요"></td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">비밀번호 확인</th>
+										<td>
+											<input type="password" class="form-control" id="pwCheck" name="pwCheck" placeholder="다시 입력해 주세요" onclick="pwConfirm()">
+											<span id="alert-success" style="display: none; color: #28BD22; font-weight: bold; " class="ml-1">비밀번호가 일치합니다.</span>
+											<span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; " class="ml-1">비밀번호가 일치하지 않습니다.</span>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">생년월일</th>
+										<td>
+											<div class="form-group">
+												<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+													<input type="text" th:value="${session.userYear}" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="01/11/2020">
+														<div class="input-group-append pt-2" data-target="#datetimepicker1" data-toggle="datetimepicker">
+															<div class="input-group-text">
+																<i class="fa fa-calendar"></i>
+															</div>
+													</div>
+												</div>
+											</div>
+									    </td>
+									    <script type="text/javascript">
+									    $(function () { $('#datetimepicker1').datetimepicker({ format: 'L'}); $('#datetimepicker2').datetimepicker({ format: 'L', useCurrent: false }); $("#datetimepicker1").on("change.datetimepicker", function (e) { $('#datetimepicker2').datetimepicker('minDate', e.date); }); $("#datetimepicker2").on("change.datetimepicker", function (e) { $('#datetimepicker1').datetimepicker('maxDate', e.date); }); });
+									    </script>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">휴대폰</th>
+										<td><input type="text" class="form-control" th:value="${session.userPhone}" id="userPhone" name="userPhone" placeholder="'-'을 제외한 숫자 11자리를 입력하세요" maxlength="13"></td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">성별</th>
+										<td>
+											<p class="align-middle text-center m-0" th:text="|${session.userGender}|"></p>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="align-middle text-center">프로필 수정</th>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</form>
+						
 						<div class="mt-4">
-							<a href="/second/mypageUpdate" class="btn btn-light float-right pl-3 pr-3" style="border: 1px solid black;"><strong>수정</strong></a>
+							<button type="button" class="btn btn-light float-right pl-3 pr-3" id="btnEdit" style="border: 1px solid black;"><strong>수정</strong></button>
 						</div>
 						
 					</div>
@@ -157,8 +217,52 @@
 		</div>
 	</main>
 	
-	<footer>
-	
+	<footer class="mt-5 jumbotron">
+		<div class="container">
+			<h5 class="text-center text-light">made by HOME recipe</h5>
+		</div>
 	</footer>
+	
+	<script>
+		var autoHypenPhone = function(str) {
+				
+				str = str.replace(/[^0-9]/g, '');
+				var tmp = '';
+				if ( str.length < 4){
+					return str;
+				}
+				else if (str.length < 7) {
+					tmp += str.substr(0, 3);
+					tmp += '-';
+					tmp += str.substr(3);
+					return tmp;
+				}
+				else if (str.length < 11) {
+					tmp += str.substr(0, 3);
+					tmp += '-';
+					tmp += str.substr(3, 3);
+					tmp += '-';
+					tmp += str.substr(6);
+					return tmp;
+				}
+				else {
+					tmp += str.substr(0, 3);
+					tmp += '-';
+					tmp += str.substr(3, 4);
+					tmp += '-';
+					tmp += str.substr(7);
+					return tmp;
+				}
+				
+				return str;
+			}
+		
+			var userPhone = document.getElementById('userPhone');
+			
+			userPhone.onkeyup = function(){
+				console.log(this.value);
+				this.value = autoHypenPhone( this.value ) ;
+			}
+	</script>
 </body>
 </html>

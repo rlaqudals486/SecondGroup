@@ -18,8 +18,11 @@ public class SecondRecipeDto {
 	public String recipeCoverImg;
 	public String recipeFilePath;
 	public String userUserIdx;
+	public String userUserId;
 	public String recommend;
 	public int classificationClassCode;
 	public String classificationClassName;
+  public String keywords;
 	public List<SecondFileDto> fileList; 
+	
 }

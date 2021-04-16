@@ -8,15 +8,16 @@
 	<select id="selectSecondHomeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
-				idx, title,
+				idx, title, user_user_idx,
 			DATE_FORMAT
 				(created_datetime, '%Y.%m.%d') 
 			AS 
-				created_datetime
+				created_datetime, 
+				recipe_cover_img, recipe_file_path
 			FROM 
 				recipe
 			WHERE
-			    idx
+			   idx;
 		]]>
 	</select>
 	
@@ -38,16 +39,40 @@
 	
 	<select id="selectSecondRecipeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
-			SELECT
-				idx, created_datetime, title, recommend
-			FROM
-			    recipe
+			SELECT 
+				a.idx as idx, a.created_datetime as created_datetime, a.title as title,
+				a.recommend as recommend 
+			FROM 
+				recipe as a
+			JOIN
+				user as b
+            ON
+				a.user_user_id = b.user_id
 			WHERE
-			    recipe_deleted_yn = 'N'
+			   	b.user_id = #{userId}
 			ORDER BY idx DESC
 		]]>
 	</select>
 	
+	<select id="searchSecondList" parameterType="String" resultType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[
+			SELECT 
+				a.idx as idx, a.created_datetime as created_datetime, a.title as title,
+				a.recommend as recommend 
+			FROM 
+				recipe as a
+			JOIN
+				user as b
+            ON
+				a.user_user_id = b.user_id
+			WHERE
+			   b.user_id = #{userId}
+			AND
+				title like CONCAT('%', #{keyword}, '%')
+			ORDER BY idx DESC
+		]]>
+	</select>
+
 	<select id="selectRecipeDetail" parameterType="int" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT
@@ -76,6 +101,52 @@
     			(#{title}, #{ingredient}, #{cookComment}, #{cookPoint}, #{cookTime}, NOW(), #{recipeCoverImg}, #{classificationClassCode});
 		]]>
 	</insert>
+
+	<!-- 회원가입 -->
+	<select id="insertSecondJoin" parameterType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			INSERT INTO user 
+				(user_id, user_pw, user_phone, user_gender, user_year,
+				 user_comment, file_name, stored_file_path)
+			VALUES 
+				(#{userId}, #{userPw}, #{userPhone}, #{userGender},
+				 #{userYear}, #{userComment}, #{fileName}, #{storedFilePath})
+		]]>
+	</select>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="idCheck" resultType="int">
+		<![CDATA[
+			SELECT count(*) FROM user WHERE user_id = #{userId}
+		]]>
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="selectUserInfoYn" parameterType="map" resultType="int">
+		<![CDATA[
+			SELECT 
+				COUNT(*) AS cnt
+			FROM 
+				user
+			WHERE 
+				user_id = #{userId}
+			AND 
+				user_pw = #{userPw}
+		]]>
+	</select>
+	
+	<select id="selectUserInfo" parameterType="map" resultType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				user
+			WHERE
+				user_id = #{userId}
+			AND
+				user_pw = #{userPw}
+		 ]]>
+	</select>
 	
 	<insert id="insertSecondFileList" parameterType="com.second.group.dto.SecondFileDto">
 		<![CDATA[

@@ -22,15 +22,31 @@ public class SecondServiceImpl implements SecondService {
 	public List<SecondRecipeDto> selectSecondHomeList() throws Exception {
 		return secondMapper.selectSecondHomeList();
 	}
-  
-  public List<SecondRecipeDto> selectSecondList() throws Exception {
-		return secondMapper.selectSecondList();
+	
+	@Override
+	public void insertSecondJoin(SecondUserDto userData) throws Exception {
+		secondMapper.insertSecondJoin(userData);
 	}
 	
 	@Override
+	public int idCheck(String userId) throws Exception {
+		return secondMapper.idCheck(userId);
+	}
+	
+	@Override
+	public int selectUserInfoYn(String userId, String userPw) throws Exception {
+		return secondMapper.selectUserInfoYn(userId, userPw);
+	}
+	
+	@Override
+	public SecondUserDto selectUserInfo(String userId, String userPw) throws Exception {
+		return secondMapper.selectUserInfo(userId, userPw);
+	}
+	
 	public List<SecondUserDto> selectUserList() throws Exception{
 		return null;
 	}
+  
 	@Override
 	public List<SecondCommentDto> selectCommentHomeList() throws Exception{
 		return secondMapper.selectCommentHomeList();
@@ -40,6 +56,7 @@ public class SecondServiceImpl implements SecondService {
 	public List<SecondRecipeDto> selectSecondRecipeList() throws Exception {
 		return secondMapper.selectSecondRecipeList();
 	}
+
 
 	@Override
 	public SecondRecipeDto selectRecipeDetail(int idx) throws Exception {
@@ -55,10 +72,12 @@ public class SecondServiceImpl implements SecondService {
 
 	@Override
 	public void insertRecipe(SecondRecipeDto recipe) throws Exception {
-		
 		secondMapper.insertRecipe(recipe);
-		
-		
+	}
+
+	public List<SecondRecipeDto> selectSecondList(String userId) throws Exception {
+
+		return secondMapper.selectSecondList(userId);
 	}
 
 	@Override
@@ -77,11 +96,8 @@ public class SecondServiceImpl implements SecondService {
 		return secondMapper.selectSecondFileInformation(fidx, boardIdx);
 	}
 	
-//
-//	
-//	@Override
-//	public List<RecipeDto> selectSecondList() throws Exception {
-//		return secondMapper.selectSecondList();
-//	}
+	public List<SecondRecipeDto> searchSecondList(String userId, String keyword) throws Exception {
+		return secondMapper.searchSecondList(userId, keyword);
+	}
 
 }
