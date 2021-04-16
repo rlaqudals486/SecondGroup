@@ -11,10 +11,11 @@ public interface SecondService {
 	void insertSecondJoin(SecondUserDto userData) throws Exception; // 회원가입
 	int idCheck(String userId) throws Exception; // 아이디 중복 검사
 	int selectUserInfoYn(String userId, String userPw) throws Exception; // 로그인
-  SecondUserDto selectUserInfo(String userId, String userPw) throws Exception;
-
+	SecondUserDto selectUserInfo(String userId, String userPw) throws Exception;
+	
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
-	List<SecondRecipeDto> selectSecondList() throws Exception;
+	List<SecondRecipeDto> selectSecondList(String userId) throws Exception;
+	List<SecondRecipeDto> searchSecondList(String userId,String keyword) throws Exception;
 	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
 	
