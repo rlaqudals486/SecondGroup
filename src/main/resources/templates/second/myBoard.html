@@ -170,21 +170,24 @@
 					<div class="form-action pt-5">
 						<table class="table">
 							<colgroup>
-								<col width="15%" />
+								<col width="8%" />
+								<col width="10%" />
 								<col width="*%" />
 								<col width="40%" />
-								<col width="15%" />
+								<col width="12%" />
 							</colgroup>
 							<thead>
-								<tr>
+								<tr class="text-center">
+									<th><input type="checkbox" name="delete_user_ids" value="${data.idx}" /></th>
 									<th>글번호</th>
 									<th>작성일시</th>
 									<th>제목</th>
 									<th>추천</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody class="text-center">
 								<tr th:if="${#lists.size(data)} > 0" th:each="list : ${data}">
+									<td><input type="checkbox" name="delete_user_ids" value="${data.idx}" /></td>
 									<td th:text="${list.idx}"></td>
 									<td th:text="${list.createdDatetime}"></td>
 									<td th:text="${list.title}"></td>
