@@ -24,7 +24,7 @@ public interface SecondMapper {
   
 	List<SecondRecipeDto> searchSecondList(@Param("userId") String userId, @Param("keyword") String keyword) throws Exception;
   
-  List<SecondFileDto> selectSecondFileList(int boardIdx) throws Exception;
+	List<SecondFileDto> selectSecondFileList(int boardIdx) throws Exception;
 	
 	SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
 	
@@ -47,5 +47,9 @@ public interface SecondMapper {
 	SecondFileDto selectSecondFileInformation(@Param("fidx") int fidx, @Param("boardIdx") int boardIdx) throws Exception;
 	
 	void deleteMypage(@Param("idx") int idx) throws Exception;
+	
+	void bannedUser(@Param("userId") String userId) throws Exception;
+	
+	List<SecondUserDto> searchAdminUser(@Param("keyword") String keyword) throws Exception;
   
 }

@@ -44,7 +44,7 @@ public class SecondServiceImpl implements SecondService {
 	}
 	
 	public List<SecondUserDto> selectUserList() throws Exception{
-		return null;
+		return secondMapper.selectUserList();
 	}
   
 	@Override
@@ -102,6 +102,14 @@ public class SecondServiceImpl implements SecondService {
 	
 	public void deleteMypage(int idx) throws Exception {
 		secondMapper.deleteMypage(idx);
+	}
+	
+	public void bannedUser(String userId) throws Exception {
+		secondMapper.bannedUser(userId);
+	}
+	
+	public List<SecondUserDto> searchAdminUser(String keyword) throws Exception {
+		return secondMapper.searchAdminUser(keyword);
 	}
 
 }
