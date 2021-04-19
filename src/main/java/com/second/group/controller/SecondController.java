@@ -294,8 +294,23 @@ public class SecondController {
 
 		return "/second/mypageUpdate";
 	}
-
+	
+	@RequestMapping(value = "/second/myPageDelete", method = {RequestMethod.GET, RequestMethod.DELETE})
+	public String deleteMypage(@RequestParam("idx") List<String> idx) throws Exception {
+		if (idx == null || idx.size() > 0) {
+			for(String id : idx) {
+				int ids = Integer.parseInt(id);
+				secondService.deleteMypage(ids);
+			}
+		}
+		
+		return "redirect:/second/myBoard";
+	}
+	
 }
+
+
+
 
 
 

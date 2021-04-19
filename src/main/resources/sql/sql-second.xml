@@ -233,5 +233,15 @@
       ]]>
    </select>
 
+	<delete id="deleteMypage" parameterType="Integer" statementType="PREPARED">
+		<![CDATA[
+         	delete
+			from
+				recipe 
+			where
+				idx = #{idx}
+     	 ]]>
+	</delete>
+
 	
 </mapper>

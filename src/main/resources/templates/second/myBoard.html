@@ -16,8 +16,28 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
 <script type="text/javascript">
-	
-</script>
+		$(function(){
+			var chkObj = document.getElementsByName("idx");
+			var rowCnt = chkObj.length;
+			
+			$("input[name='allCheck']").click(function(){
+				var chk_listArr = $("input[name='idx']");
+				for (var i=0; i<chk_listArr.length; i++){
+					chk_listArr[i].checked = this.checked;
+				}
+			});
+			$("input[name='idx']").click(function(){
+				if($("input[name='idx']:checked").length == rowCnt){
+					$("input[name='allCheck']")[0].checked = true;
+				}
+				else{
+					$("input[name='allCheck']")[0].checked = false;
+				}
+			});
+		});
+		
+	</script>
+
 
 <style>
 	input {
@@ -77,7 +97,7 @@
 				</div>
 			</div>
 		</div>
-<div class="bg-danger">
+		<div class="bg-danger">
 			<div class="container">
 				<nav class="topnav d-flex justify-content-center" id="myTopnav">
 					<div class="dropdown px-5">
@@ -167,7 +187,7 @@
 						</div>
 					</form>
 						
-					<div class="form-action pt-5">
+					<form action="/second/myPageDelete" class="pt-5">
 						<table class="table">
 							<colgroup>
 								<col width="8%" />
@@ -178,7 +198,7 @@
 							</colgroup>
 							<thead>
 								<tr class="text-center">
-									<th><input type="checkbox" name="delete_user_ids" value="${data.idx}" /></th>
+									<th><input type="checkbox" id="allCheck" name="allCheck" value="${data.idx}" /></th>
 									<th>글번호</th>
 									<th>작성일시</th>
 									<th>제목</th>
@@ -187,7 +207,7 @@
 							</thead>
 							<tbody class="text-center">
 								<tr th:if="${#lists.size(data)} > 0" th:each="list : ${data}">
-									<td><input type="checkbox" name="delete_user_ids" value="${data.idx}" /></td>
+									<td><input type="checkbox" name="idx" th:value="${list.idx}" /></td>
 									<td th:text="${list.idx}"></td>
 									<td th:text="${list.createdDatetime}"></td>
 									<td th:text="${list.title}"></td>
@@ -199,9 +219,9 @@
 							</tbody>
 						</table>
 						<div class="pr-3">
-							<button type="button" class="btn btn-danger float-right" id="btnDel">삭제하기</button>
+							<button type="submit" class="btn btn-danger float-right" id="btnDel">삭제하기</button>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>

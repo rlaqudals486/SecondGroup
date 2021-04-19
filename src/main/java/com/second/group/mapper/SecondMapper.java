@@ -45,5 +45,7 @@ public interface SecondMapper {
 	SecondUserDto selectUserInfo(@Param("userId") String userId, @Param("userPw") String userPw) throws Exception;
  
 	SecondFileDto selectSecondFileInformation(@Param("fidx") int fidx, @Param("boardIdx") int boardIdx) throws Exception;
+	
+	void deleteMypage(@Param("idx") int idx) throws Exception;
   
 }
