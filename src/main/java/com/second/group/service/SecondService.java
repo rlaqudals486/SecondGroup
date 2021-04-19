@@ -28,7 +28,9 @@ public interface SecondService {
 	void updateRecipe(SecondRecipeDto recipe) throws Exception;
 	
 	void deleteRecipe(int idx) throws Exception;
+	void deleteMypage(int idx) throws Exception;
 	
 	SecondFileDto selectSecondFileInformation(int fidx, int boardIdx) throws Exception;
+	
 
 }

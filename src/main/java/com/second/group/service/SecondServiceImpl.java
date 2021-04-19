@@ -99,5 +99,9 @@ public class SecondServiceImpl implements SecondService {
 	public List<SecondRecipeDto> searchSecondList(String userId, String keyword) throws Exception {
 		return secondMapper.searchSecondList(userId, keyword);
 	}
+	
+	public void deleteMypage(int idx) throws Exception {
+		secondMapper.deleteMypage(idx);
+	}
 
 }
