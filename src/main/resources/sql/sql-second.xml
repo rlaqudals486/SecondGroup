@@ -242,6 +242,37 @@
 				idx = #{idx}
      	 ]]>
 	</delete>
-
 	
+	<select id="selectUserList" parameterType="map" resultType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			SELECT
+				user_id, user_level, user_gender, user_year, user_deleted_yn
+			FROM
+				user
+			ORDER BY user_level DESC
+		 ]]>
+	</select>
+	
+	<update id="bannedUser" parameterType="String">
+		<![CDATA[
+			UPDATE
+				user
+			SET 
+			    user_deleted_yn = 'Y'
+			WHERE
+			    user_id = #{userId}
+		]]>
+	</update>
+	
+	<select id="searchAdminUser" parameterType="map" resultType="com.second.group.dto.SecondUserDto">
+		<![CDATA[ 
+			SELECT
+				user_id, user_level, user_gender, user_year, user_deleted_yn
+			FROM
+				user
+			WHERE
+				user_id like CONCAT('%', #{keyword}, '%')
+			ORDER BY user_level DESC
+		 ]]>
+	</select>
 </mapper>

@@ -40,30 +40,9 @@
 	main article {
 		bottom: 100px;
 	}	
-		
-	input {
-		width: 100%;
-		border-radius: 20px;
-		border: 1px solid #bbb;
-		margin: 10px 0;
-		padding: 10px 12px;
-	}
 	
-	.form-group input {
-		height: 55px;
-		margin: 5px;
-		width: 100%;
-	}
-	
-	
-	.form-group button { font-size: 18px; background-color: warning; height: 57px; margin-top:28px;}
-	.form-group button:hover { background-color: coral; color: warning; }
-	
-	
-	.atag {
-		text-align: center;
-	}
-	
+	.btn { font-size: 18px; background-color: warning; height: 40px; margin-top:28px;}
+	.btn:hover { background-color: coral; color: white; }
 	
 	#footer {
 		position:absolute;
@@ -73,6 +52,21 @@
 		color: light;
 	}
 	
+	.card {
+
+	height: 280px;
+	width: 400px;
+	border-radius: 15px;
+	display: inline-block;
+	margin-left: 30px;
+	margin-bottom: 30px;
+	position: relative;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	overflow: hidden;
+	background-color: #f7f5f5;
+
+}
+
 </style>
 
 <script>
@@ -88,7 +82,7 @@
 <body class="bg">
 	<header class="jumbotron">
 		<div class="mx-auto">
-			<div class="text-center mx-auto mt-5 mb-5">
+			<div class="text-center mx-auto mt-5">
 				<div class="col-md">
 					<a class="display-4 text-warning" style="font-size: 4em; font-weight: bold; text-decoration: none;" href="/second">HOME recipe</a>
 				</div>
@@ -96,18 +90,20 @@
 		</div>
 	</header>
 	
-	<main class="container">
-		<section class="row">
-			<article class="col-sm-6 mx-auto">
-				<div class="text-center mx-auto my-4">
-					<div class="col-md">
-						<span style="font-size: 18px; font-weight: bold; text-decoration: none; color: #505050;">로그인에 실패했습니다.</span>
-					</div>
+	<main class="text-center mb-5 pb-5">
+		<section class="card">
+			<article class="card-body mx-auto">
+				<div style="padding-top: 20%">
+					<p class="card-body-description" style="font-size: 18px; font-weight: bold; text-decoration: none; color: #505050;">로그인에 실패했습니다.</p>
+					<div class="mt-4">
+					<a href="/second/SecondLogin" class="btn btn-outline-warning" id="btnLogout">돌아가기</a>
+				</div>
 				</div>
 			</article>
 		</section>
 	</main>
-	
+	<div class="mb-4 pb-5"></div>
+	<div class="mb-5 pb-5"></div>
 	<footer class="jumbotron">
 		<div class="container">
 			<h5 class="text-center text-light">made by HOME recipe</h5>

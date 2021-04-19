@@ -17,6 +17,7 @@ public interface SecondService {
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
 	List<SecondRecipeDto> selectSecondList(String userId) throws Exception;
 	List<SecondRecipeDto> searchSecondList(String userId,String keyword) throws Exception;
+	List<SecondUserDto> searchAdminUser(String keyword) throws Exception; // 마이페이지 회원검색
 	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
 	List<SecondRecipeDto> selectSecondRecipeList() throws Exception;
@@ -29,7 +30,7 @@ public interface SecondService {
 	
 	void deleteRecipe(int idx) throws Exception;
 	void deleteMypage(int idx) throws Exception;
-	
+	void bannedUser(String userId) throws Exception;
 	SecondFileDto selectSecondFileInformation(int fidx, int boardIdx) throws Exception;
 	
 

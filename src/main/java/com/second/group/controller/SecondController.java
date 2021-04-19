@@ -236,6 +236,7 @@ public class SecondController {
 			session.setAttribute("userYear", userInfo.getUserYear().toString());
 			session.setAttribute("userPhone", userInfo.getUserPhone().toString());
 			session.setAttribute("userGender", userInfo.getUserGender().toString());
+			session.setAttribute("userLevel", userInfo.getUserLevel().toString());
 			session.setMaxInactiveInterval(600);
 			
 			return "redirect:/second/loginOK";
@@ -305,6 +306,41 @@ public class SecondController {
 		}
 		
 		return "redirect:/second/myBoard";
+	}
+	
+	@RequestMapping(value="/second/adminPage", method=RequestMethod.GET)
+	public ModelAndView adminpage() throws Exception {
+		ModelAndView mv = new ModelAndView("/second/adminPage");
+		
+		List<SecondUserDto> userList = secondService.selectUserList();
+		mv.addObject("data", userList);
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/second/userBanned", method = {RequestMethod.GET, RequestMethod.PUT})
+	public ModelAndView bannedUser(@RequestParam("userId") List<String> userIds) throws Exception {
+		ModelAndView mv = new ModelAndView("/second/adminPage");
+		
+		List<SecondUserDto> userList = secondService.selectUserList();
+		mv.addObject("data", userList);
+		if (userIds.size() > 0 || userIds != null ) {
+			for(String ids : userIds) {
+				secondService.bannedUser(ids);
+			}
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/second/adminSearch", method = RequestMethod.GET)
+	public ModelAndView adminSearchUser(String keyword) throws Exception {
+		ModelAndView mv = new ModelAndView("/second/adminPage");
+		
+		List<SecondUserDto> list = secondService.searchAdminUser(keyword);
+		mv.addObject("data", list);
+		
+		return mv;
 	}
 	
 }

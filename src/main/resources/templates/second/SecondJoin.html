@@ -21,7 +21,7 @@
 
 <script>
 
-	/* 달력 */
+	// 달력
 	$(function() {
 		$("#datePicker").datepicker({
 			format: "yyyy-mm-dd",
@@ -31,7 +31,7 @@
 		});
 	});
 		
-	/* 비밀번호 확인 */
+	// 비밀번호 확인
 	function pwConfirm() {
 		var p1 = document.getElementById('userPw').value;
 		var p2 = document.getElementById('pwCheck').value;
@@ -51,6 +51,14 @@
 			$("#alert-danger").css('display', 'none');
 		}
 	}
+	
+	// 성별
+	function selectGender(){
+		var selectGender = $("#userGenderSel > option:selected").val();
+		$("#userGender").val(selectGender);
+	}
+
+	
 	
 </script>
 
@@ -134,18 +142,19 @@
 		
 	}
 	
-	#image_preview {
+	#image_preview2 {
 		width: 150px;
 		height: 150px; 
 		border-radius: 70%;
 		overflow: hidden;
+		text-align: center;
 	}
 
-	#image_preview img {
+	#img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-	}
+	} 
 	
 </style>
 
@@ -169,36 +178,46 @@
 			<article class="col-sm-6 mx-auto">
 				<form id="frm" name="frm" action="/second/SecondJoin" method="POST">
 					<!-- userId, userPw, userYear, userGender, userComment, fileName,  -->
+					
 					<div class="form-group">
 						<label for="userId" class="ml-1">아이디</label>
-						<input type="text" class="form-control" id="userId" name="userId">
-						<span id="id_input_re_1" class="ml-1">사용 가능한 아이디입니다.</span>
-						<span id="id_input_re_2" class="ml-1">아이디가 이미 존재합니다.</span>
+						
+						<span class="pt-2 ml-1" style="color: #d92742; font-size: 12px; float: right;">필수입력정보입니다.</span>
+						<span class="pt-1" style="color: #d92742; font-weight: bold; font-size: 20px; float: right;">*</span>
+						<input type="text" class="form-control" id="userId" name="userId" placeholder="* id">
+						<div class="check_font ml-2" id="id_check"></div>
+						<span id="id_input_re_1" class="ml-2">사용 가능한 아이디입니다.</span>
+						<span id="id_input_re_2" class="ml-2">아이디가 이미 존재합니다.</span>
 					</div>
 					<div class="form-group">
 						<label for="userPw" class="ml-1">비밀번호</label>
-						<input type="password" class="form-control" id="userPw" name="userPw" placeholder="password">
+						<input type="password" class="form-control" id="userPw" name="userPw" placeholder="* password">
+						<div class="check_font ml-2" id="pw_check"></div>
 					</div>
 					<div class="form-group">
 						<label for="pwCheck" class="ml-1">비밀번호 확인</label>
-						<input type="password" class="form-control" id="pwCheck" name="pwCheck" placeholder="password" onclick="pwConfirm()">
-						<span id="alert-success" style="display: none; color: #28BD22; font-weight: bold; " class="ml-1">비밀번호가 일치합니다.</span>
-						<span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; " class="ml-1">비밀번호가 일치하지 않습니다.</span>
+						<input type="password" class="form-control" id="pwCheck" name="pwCheck" placeholder="* password" onclick="pwConfirm()">
+						<div class="check_font ml-2" id="pw2_check"></div>
+						<span id="alert-success" style="display: none; color: #28BD22; font-weight: bold; " class="ml-2">비밀번호가 일치합니다.</span>
+						<span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; " class="ml-2">비밀번호가 일치하지 않습니다.</span>
 					</div>
 					<div class="form-group">
 						<label for="userYear" class="ml-1">생년월일</label>
 						<input type="text" class="form-control" id="datePicker" name="userYear" placeholder="선택하세요">
+						<div class="check_font ml-2" id="birth_check"></div>
 					</div>
 					<div class="form-group">
 						<label for="userPhone" class="ml-1">휴대전화</label>
-						<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="'-'을 제외한 숫자 11자리를 입력하세요" maxlength="13">
+						<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="* '-'을 제외한 숫자 11자리를 입력하세요" maxlength="13">
+						<div class="check_font ml-2" id="phone_check"></div>
 					</div>
 					<div class="form-group">
 						<label for="userGender" class="ml-1">성별</label>
-						<select class="form-control flex-fill" id="userGender">
-							<option value="" selected disabled hidden>선택하세요</option>
-							<option value="1">남성</option>
-							<option value="2">여성</option>
+						<input type="hidden" name="userGender" id="userGender">
+						<select class="form-control flex-fill" id="userGenderSel" onchange="javascript:selectGender();">
+							<option value="" selected disabled hidden>* 선택하세요</option>
+							<option value="남성">남성</option>
+							<option value="여성">여성</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -206,18 +225,19 @@
 						<br>
 						<input type="file" class="form-controll" name="fileName" id="fileName">
 					</div>
-					<div id="image_preview" class="text-center">
-						<img id="img1" src="#"/>
+					<div id="image_preview" style="display: none;">
+						<div id="image_preview2">
+							<img id="img" src="#"/>
+						</div>
 						<br>
-						<br>
-						<a href="#" style="font-size: 1em; font-weight: bold; text-decoration: none; color: #FF7F50;">이미지삭제</a>
+						<a href="#" style="font-size: 1em; font-weight: bold; text-decoration: none; color: #FF7F50;" class="ml-4 pl-2">이미지삭제</a>
 					</div>
 					<div class="form-group">
 					<br>
-						<label for="userComment">한줄소개</label>
+						<label for="userComment">한줄 소개</label>
 						<textarea id="userComment" name="userComment" class="form-control" cols="30" rows="5" placeholder="내용을 입력하세요"></textarea>
 					</div>
-					<button type="submit" class="btn btn-warning btn-block text-white form-control" id="btnSubmit">가입하기</button>
+					<button type="submit" class="btn btn-warning btn-block text-white form-control" id="submit">가입하기</button>
 				</form>
 			</article>
 		</section>
@@ -249,9 +269,11 @@
 		else {
 			file = $('#fileName').prop("files")[0];
 			blobURL = window.URL.createObjectURL(file);
+			$('#image_preview').css("display","inline-block");
 			$('#image_preview img').attr('src', blobURL);
 			$('#image_preview').slideDown(); //업로드한 이미지 미리보기 
-			$(this).slideUp(); //파일 양식 감춤
+			$(this).css("display","none"); //파일 양식 감춤
+			
 		}
 	});
 	/* 이미지 삭제 버튼 */
@@ -262,40 +284,13 @@
 		return false; //기본 이벤트 막음
 	});
 	/** 폼요소 초기화 */
-	/* function resetFormElement(e) {
+	function resetFormElement(e) {
 		e.wrap('<form>').closest('form').get(0).reset(); 
 		//리셋하려는 폼양식 요소를 폼(<form>) 으로 감싸고 (wrap()) , 
 		//요소를 감싸고 있는 가장 가까운 폼( closest('form')) 에서 Dom요소를 반환받고 ( get(0) ),
 		//DOM에서 제공하는 초기화 메서드 reset()을 호출
 		e.unwrap(); //감싼 <form> 태그를 제거
-	} */
-	
-	
-	//아이디 중복검사
-	$('#userId').on("propertychange change keyup paste input", function(){
-	
-		var userId = $('#userId').val();
-		var data = {userId : userId}
-		
-		$.ajax({
-			type : "post",
-			url : "/second/idCheck",
-			data : data,
-			success : function(result){
-				
-				if(result != 'fail'){
-					$('#id_input_re_1').css("display","inline-block");
-					$('#id_input_re_2').css("display", "none");
-				}
-				else {
-					$('#id_input_re_2').css("display","inline-block");
-					$('#id_input_re_1').css("display", "none");
-				}
-				
-			}
-		});
-		
-	});
+	}
 	
 	
 	/* 전화번호 - 자동 입력 */
@@ -339,6 +334,154 @@
 		this.value = autoHypenPhone( this.value ) ;
 	}
 	
+	
+	//모든 공백 체크 정규식
+	var empJ = /\s/g;
+	//아이디 정규식 - a~z, 0~9로 시작하는 5~12 자리 아이디 가능
+	var idJ = /^[a-z0-9]{5,12}$/;
+	// 비밀번호 정규식 - A~Z, a~z, 0~9로 시작하는 4~12 자리 비밀번호 가능
+	var pwJ = /^[A-Za-z0-9]{6,12}$/;
+	// 휴대폰 번호 정규식
+	var phoneJ = /^01([0|1|6|7|8|9]?)-([0-9]{3,4})-([0-9]{4})$/;
+	
+	// 비밀번호 정규식 체크
+	$('#userPw').blur(function() {
+		if (pwJ.test($('#userPw').val())) {
+			console.log('true');
+			$('#pw_check').text('');
+		}
+		else {
+			console.log('false');
+			$('#pw_check').text('숫자 or 문자로만 6~12자리 입력하세요.');
+			$('#pw_check').css('color', '#d92742');
+			$('#pw_check').css('font-weight', 'bold');
+		}
+	});
+		
+	// 아이디 정규식 체크
+	$('#userId').blur(function() {
+		if (idJ.test($('#userId').val())) {
+			console.log('true');
+			$('#id_check').text('');
+			
+			//아이디 중복검사
+			var userId = $('#userId').val();
+			var data = {userId : userId}
+			
+			//아이디 중복 시 버튼 비활성화
+			function btnActive() {
+				const target = document.getElementById('submit');
+				target.disabled = false;
+			}
+			
+			function btnDisabled() {
+				const target = document.getElementById('submit');
+				target.disabled = true;
+			}
+			
+			$.ajax({
+				type : "post",
+				url : "/second/idCheck",
+				data : data,
+				success : function(result){
+					
+					if(result != 'fail'){
+						$('#id_input_re_1').css("display","inline-block");
+						$('#id_input_re_2').css("display", "none");
+						btnActive();
+					}
+					
+					else {
+						$('#id_input_re_2').css("display","inline-block");
+						$('#id_input_re_1').css("display", "none");
+						btnDisabled();
+					}
+					
+				}
+			});
+		}
+		else {
+			console.log('false');
+			$('#id_check').text('영소문자 or 숫자로만 5~12자리 입력하세요.');
+			$('#id_check').css('color', '#d92742');
+			$('#id_check').css('font-weight', 'bold');
+			$('#id_input_re_2').css("display","none");
+			$('#id_input_re_1').css("display", "none");
+		}
+	});
+	
+	
+	// 휴대전화
+	$('#userPhone').blur(function(){
+		if(phoneJ.test($(this).val())){
+			console.log(phoneJ.test($(this).val()));
+			$("#phone_check").text('');
+		} else {
+			$('#phone_check').text('번호를 다시 확인해주세요.');
+			$('#phone_check').css('color', '#d92742');
+			$('#phone_check').css('font-weight', 'bold');
+		}
+	});
+	
+	
+	// 가입하기 실행 버튼 유효성 검사
+	var inval_Arr = new Array(4).fill(false);
+	$('#submit').click(function(){
+		// 비밀번호가 같은 경우 && 비밀번호 정규식
+		if (($('#userPw').val() == ($('#pwCheck').val()))
+				&& pwJ.test($('#userPw').val())) {
+			inval_Arr[0] = true;
+		} 
+		else {
+			inval_Arr[0] = false;
+		}
+		console.log(inval_Arr[0]);
+		// 아이디 정규식
+		if (idJ.test($('#userId').val())) {
+			inval_Arr[1] = true;
+		} 
+		else {
+			inval_Arr[1] = false;
+		}
+		console.log(inval_Arr[1]);
+		// 휴대전화 정규식
+		if (phoneJ.test($('#userPhone').val())) {
+			console.log(phoneJ.test($('#userPhone').val()));
+			inval_Arr[2] = true;
+		} 
+		else {
+			inval_Arr[2] = false;
+		}
+		console.log(inval_Arr[2]);
+		// 성별 정규식
+		var valGender = $("#userGender").val();
+		if (!valGender) {
+			console.log(valGender);
+			inval_Arr[3] = false;
+		} 
+		else {
+			inval_Arr[3] = true;
+		}
+		console.log(inval_Arr[3]);
+		var validAll = true;
+		for(var i = 0; i < inval_Arr.length; i++){
+			
+			if(inval_Arr[i] == false){
+				validAll = false;
+			}
+		}
+		
+		console.log(validAll);
+		
+		if(validAll){ // 유효성 모두 통과
+			alert('가입 성공했습니다.');
+			
+		} 
+		else{
+			alert('입력한 정보들을 다시 한번 확인해주세요.');
+			return false;
+		}
+	});
 	</script>
 </body>
 </html>
