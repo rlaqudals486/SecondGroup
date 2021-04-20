@@ -64,10 +64,10 @@
 				</div>
 
 				<div class="input-group-append col-sm-2 ">
-					<a href="/second/SecondLogin" class="text-dark"
+					<a href="/second/SecondIcon1" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="far fa-user ml-5"></i>
-					</a> <a href="/second/recipeDetailed" class="text-dark"
+					</a> <a href="/second/secondDetail" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="far fa-edit ml-5"></i>
 					</a> <a href="#" class="text-dark"
@@ -152,19 +152,25 @@
 				</div>
 				<div class="col-md-9">
 					<div class="p-4">
-						<h3 class="pt-5"><strong>내 정보</strong></h3><hr>
+						<h4 class="pt-5"><strong th:text="|${session.userId}|"></strong> 님의 마이페이지</h4><hr>
 					</div>
 					
-					<div class="form-action">
+					<div class="row ml-1 mr-1 mb-5" style="border: 1px solid gray;">
+						<div class="col-md-4" style="border-right: 1px solid gray;">
+							<p>프로필</p>
+						</div>
+						<div class="col-md-8 pt-4 pb-4">
+							<h4>나의 소개</h4>
+							<h5 th:text="|${session.userComment}|"></h5>
+						</div>
+					</div>
+					
+					<div>
 						<table class="table table-bordered">
 							<tbody>
 								<tr>
-									<th scope="row" class="align-middle text-center">아이디</th>
-									<td><p class="align-middle text-center m-0" th:text="|${session.userId}|"></p></td>
-								</tr>
-								<tr>
-									<th scope="row" class="align-middle text-center">생년월일</th>
-									<td><p class="align-middle text-center m-0" th:text="|${session.userYear}|"></p></td>
+									<th scope="row" class="align-middle text-center" style="width:34%;">생년월일</th>
+									<td style="width:66%;"><p class="align-middle text-center m-0" th:text="|${session.userYear}|"></p></td>
 								</tr>
 								<tr>
 									<th scope="row" class="align-middle text-center">휴대폰</th>
@@ -174,10 +180,7 @@
 									<th scope="row" class="align-middle text-center">성별</th>
 									<td><p class="align-middle text-center m-0" th:text="|${session.userGender}|"></p></td>
 								</tr>
-								<tr>
-									<th scope="row" class="align-middle text-center">프로필</th>
-									<td></td>
-								</tr>
+								
 							</tbody>
 						</table>
 						<div class="mt-4">
