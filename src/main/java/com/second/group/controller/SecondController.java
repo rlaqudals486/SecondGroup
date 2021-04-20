@@ -209,8 +209,20 @@ public class SecondController {
 		return mv;
 
 	}
-
 	
+	@RequestMapping(value = "/second/SecondIcon1", method=RequestMethod.GET)
+	public String SecondHomeIconMypage(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		
+		if (session.getAttribute("userId") != null) {
+			return "/second/myPage";
+		}
+		
+		else {
+			return "/second/SecondLogin";
+		}
+	}
+
 //	로그인
 	@RequestMapping(value = "/second/SecondLogin", method=RequestMethod.GET)
 	public String SecondLogin() throws Exception {
