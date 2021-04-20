@@ -168,15 +168,8 @@ public class SecondController {
 			response.getOutputStream().write(files);
 			response.getOutputStream().flush();
 			response.getOutputStream().close();
-			
-			
 		}
-		
 	}
-	
-	
-	
-	
 	
 	@RequestMapping("/second/secondDelete")
 	public String SecondDelete(int idx) throws Exception {
@@ -231,18 +224,23 @@ public class SecondController {
 		int count = secondService.selectUserInfoYn(userId, userPw); 
 		if (count == 1) {
 			SecondUserDto userInfo = secondService.selectUserInfo(userId, userPw);
-			HttpSession session = request.getSession();
-			session.setAttribute("userId", userId);
-			session.setAttribute("userYear", userInfo.getUserYear().toString());
-			session.setAttribute("userPhone", userInfo.getUserPhone().toString());
-			session.setAttribute("userGender", userInfo.getUserGender().toString());
-			session.setAttribute("userLevel", userInfo.getUserLevel().toString());
-			session.setMaxInactiveInterval(600);
 			
-			return "redirect:/second/loginOK";
+			if (userInfo.getUserDeletedyn().equals("N")) {
+				HttpSession session = request.getSession();
+				session.setAttribute("userId", userId);
+				session.setAttribute("userYear", userInfo.getUserYear().toString());
+				session.setAttribute("userPhone", userInfo.getUserPhone().toString());
+				session.setAttribute("userGender", userInfo.getUserGender().toString());
+				session.setAttribute("userLevel", userInfo.getUserLevel().toString());
+				session.setMaxInactiveInterval(600);
+				return "redirect:/second/loginOK";
+			}
+			else {
+				return "redirect:/second/loginFail";
+			}
 		}
 		else {
-			return "redirect:/second/loginFail";
+			return "redirect:/second/SecondLoginFail";
 		}
 	}
 	
@@ -251,8 +249,13 @@ public class SecondController {
 		return "/second/loginOK";
 	}
 	
-	@RequestMapping(value="/second/loginFail", method=RequestMethod.GET)
+	@RequestMapping(value="/second/SecondLoginFail", method=RequestMethod.GET)
 	public String loginFail() throws Exception {
+		return "/second/SecondLoginFail";
+	}
+	
+	@RequestMapping(value="/second/loginFail", method=RequestMethod.GET)
+	public String loginBanned() throws Exception {
 		return "/second/loginFail";
 	}
 	
