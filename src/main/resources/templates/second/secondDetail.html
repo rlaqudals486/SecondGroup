@@ -170,8 +170,62 @@
 
   <script src="https://kit.fontawesome.com/3c25fcea14.js" crossorigin="anonymous"></script>
   <script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
-  <script src="/js/popper.js" th:src="@{/js/popper.js}"></script>
+  <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
   <script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+  
+  <script th:inline="javascript">
+  	var stepCount = 1;
+  
+  	/*<![CDATA[*/
+  	$(document).ready(function() {
+  		var ingredient = /*[[${recipe.ingredient}]]*/
+  		
+  		// 오류 나는 거 정상임
+  		var arringred = ingredient.split("&");
+  		
+  		for (var i = 0; i < arringred.length; i++) {
+  			var items = arringred[i];
+  			console.log(items);
+  			
+  			var tag = "<tr class='Tableigredient p-1' style='border-bottom: 1px dotted #d2c8be;''>";
+  			
+  			
+  			var arrItems = items.split(",");
+  			
+  			for (var j = 0; j < arrItems.length; j++) {
+  				console.log(arrItems[j]);
+  				tag += "<td>" + arrItems[j] + "</td>";
+  			}
+  			
+  			tag += "</tr>";
+  		
+  			$("#ingredientBody").append(tag);
+  		}
+  	});
+  	/*]]>*/
+  	
+  	/*<![CDATA[*/
+  	$(document).ready(function() {
+  		var cooking= /*[[${recipe.cooking}]]*/
+  		
+  		// 오류 나는 거 정상임
+  		var arrCooking = cooking.split("&");
+  		
+  		for (var c = 0; c < arrCooking.length; c++) {
+  			var step = arrCooking[c];
+  			console.log(step);
+  			
+  			var ctag = "<tr>";
+  			ctag += "<td>" + stepCount++ + "</td>";
+  			ctag += "<td>" + arrCooking[c] + "</td>";		
+  			ctag += "<td></td>"
+  			ctag += "</tr>";
+  		
+  			$("#stepBody").append(ctag);
+  		}
+  	});
+  	/*]]>*/
+  </script>
 </head>
 
 <body>
@@ -229,7 +283,7 @@
               </ul>
               </li>
               <li class="recipeType">
-              <li class="mr-2 pr-1 pl-1" style="background-color: darkgoldenrod; color: white;">분류</li>
+              	<li class="mr-2 pr-1 pl-1" style="background-color: darkgoldenrod; color: white;">분류</li>
               <li th:text="${recipe.classificationClassName}">
               <li></li>
 
@@ -263,42 +317,25 @@
                       th:text="${recipe.cookTime}"></span></p>
                   <p class="igredient mt-2 mb-0 pb-1" style="border-bottom: 1px solid #d2c8be;"><span>재료</span></p>
                   <table>
-                    <tbody>
-                      <tr class="Tableigredient p-1" style="border-bottom: 1px dotted #d2c8be;">
-                        <td class="">우유</td>
-                        <td>1팩</td>
-                      </tr>
+                    <tbody id="ingredientBody">
+                      <!-- <tr class="Tableigredient p-1" style="border-bottom: 1px dotted #d2c8be;">
+                        <td></td>
+                        <td></td>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
             <div class="stepBox container pt-5">
-              <p class="pb-2" style="border-bottom: 1px solid #d2c8be;">조리 과정</p>
+              <p class="pb-2 mb-0" style="border-bottom: 1px solid #d2c8be;">조리 과정</p>
               <table style="width: 100%;">
-                <tbody>
-                  <tr class="step">
+                <tbody id="stepBody">
+                  <!-- <tr>
                     <td>1</td>
-                    <td class="contents">스파게티면을 8분정도 삶아주었어요
-                      개인차가 있겠지만 저는 8분정도 끓여주어야 꼬들하니 식감이 좋더라구요^^
-                      8분이 지난 스파게티면은 찬물에 헹구지 말고 체에 걸러서 물기만 제거해주세요.</td>
+                    <td class="contents"></td>
                     <td></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td class="contents">파스타 조리</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td class="contents">파스타 조리</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td class="contents">파스타 조리</td>
-                    <td></td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
               <div class="bubble2 m-3" style="height:auto; padding: 10px;">
