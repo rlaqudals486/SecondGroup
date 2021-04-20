@@ -221,7 +221,7 @@
 									<td><input type="checkbox" name="idx" th:value="${list.idx}" /></td>
 									<td th:text="${list.idx}"></td>
 									<td th:text="${list.createdDatetime}"></td>
-									<td th:text="${list.title}"></td>
+									<td><a href="/second/secondDetail?idx=" th:attrappend="href=${list.idx}" th:text="${list.title}"></a></td>
 									<td th:text="${list.recommend}"></td>
 								</tr>
 								<tr th:unless="${#lists.size(data)} > 0">

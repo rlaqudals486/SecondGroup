@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -86,7 +87,7 @@ public class SecondController {
 		
 		List<SecondRecipeDto> recipeList = secondService.selectSecondRecipeList();
 		
-//		mv.addObject("list", recipeList);
+		mv.addObject("list", recipeList);
 		
 		return mv;
 	}
@@ -211,11 +212,36 @@ public class SecondController {
 	}
 	
 	@RequestMapping(value = "/second/SecondIcon1", method=RequestMethod.GET)
-	public String SecondHomeIconMypage(HttpServletRequest request) throws Exception {
+	public String SecondHomeIconMypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		
+		System.out.println("현재 주소 : " + request.getRequestURI());
+		
+		Cookie cookie = new Cookie("currentUrl", request.getRequestURI());
+		cookie.setMaxAge(60 * 10);
+		response.addCookie(cookie);
 		
 		if (session.getAttribute("userId") != null) {
 			return "/second/myPage";
+		}
+		
+		else {
+			return "/second/SecondLogin";
+		}
+	}
+	
+	@RequestMapping(value = "/second/SecondIcon2", method=RequestMethod.GET)
+	public String SecondHomeIconMypage2(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		
+		System.out.println("현재 주소 : " + request.getRequestURI());
+		
+		Cookie cookie = new Cookie("currentUrl", request.getRequestURI());
+		cookie.setMaxAge(60 * 10);
+		response.addCookie(cookie);
+		
+		if (session.getAttribute("userId") != null) {
+			return "/second/secondWrite";
 		}
 		
 		else {
@@ -244,6 +270,7 @@ public class SecondController {
 				session.setAttribute("userPhone", userInfo.getUserPhone().toString());
 				session.setAttribute("userGender", userInfo.getUserGender().toString());
 				session.setAttribute("userLevel", userInfo.getUserLevel().toString());
+				session.setAttribute("userComment", userInfo.getUserComment().toString());
 				session.setMaxInactiveInterval(600);
 				return "redirect:/second/loginOK";
 			}
@@ -257,8 +284,30 @@ public class SecondController {
 	}
 	
 	@RequestMapping(value="/second/loginOK", method=RequestMethod.GET)
-	public String loginOK(HttpServletRequest request) throws Exception {
-		return "/second/loginOK";
+	public ModelAndView loginOK(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Cookie[] cookies = request.getCookies();
+		
+		String url = "";
+		
+		for (int i = 0; i < cookies.length; i++) {
+			if (cookies[i].getName().equals("currentUrl")) {
+				url = cookies[i].getValue();
+				
+				Cookie cookie = new Cookie("currentUrl", null);
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+				break;
+			}
+		}
+		
+		ModelAndView mv = new ModelAndView("/second/loginOK");
+		
+		mv.addObject("url", url);
+		return mv;
+		
+//		return "redirect:" + url;
+		
+//		return "/second/loginOK";
 	}
 	
 	@RequestMapping(value="/second/SecondLoginFail", method=RequestMethod.GET)
