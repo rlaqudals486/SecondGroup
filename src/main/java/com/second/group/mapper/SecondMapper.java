@@ -39,7 +39,7 @@ public interface SecondMapper {
 	
 	void deleteRecipe(int idx) throws Exception;
   
-  void insertSecondJoin(SecondUserDto userData) throws Exception; // 회원가입
+	void insertSecondJoin(SecondUserDto userData) throws Exception; // 회원가입
   
 	int idCheck(String userId); // 아이디 중복검사
   

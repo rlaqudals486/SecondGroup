@@ -3,6 +3,7 @@ package com.second.group.service;
 import java.util.List;
 
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.second.group.dto.SecondCommentDto;
 import com.second.group.dto.SecondFileDto;
 import com.second.group.dto.SecondRecipeDto;
@@ -28,8 +29,9 @@ public interface SecondService {
 	
 	SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
 	
-	public void insertRecipe(SecondRecipeDto recipe) throws Exception;
 
+	public void insertRecipe(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
+	public void insertSecondFileList(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
 	List<SecondRecipeDto> searchSecondList(String search) throws Exception;
 	void updateRecipe(SecondRecipeDto recipe) throws Exception;
 	

@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.second.group.common.FileUtil;
 import com.second.group.dto.SecondCommentDto;
 import com.second.group.dto.SecondFileDto;
 import com.second.group.dto.SecondRecipeDto;
@@ -17,6 +20,9 @@ public class SecondServiceImpl implements SecondService {
 
 	@Autowired
 	SecondMapper secondMapper;
+	
+	@Autowired
+	FileUtil fileUtil;
 	
 	@Override
 	public List<SecondRecipeDto> selectSecondHomeList() throws Exception {
@@ -71,9 +77,30 @@ public class SecondServiceImpl implements SecondService {
 	}
 
 	@Override
-	public void insertRecipe(SecondRecipeDto recipe) throws Exception {
+	public void insertRecipe(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception {
+		
+		List<SecondFileDto> fileList = fileUtil.parseFileInfo(recipe.getIdx(), uploadFiles);
+		
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			secondMapper.insertSecondFileList(fileList);
+		}
+		
 		secondMapper.insertRecipe(recipe);
+		
 	}
+	
+	@Override
+	public void insertSecondFileList(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception {
+		
+		List<SecondFileDto> fileList = fileUtil.parseFileInfo(recipe.getIdx(), uploadFiles);
+		
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			secondMapper.insertSecondFileList(fileList);
+		}
+		
+	}
+	
+	
 
 	public List<SecondRecipeDto> selectSecondList(String userId) throws Exception {
 
@@ -126,5 +153,7 @@ public class SecondServiceImpl implements SecondService {
 	  return secondMapper.searchSecondList(search);
 	  
   }
+
+
 
 }

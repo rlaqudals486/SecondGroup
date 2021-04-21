@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.second.group.dto.SecondCommentDto;
@@ -82,22 +83,19 @@ public class SecondController {
 		return mv;
 	}
 	
-	// 검색, 리스트
-	@RequestMapping("/second/secondList")
-	public ModelAndView SecondList(@RequestParam("search") String search) throws Exception {
+
+	@RequestMapping(value = "/second/secondList", method = RequestMethod.GET)
+	public ModelAndView SecondList() throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondList");
 		
-		// 검색어를 매개변수로 사용하는 서비스의 조회부분
-		List<SecondRecipeDto> recipeList = secondService.searchSecondList(search);
-			System.out.println(search);
+		List<SecondRecipeDto> recipeList = secondService.selectSecondRecipeList();
 
-		
 		mv.addObject("list", recipeList);
 		return mv;
 		
 	}
 	
-	@RequestMapping("/second/secondDetail")
+	@RequestMapping(value = "/second/secondDetail", method = RequestMethod.GET)
 	public ModelAndView SecondDetail(@RequestParam int idx) throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondDetail");
 		
@@ -108,26 +106,41 @@ public class SecondController {
 		return mv;
 	}
 	
-	@RequestMapping("/second/secondWrite")
+	@RequestMapping(value = "/second/secondWrite", method = RequestMethod.GET)
 	public String SecondWrite() throws Exception {
 		
 		return "/second/secondWrite";
 	}
 	
-	@RequestMapping("/second/recipeInsert")
-	public String SecondInsert(SecondRecipeDto recipe, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/second/recipeInsert", method = RequestMethod.POST)
+	public String SecondInsert(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception {
 		
-		HttpSession session = request.getSession();
+		secondService.insertRecipe(recipe, uploadFiles);
 		
-		session.getAttribute("userId");
-		recipe.setUserUserId(session.getAttribute("userId").toString());
-		secondService.insertRecipe(recipe);
+		/*
+		 * HttpSession session = request.getSession();
+		 * 
+		 * session.getAttribute("userId");
+		 * recipe.setUserUserId(session.getAttribute("userId").toString());
+		 * secondService.insertRecipe(recipe);
+		 */
 		
 		return "redirect:/second/secondList";
 	}
-
 	
-	@RequestMapping("/second/secondEdit")
+	
+	  @RequestMapping(value = "/second/secondFileInsert", method = RequestMethod.POST) 
+	  public String SecondFileInsert(SecondRecipeDto recipeFile,
+	  MultipartHttpServletRequest uploadFiles) throws Exception {
+	  
+	  secondService.insertSecondFileList(recipeFile, uploadFiles);
+	  
+	  return "redirect:/second/secondList";
+	 
+	  }
+	 
+	
+	@RequestMapping(value = "/second/secondEdit", method = RequestMethod.GET)
 	public ModelAndView SecondEdit(@RequestParam int idx) throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondEdit");
 		
@@ -138,14 +151,14 @@ public class SecondController {
 		return mv;
 	}
 	
-	@RequestMapping("/second/secondUpdate")
+	@RequestMapping(value = "/second/secondUpdate", method = RequestMethod.POST)
 	public String SecondUpdate(SecondRecipeDto recipe) throws Exception {
 		secondService.updateRecipe(recipe);
 		
 		return "redirect:/second/secondList";
 	}
 	
-	@RequestMapping("/second/secondRemove")
+	@RequestMapping(value = "/second/secondRemove", method = RequestMethod.GET)
 	public ModelAndView SecondRemove(@RequestParam int idx) throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondRemove");
 		
@@ -156,28 +169,30 @@ public class SecondController {
 		return mv;
 	}
 	
-	@RequestMapping("/second/secondFileDownload")
-	public void SecondFileDownload(@RequestParam int fidx, @RequestParam int boardIdx, HttpServletResponse response) throws Exception {
-		SecondFileDto secondFile = secondService.selectSecondFileInformation(fidx, boardIdx);
-		
-		if (ObjectUtils.isEmpty(secondFile) == false) {
-			
-			String fileName = secondFile.getFileName();
-			
-			byte[] files = FileUtils.readFileToByteArray(new File(secondFile.getStoredFilePath()));
-			
-			response.setContentType("application/octet-stream");
-			response.setContentLength(files.length);
-			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
-			response.setHeader("Content-Transfer-Encoding", "binary");
-			
-			response.getOutputStream().write(files);
-			response.getOutputStream().flush();
-			response.getOutputStream().close();
-		}
-	}
+	/*
+	 * @RequestMapping("/second/secondFileDownload") public void
+	 * SecondFileDownload(@RequestParam int fidx, @RequestParam int boardIdx,
+	 * HttpServletResponse response) throws Exception { SecondFileDto secondFile =
+	 * secondService.selectSecondFileInformation(fidx, boardIdx);
+	 * 
+	 * if (ObjectUtils.isEmpty(secondFile) == false) {
+	 * 
+	 * String fileName = secondFile.getFileName();
+	 * 
+	 * byte[] files = FileUtils.readFileToByteArray(new
+	 * File(secondFile.getStoredFilePath()));
+	 * 
+	 * response.setContentType("application/octet-stream");
+	 * response.setContentLength(files.length);
+	 * response.setHeader("Content-Disposition", "attachment; fileName=\"" +
+	 * URLEncoder.encode(fileName, "UTF-8") + "\";");
+	 * response.setHeader("Content-Transfer-Encoding", "binary");
+	 * 
+	 * response.getOutputStream().write(files); response.getOutputStream().flush();
+	 * response.getOutputStream().close(); } }
+	 */
 	
-	@RequestMapping("/second/secondDelete")
+	@RequestMapping(value = "/second/secondDelete", method = RequestMethod.POST)
 	public String SecondDelete(int idx) throws Exception {
 		secondService.deleteRecipe(idx);
 		

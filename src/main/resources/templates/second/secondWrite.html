@@ -25,7 +25,6 @@
 
         	});
         	
-
             $("#btn-ingre").click(function () {
             	ingredientCount++;
             	var tagFormat = "<li>";
@@ -40,13 +39,14 @@
 
             $("#btn-step").click(function () {
                 count1++;
+                stepCount++;
                 var tagFormat = "<div class='container d-flex mb-3 mt-0'>";
                 tagFormat += "<p class='step-p ml-4 mt-5'>Step ";
                 tagFormat += "<span id='step-count'>" + count1 + "</span></p>";
                 tagFormat += "<textarea class='stepBox p-2' name='cooking'";
-                tagFormat += "id='cooking-" + stepCount + "rows='5'  style='margin-left: 24px;'  placeholder='예) 돼지고기를 익혀주세요'></textarea>";
+                tagFormat += "id='cooking-" + stepCount + "'rows='5'  style='margin-left: 24px;'  placeholder='예) 돼지고기를 익혀주세요'></textarea>";
                 tagFormat += "<label for='recipeImg'><img src='/images/사진 추가(십자).jpg'></label>";
-                tagFormat += " <input type='file' id='recipeImg' name='recipeImg' multiple='multiple' style='display: none;'/></div>";
+                tagFormat += "<input type='file' id='recipeImg' name='recipeImg' multiple='multiple' style='display: none;'/></div>";
 
                 $("#stepDiv").append(tagFormat);
             });
@@ -54,18 +54,20 @@
             $("#btn-submit").on("click", function() {
             	var ingredient = ingredientText();
             	var step = stepText();
-
+            	
             	var frm = $("#frm")[0];
        			var datas = {
        					title : $("#title").val(),
        					createdDatetime : $("#createdDatetime").val(),
        					ingredient : ingredient,
-       					cooking : stepText, 
+       					cooking : step, 
        					cookTime : $("#cookTime").val(),
        					cookComment : $("#cookComment").val(),
        					cookPoint : $("#cookPoint").val(),
        					recipeDeletedYn : $("#recipeDeletedYn").val(),
        					fileName : $("#fileName").val(),
+       					storedFilePath : $("#storedFilePath").val(),
+       					fileSize : $("#fileSize").val(),
        					classificationClassCode : $("#classificationClassCode").val(),
        					classificationClassName	: $("#classificationClassName").val() 
        			};
@@ -81,6 +83,21 @@
             		error: function() {
             			alert("오류발생");
             		}
+            	});
+            	
+            	$.ajax({
+            		url: "/second/secondFileInsert",
+            		type: "post",
+            		enctype: "multipart/form-data",
+            		data : datas,
+            		processData: false,
+            		contentType: false,
+            		cache: false,
+            		success: function(datas) {
+            		},
+            		error: function() {
+            		}
+            		
             	});
  //            	frm.submit();
                });
