@@ -125,6 +125,7 @@ input {
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
 						href="/second">HOME recipe</a>
 				</div>
+
 				<!-- 검색창 -->
 				<div class="col-sm-6">
 					<form action="/second/secondList" method="GET" class="form-group">
@@ -140,27 +141,24 @@ input {
 					</form>
 				</div>
 
-				<div class="input-group-append col-sm-4 ">
-					<a href="/second/SecondLogin" class="text-dark"
+				<div class="input-group-append col-sm-2 ">
+					<a href="/second/SecondIcon1" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="far fa-user ml-5"></i>
-					</a> <a href="second/secondDetail" class="text-dark"
+					</a>
+					<a href="/second/SecondIcon2" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="far fa-edit ml-5"></i>
-					</a> <a href="#" class="text-dark"
+					</a> 
+					<a href="#" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-book ml-5"></i>
 					</a>
-					<div>
-						<p th:if="${session.userId} != null"
-							th:text="|${session.userId} 님 안녕하세요|"></p>
-						<a href="/second/SecondLogin" class="btn btn-outline-primary ml-5"
-							id="btnLogin">로그인</a>
-						<p th:if="${session.userId} != null"
-							th:text="|${session.userId} 님 안녕하세요|"></p>
-						<a href="/second/logout" class="btn btn-outline-primary ml-2"
-							id="btnLogout">로그 아웃</a>
-					</div>
+					
+				</div>
+				<div th:if="${session.userId} != null">
+					<p th:text="|${session.userId} 님 안녕하세요|"></p>
+					<a href="/second/logout" class="btn btn-outline-primary" id="btnLogout">로그 아웃</a>
 				</div>
 
 			</div>
@@ -193,6 +191,7 @@ input {
 							<a href="#" class="dropdown-item">오시는길</a>
 						</div>
 					</div>
+					
 				</nav>
 			</div>
 		</div>

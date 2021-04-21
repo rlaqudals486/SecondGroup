@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>레시피 작성</title>
+    <title>레시피 수정</title>
 
     <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 
@@ -14,8 +14,6 @@
 
     <script>
         var count1 = 1;
-        var ingredientCount = 1;
-        var stepCount = 1;
 
         $(document).ready(function () {
         	$("textarea").keyup(function() {
@@ -25,65 +23,27 @@
 
         	});
         	
+        	$("#btnCancel").on("click", function() {
+    			window.history.back();
+    		});
 
             $("#btn-ingre").click(function () {
-            	ingredientCount++;
-            	var tagFormat = "<li>";
-            	tagFormat += "<input class='input-ingre' type='text' name='ingredient'"; 
-            	tagFormat += "id='ingredient-" + ingredientCount + "' placeholder='예) 돼지고기'>";
-            	tagFormat += "<input class='input-ingre ml-4' type='text' name='ingredient'"; 
-            	tagFormat += "id='ingredient-qt-" + ingredientCount + "' placeholder='예) 300g'>";
-            	tagFormat += "</li>";
-            	
-                $("ul").append(tagFormat);
+                $("ul").append(
+                    "<li><input class='input-ingre' type='text' name='ingre-name' id='ingre-name' placeholder='예) 돼지고기'><input class='input-ingre ml-4' type='text' name='ingre-size' id='ingre-size' placeholder='예) 300g'></li>"
+                );
             });
 
             $("#btn-step").click(function () {
                 count1++;
-                var tagFormat = "<div class='container d-flex mb-3 mt-0'>";
+                var tagFormat = "<div class='container d-flex mb-3 mt-2'>";
                 tagFormat += "<p class='step-p ml-4 mt-5'>Step ";
                 tagFormat += "<span id='step-count'>" + count1 + "</span></p>";
-                tagFormat += "<textarea class='stepBox p-2' name='cooking'";
-                tagFormat += "id='cooking-" + stepCount + "rows='5'  style='margin-left: 24px;'  placeholder='예) 돼지고기를 익혀주세요'></textarea>";
-                tagFormat += "<label for='recipeImg'><img src='/images/사진 추가(십자).jpg'></label>";
-                tagFormat += " <input type='file' id='recipeImg' name='recipeImg' multiple='multiple' style='display: none;'/></div>";
+                tagFormat +=
+                    "<textarea class='stepBox p-2' name='stepText' id='stepText' rows='5'  style='margin-left: 24px;'  placeholder='예) 돼지고기를 익혀주세요'></textarea>";
+                tagFormat += "<img src='./images/pic_none3.gif' alt=''></div>";
 
                 $("#stepDiv").append(tagFormat);
             });
-            
-            $("#btn-submit").on("click", function() {
-            	var ingredient = ingredientText();
-            	var step = stepText();
-
-            	var frm = $("#frm")[0];
-       			var datas = {
-       					title : $("#title").val(),
-       					createdDatetime : $("#createdDatetime").val(),
-       					ingredient : ingredient,
-       					cooking : stepText, 
-       					cookTime : $("#cookTime").val(),
-       					cookComment : $("#cookComment").val(),
-       					cookPoint : $("#cookPoint").val(),
-       					recipeDeletedYn : $("#recipeDeletedYn").val(),
-       					fileName : $("#fileName").val(),
-       					classificationClassCode : $("#classificationClassCode").val(),
-       					classificationClassName	: $("#classificationClassName").val() 
-       			};
-       			
-            	$.ajax({
-            		url: "/second/recipeInsert",
-            		type: "post",
-            		data: datas,
-            		success: function(datas) {
-            			alert("성공적으로 저장하였습니다.");
-            			location.href="/second/secondList";
-            		},
-            		error: function() {
-            			alert("오류발생");
-            		}
-            	});
- //            	frm.submit();
-               });
 
             stepCountInit();
         });
@@ -91,35 +51,10 @@
         function stepCountInit() {
             $("#step-count").text(count1);
         }
-        
-        function ingredientText() {
-        	var result = "";
-        	for (var i = 1; i <= ingredientCount; i++) {
-        		var ingredientTag = "ingredient-" + i;
-        		var ingredientQtTag = "ingredient-qt-" + i;
-        		result += $("#" + ingredientTag).val();
-        		result += ",";
-        		result += $("#" + ingredientQtTag).val();
-        		result += "\&";
-        	}
-        	result = result.slice(0, -1);
-        	
-        	return result;
-        }
-        
-        function stepText() {
-        	var result = "";
-        	for (var i = 1; i <= stepCount; i++) {
-        		var stepTag = "cooking-" + i;
-        		result += $("#" + stepTag).val();
-        		result += "\&";
-        	}
-        	
-        	result = result.slice(0, -1);
-        	
-        	return result;
-        }
 
+        function submitComment() {
+
+        }
     </script>
 
     <style>
@@ -224,10 +159,7 @@
             border: 1px solid #d2c8be;
             margin: 10px;
             cursor: pointer;
-            outline: none;
         }
-        
-        
 
         .lastbtn {
             width: 10%;
@@ -280,29 +212,25 @@
     </header>
 
     <main>
-        <form action="/second/recipeInsert" method="POST" id="frm" enctype="multipart/form-data">
+        <form action="/second/secondUpdate" method="POST">
             <div class="container recipe-write mt-4 p-3">
                 <h4>레시피 등록</h4>
                 <div class="d-flex pt-2">
                     <label for="title">레시피 작성</label>
                     <input class="input-write" type="text" name="title" id="title"
-                        placeholder="제목을 작성해 주세요">
+                        th:value="${recipe.title}">
+                    <input type="hidden" name="idx" th:value="${recipe.idx}">
                 </div>
                 <div class="row" style="margin-bottom: 30px;">
                     <label for="cookComment col-md">요리 소개</label>
-                    <textarea class="writeCooking p-2" name="cookComment" id="cookComment" rows="5" placeholder="100자 이내로 입력해주세요."></textarea>
+                    <textarea class="writeCooking p-2" name="cookComment" id="cookComment" rows="5" th:text="${recipe.cookComment}"></textarea>
                     <label for="cookPoint col-md">요리 팁</label>
-                    <textarea class="writeCooking p-2" name="cookPoint" id="cookPoint" rows="5" placeholder="100자 이내로 입력해주세요."></textarea>
+                    <textarea class="writeCooking p-2" name="cookPoint" id="cookPoint" rows="5" th:text="${recipe.cookPoint}"></textarea>
                 </div>
-                <div class="photoBox">
-                    <label class="errorlabel" for="photo" style="position: relative; top: -100px">요리 사진</label>
-                    <label for="fileName">
-                    	<img src="/images/사진 추가(대표).jpg">
-                    </label>
-                    <input type="file" id="fileName" name="fileName" multiple="multiple" style="display: none;"/>
+                <div class="photoBox" style="margin-bottom: 30px;">
+                    <label class="errorlabel" for="photo">요리 사진</label>
+                    <img src="./images/pic_none4.gif" alt="" id="photo" style="width: 250px; height: 250px; margin: 0;">
                 </div>
-                
-        
                 <div class="classification">
                     <label class="errorlabel" for="categori">카테고리</label>
                     <select name="classificationClassCode" id="classificationClassCode">
@@ -328,7 +256,7 @@
                 </div>
                 <div class="information">
                     <label class="errorlabel" for="cookTime">조리 시간</label>
-                    <input class="input-ingre" type="text" name="cookTime" id="cookTime" placeholder="예) 10분 이내">
+                    <input class="input-ingre" type="text" name="cookTime" id="cookTime" th:value="${recipe.cookTime}">
                 </div>
             </div>
 
@@ -337,9 +265,9 @@
                     <label class="errorlabel m-0">요리 재료</label>
                     <ul id="ingreUl">
                         <li>
-                            <input class="input-ingre" type="text" name="ingredient" id="ingredient-1"
-                                placeholder="예) 돼지고기">
-                            <input class="input-ingre ml-4" type="text" name="ingredient" id="ingredient-qt-1"
+                            <input class="input-ingre" type="text" name="ingredient" id="ingredient"
+                                th:text="${ingredient}">
+                            <input class="input-ingre ml-4" type="text" name="ingre-size" id="ingre-size"
                                 placeholder="예) 300g">
                         </li>
                     </ul>
@@ -353,25 +281,29 @@
             <div class="container recipe-step mt-4 p-3">
                 <div id="stepDiv">
                     <label class="errorlabel" for="">요리 순서</label>
-                    <div class="container d-flex mb-0">
+                    <div class="container d-flex mb-2">
                         <p class="step-p ml-4 mt-5">Step <span id="step-count">1</span></p>
-                        <textarea class="stepBox p-2" name="cooking" id="cooking-1" rows="5" style="margin-left: 24px;"
+                        <textarea class="stepBox p-2" name="stepText" id="stepText" rows="5" style="margin-left: 24px;"
                             placeholder="예) 돼지고기를 익혀주세요"></textarea>
-                        <label for="recipeImg">                    
-	                        <img src="/images/사진 추가(십자).jpg">
-                        </label>
-                        <input type="file" id="recipeImg" name="recipeImg" multiple="multiple" style="display: none;"/>
+                        <img src="./images/pic_none3.gif" alt="">
                     </div>
                 </div>
                 <div class="text-center">
                     <button type="button" class="btn btn-success mb-2" id="btn-step"
-                        style="position: relative; right: 82px; top: 5px">순서 추가</button>
+                        style="position: relative; right: 82px; top: 20px">순서 추가</button>
                 </div>
 
+                <div class="d-flex">
+                    <label for="errorlabel">요리 완성 사진</label>
+                    <img src="./images/pic_none3.gif" alt="">
+                    <img src="./images/pic_none3.gif" alt="">
+                    <img src="./images/pic_none3.gif" alt="">
+                    <img src="./images/pic_none3.gif" alt="">
+                </div>
             </div>
 
             <div class="container recipe-tag mt-4 p-3">
-                <div class="d-flex" style="position: relative; top: 12px;">
+                <div class="d-flex">
                     <label class="errorlabel" for="tag">태그</label>
                     <input class="input-write" type="text" name="tag" id="tag">
                 </div>
@@ -379,8 +311,8 @@
 
             <div class="container recipe-submit mt-4 mb-5 p-3">
                 <div class="text-center m-3">
-					<button class="lastbtn btn btn-success mr-2" type="button" value="save" id="btn-submit">저장</button>
-                    <button class="lastbtn btn btn-danger" type="reset" value="cancle" onclick = "location.href = '/second/secondList'">취소</button>
+                    <button class="lastbtn btn btn-success mr-2" type="submit" value="update">수정하기</button>
+                    <button class="lastbtn btn btn-secondary" id="btnCancel" type="button">취소</button>
                 </div>
             </div>
         </form>

@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>마이 페이지</title>
+<title>회원관리 페이지</title>
 
 <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -16,7 +16,25 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
 <script type="text/javascript">
-	
+	$(function(){
+		var chkObj = document.getElementsByName("userIdx");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck']").click(function(){
+			var chk_listArr = $("input[name='userIdx']");
+			for (var i=0; i<chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='userIdx']").click(function(){
+			if($("input[name='userIdx']:checked").length == rowCnt){
+				$("input[name='allCheck']")[0].checked = true;
+			}
+			else{
+				$("input[name='allCheck']")[0].checked = false;
+			}
+		});
+	});
 </script>
 
 <style>
@@ -40,43 +58,77 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<header>
+	<header class="bg-whight">
 		<div class="row">
-         <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
-            <div class="col-md-2">
-               <a class="display-4 text-warning"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
-                  href="/second">HOME recipe</a>
-            </div>
+			<div class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3">
+				<div class="col-sm-2">
+					<a class="display-4 text-warning"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+						href="/second">HOME recipe</a>
+				</div>
+	
+				<div class="col-sm-6">
+					<form action="" method="GET" class="form-group">
+						<div class="input-group">
+							<input name="" type="search" class="form-control"
+								placeholder="&#xf002; Search...">
 
-            <div class="col-md-6">
-               <form action="" method="GET" class="form-group">
-                  <div class="input-group">
-                     <input name="" type="search" class="form-control"
-                        placeholder="&#xf002; Search...">
+							<button type="submit" class="btn btn-outline-danger"
+								style="border: 0;">
+								<i class="fas fa-search" style="font-size: 1.5em;"></i>
+							</button>
+						</div>
+					</form>
+				</div>
 
-                     <button type="submit" class="btn btn-outline-success"
-                        style="border: 0;">
-                        <i class="fas fa-search" style="font-size: 1.5em;"></i>
-                     </button>
-                  </div>
-               </form>
-            </div>
+				<div class="input-group-append col-sm-2 ">
+					<a href="/second/SecondLogin" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-user ml-5"></i>
+					</a> <a href="/second/recipeDetailed" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-edit ml-5"></i>
+					</a> <a href="#" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="fas fa-book ml-5"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="bg-danger">
+			<div class="container">
+				<nav class="topnav d-flex justify-content-center" id="myTopnav">
+					<div class="dropdown px-5">
+						<button id="btn1" class="dropbtn btn btn-danger " data-toggle="dropdown">목록</button>
+						<div class="dropdown-menu ">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">찌게</button>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">구이</button>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#" class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
 
-            <div class="input-group-append col-md-2 ">
-               <a class="text-dark"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                  <i class="far fa-user ml-5"></i>
-               </a> <a class="text-dark"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                  <i class="far fa-edit ml-5"></i>
-               </a> <a class="text-dark"
-                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                  <i class="fas fa-book ml-5"></i>
-               </a>
-            </div>
-         </div>
-      </div>
 	</header>
 	
 	<main class="pt-4">
@@ -102,24 +154,34 @@
 									</svg>
 									<h4 class="m-0 pl-3">내 게시글 관리</h4>
 								</a>
+								<div th:if="${session.userLevel} == A">
+									<a href="/second/adminPage" class="form-inline pt-4" >
+									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" 										class="bi bi-people-fill" viewBox="0 0 16 16">
+  										<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+  <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+  <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+</svg>
+									<h4 class="m-0 pl-3" th:text="회원관리"></h4>
+								</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-9">
 					<div class="p-4">
-						<h3 class="pt-5"><strong>내 게시글 관리</strong></h3><hr>
+						<h3 class="pt-5"><strong>회원 관리</strong></h3><hr>
 					</div>
 					
-					<div class="form-action">
+					<form action="/second/adminSearch">
 						<div class="row pb-5 pl-4 pr-4">
 							<div class="col-sm-3 bg-light pt-3 pb-3" style="border: 1px solid black; border-right: 2px solid black;">
-								<h5 class="text-center pt-3"><strong>내 게시글 검색</strong></h5>
+								<h5 class="text-center pt-3"><strong>회원 검색</strong></h5>
 							</div>
 							
 							<div class="col-sm-9 bg-light pt-3 pb-3" style="border:1px solid black">
 								<div class="input-group bg-white" style="border: 1px solid black">
-									<input type="text" class="form-control mb-2" id="textsearch" name="textsearch" placeholder="내용을 입력하세요." style="width: 80%; border: none;">
+									<input type="text" class="form-control mb-2" id="keyword" name="keyword" placeholder="아이디를 입력하세요." style="width: 80%; border: none;">
 									<button type="submit" class="pr-4 bg-white" style="border: none;">
 										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 											<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -127,41 +189,47 @@
 									</button>
 								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 						
-					<div class="form-action pt-5">
-						<table class="table">
-							<colgroup>
-								<col width="15%" />
+					<form action="/second/userBanned" class="pt-5">
+						<table class="table text-center">
+							<colgroup>								
+								<col width="9%" />
+								<col width="13%" />
+								<col width="13%" />
+								<col width="13%" />
 								<col width="*%" />
-								<col width="40%" />
-								<col width="15%" />
+								<col width="20%" />
 							</colgroup>
 							<thead>
 								<tr>
-									<th>글번호</th>
-									<th>작성일시</th>
-									<th>제목</th>
-									<th>추천</th>
+									<th><input type="checkbox" id="allCheck" name="allCheck" /></th>
+									<th>아이디</th>
+									<th>등급</th>
+									<th>성별</th>
+									<th>생년월일</th>
+									<th>정지상태</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:if="${#lists.size(data)} > 0" th:each="list : ${data}">
-									<td th:text="${list.idx}"></td>
-									<td th:text="${list.createdDatetime}"></td>
-									<td th:text="${list.title}"></td>
-									<td th:text="${list.recommend}"></td>
+									<td><input type="checkbox" name="userId" th:value="${list.userId}" /></td>
+									<td th:text="${list.userId}"></td>
+									<td th:text="${list.userLevel}"></td>
+									<td th:text="${list.userGender}"></td>
+									<td th:text="${list.userYear}"></td>
+									<td th:text="${list.userDeletedyn}"></td>
 								</tr>
 								<tr th:unless="${#lists.size(data)} > 0">
-									<td colspan="4">조회된 결과가 없습니다.</td>
+									<td colspan="5">조회된 결과가 없습니다.</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="pr-3">
-							<button type="button" class="btn btn-danger float-right" id="btnDel">삭제하기</button>
+							<button type="submit" class="btn btn-danger float-right" id="btnDel">정지</button>
 						</div>
-					</div>
+					</form>	
 				</div>
 			</div>
 		</div>
