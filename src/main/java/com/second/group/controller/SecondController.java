@@ -1,11 +1,13 @@
 package com.second.group.controller;
 
 
+
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -81,15 +83,16 @@ public class SecondController {
 		return mv;
 	}
 	
+
 	@RequestMapping(value = "/second/secondList", method = RequestMethod.GET)
 	public ModelAndView SecondList() throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondList");
 		
 		List<SecondRecipeDto> recipeList = secondService.selectSecondRecipeList();
-		
+
 		mv.addObject("list", recipeList);
-		
 		return mv;
+		
 	}
 	
 	@RequestMapping(value = "/second/secondDetail", method = RequestMethod.GET)
@@ -205,35 +208,60 @@ public class SecondController {
 		
 		
 		//images test용(img폴더 설정되면 지우고 lists에 연결 해야됨.)
-		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
-		SecondRecipeDto item1 = new SecondRecipeDto();
-		SecondRecipeDto item2 = new SecondRecipeDto();
-		SecondRecipeDto item3 = new SecondRecipeDto();
-		SecondRecipeDto item4 = new SecondRecipeDto();
-			
-		item1.setRecipeFilePath("/img/001.jpg");
-		item2.setRecipeFilePath("/img/002.jpg");
-		item3.setRecipeFilePath("/img/003.jpg");
-		item4.setRecipeFilePath("/img/004.jpg");
-		list.add(item1);
-		list.add(item2);
-		list.add(item3);
-		list.add(item4);
+//		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
+//		SecondRecipeDto item1 = new SecondRecipeDto();
+//		SecondRecipeDto item2 = new SecondRecipeDto();
+//		SecondRecipeDto item3 = new SecondRecipeDto();
+//		SecondRecipeDto item4 = new SecondRecipeDto();
+//			
+//		item1.setRecipeFilePath("/img/001.jpg");
+//		item2.setRecipeFilePath("/img/002.jpg");
+//		item3.setRecipeFilePath("/img/003.jpg");
+//		item4.setRecipeFilePath("/img/004.jpg");
+//		list.add(item1);
+//		list.add(item2);
+//		list.add(item3);
+//		list.add(item4);
 		
 		
 		mv.addObject("comment", comment);
-		mv.addObject("datas", list);
+//		mv.addObject("datas", list);
 		mv.addObject("data", lists);
 		return mv;
 
 	}
 	
 	@RequestMapping(value = "/second/SecondIcon1", method=RequestMethod.GET)
-	public String SecondHomeIconMypage(HttpServletRequest request) throws Exception {
+	public String SecondHomeIconMypage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		
+		System.out.println("현재 주소 : " + request.getRequestURI());
+		
+		Cookie cookie = new Cookie("currentUrl", request.getRequestURI());
+		cookie.setMaxAge(60 * 10);
+		response.addCookie(cookie);
 		
 		if (session.getAttribute("userId") != null) {
 			return "/second/myPage";
+		}
+		
+		else {
+			return "/second/SecondLogin";
+		}
+	}
+	
+	@RequestMapping(value = "/second/SecondIcon2", method=RequestMethod.GET)
+	public String SecondHomeIconMypage2(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		
+		System.out.println("현재 주소 : " + request.getRequestURI());
+		
+		Cookie cookie = new Cookie("currentUrl", request.getRequestURI());
+		cookie.setMaxAge(60 * 10);
+		response.addCookie(cookie);
+		
+		if (session.getAttribute("userId") != null) {
+			return "/second/secondWrite";
 		}
 		
 		else {
@@ -262,6 +290,8 @@ public class SecondController {
 				session.setAttribute("userPhone", userInfo.getUserPhone().toString());
 				session.setAttribute("userGender", userInfo.getUserGender().toString());
 				session.setAttribute("userLevel", userInfo.getUserLevel().toString());
+				session.setAttribute("userComment", userInfo.getUserComment().toString());
+				session.setAttribute("storedFilePath", userInfo.getStoredFilePath().toString());
 				session.setMaxInactiveInterval(600);
 				return "redirect:/second/loginOK";
 			}
@@ -275,8 +305,30 @@ public class SecondController {
 	}
 	
 	@RequestMapping(value="/second/loginOK", method=RequestMethod.GET)
-	public String loginOK(HttpServletRequest request) throws Exception {
-		return "/second/loginOK";
+	public ModelAndView loginOK(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Cookie[] cookies = request.getCookies();
+		
+		String url = "";
+		
+		for (int i = 0; i < cookies.length; i++) {
+			if (cookies[i].getName().equals("currentUrl")) {
+				url = cookies[i].getValue();
+				
+				Cookie cookie = new Cookie("currentUrl", null);
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+				break;
+			}
+		}
+		
+		ModelAndView mv = new ModelAndView("/second/loginOK");
+		
+		mv.addObject("url", url);
+		return mv;
+		
+//		return "redirect:" + url;
+		
+//		return "/second/loginOK";
 	}
 	
 	@RequestMapping(value="/second/SecondLoginFail", method=RequestMethod.GET)
@@ -321,12 +373,6 @@ public class SecondController {
 		
 		if(result != 0) { return "fail"; } else { return "success"; } 
 		
-	}
-	
-	@RequestMapping(value = "/second/mypageUpdate", method = {RequestMethod.GET, RequestMethod.PUT})
-	public String mypageUpdate() throws Exception {
-
-		return "/second/mypageUpdate";
 	}
 	
 	@RequestMapping(value = "/second/myPageDelete", method = {RequestMethod.GET, RequestMethod.DELETE})
@@ -375,6 +421,27 @@ public class SecondController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)
+	public String MypageFile() throws Exception {
+		return "/second/mypageUpdate";
+	}
+	
+	/*
+	 * @RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)
+	 * public ModelAndView MypageFile(HttpServletRequest request) throws Exception {
+	 * 
+	 * ModelAndView mv = new ModelAndView("/second/mypageUpdate"); HttpSession
+	 * session = request.getSession();
+	 * 
+	 * String userId1 = ""; if (session.getAttribute("userId") != null) { userId1 =
+	 * session.getAttribute("userId").toString(); List<SecondUserDto> list =
+	 * secondService.MypageFile(userId1); mv.addObject("data", list); }
+	 * List<SecondRecipeDto> list = secondService.selectSecondList(userId1);
+	 * mv.addObject("data", list);
+	 * 
+	 * return mv; }
+	 */
 	
 }
 

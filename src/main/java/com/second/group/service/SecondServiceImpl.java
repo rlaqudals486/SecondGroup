@@ -123,21 +123,36 @@ public class SecondServiceImpl implements SecondService {
 		return secondMapper.selectSecondFileInformation(fidx, boardIdx);
 	}
 	
+	@Override
 	public List<SecondRecipeDto> searchSecondList(String userId, String keyword) throws Exception {
 		return secondMapper.searchSecondList(userId, keyword);
 	}
 	
+	@Override
 	public void deleteMypage(int idx) throws Exception {
 		secondMapper.deleteMypage(idx);
 	}
 	
+	@Override
 	public void bannedUser(String userId) throws Exception {
 		secondMapper.bannedUser(userId);
 	}
 	
+	@Override
 	public List<SecondUserDto> searchAdminUser(String keyword) throws Exception {
 		return secondMapper.searchAdminUser(keyword);
 	}
+	
+	@Override
+	public List<SecondUserDto> MypageFile() throws Exception {
+		return secondMapper.MypageFile();
+	}
+  
+  @Override
+  public List<SecondRecipeDto> searchSecondList(String search) throws Exception{
+	  return secondMapper.searchSecondList(search);
+	  
+  }
 
 
 

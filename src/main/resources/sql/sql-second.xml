@@ -4,11 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.second.group.mapper.SecondMapper">
-
 	<select id="selectSecondHomeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
-				idx, title, user_user_idx,
+				idx, title, user_user_idx, recommend,
 			DATE_FORMAT
 				(created_datetime, '%Y.%m.%d') 
 			AS 
@@ -53,6 +52,8 @@
 			ORDER BY idx DESC
 		]]>
 	</select>
+  
+  
 	
 	<select id="searchSecondList" parameterType="String" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
@@ -147,6 +148,20 @@
 			AND
 				user_pw = #{userPw}
 		 ]]>
+	</select>
+
+	<select id="searchSecondList" resultType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[ 
+		SELECT
+			 * 
+		FROM 
+			recipe 
+		WHERE 
+			title 
+		LIKE 
+			CONCAT
+			('%',#{search},'%')
+		]]>
 	</select>
 	
 	<insert id="insertSecondFileList" parameterType="com.second.group.dto.SecondFileDto">
@@ -274,6 +289,17 @@
 			WHERE
 				user_id like CONCAT('%', #{keyword}, '%')
 			ORDER BY user_level DESC
+		 ]]>
+	</select>
+	
+	<select id="MypageFile" resultType="com.second.group.dto.SecondUserDto">
+		<![CDATA[ 
+			SELECT
+				user_year, user_phone, user_gender, user,comment, stored_file_path
+			FROM
+				user
+			WHERE
+				user_id = #{userId}
 		 ]]>
 	</select>
 </mapper>
