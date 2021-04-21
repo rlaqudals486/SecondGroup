@@ -68,5 +68,11 @@ public class SecondServiceImpl implements SecondService {
   public List<SecondRecipeDto> selectSecondList() throws Exception {
 		return secondMapper.selectSecondList();
 	}
+  
+  @Override
+  public List<SecondRecipeDto> searchSecondList(String search) throws Exception{
+	  return secondMapper.searchSecondList(search);
+	  
+  }
 
 }

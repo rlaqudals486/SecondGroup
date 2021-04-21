@@ -1,6 +1,5 @@
 package com.second.group.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,15 +47,18 @@ public class SecondController {
 		return mv;
 	}
 	
+	// 검색, 리스트
 	@RequestMapping("/second/secondList")
-	public ModelAndView SecondList() throws Exception {
+	public ModelAndView SecondList(@RequestParam("search") String search) throws Exception {
 		ModelAndView mv = new ModelAndView("/second/secondList");
 		
-		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
+		// 검색어를 매개변수로 사용하는 서비스의 조회부분
+		List<SecondRecipeDto> recipeList = secondService.searchSecondList(search);
+			System.out.println(search);
 		
 		mv.addObject("list", recipeList);
-		
 		return mv;
+		
 	}
 	
 	@RequestMapping("/second/secondDetail")
@@ -94,24 +96,24 @@ public class SecondController {
 		
 		
 		//images test용(img폴더 설정되면 지우고 lists에 연결 해야됨.)
-		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
-		SecondRecipeDto item1 = new SecondRecipeDto();
-		SecondRecipeDto item2 = new SecondRecipeDto();
-		SecondRecipeDto item3 = new SecondRecipeDto();
-		SecondRecipeDto item4 = new SecondRecipeDto();
-			
-		item1.setRecipeFilePath("/img/001.jpg");
-		item2.setRecipeFilePath("/img/002.jpg");
-		item3.setRecipeFilePath("/img/003.jpg");
-		item4.setRecipeFilePath("/img/004.jpg");
-		list.add(item1);
-		list.add(item2);
-		list.add(item3);
-		list.add(item4);
+//		List<SecondRecipeDto> list = new ArrayList<SecondRecipeDto>();
+//		SecondRecipeDto item1 = new SecondRecipeDto();
+//		SecondRecipeDto item2 = new SecondRecipeDto();
+//		SecondRecipeDto item3 = new SecondRecipeDto();
+//		SecondRecipeDto item4 = new SecondRecipeDto();
+//			
+//		item1.setRecipeFilePath("/img/001.jpg");
+//		item2.setRecipeFilePath("/img/002.jpg");
+//		item3.setRecipeFilePath("/img/003.jpg");
+//		item4.setRecipeFilePath("/img/004.jpg");
+//		list.add(item1);
+//		list.add(item2);
+//		list.add(item3);
+//		list.add(item4);
 		
 		
 		mv.addObject("comment", comment);
-		mv.addObject("datas", list);
+//		mv.addObject("datas", list);
 		mv.addObject("data", lists);
 		return mv;
 

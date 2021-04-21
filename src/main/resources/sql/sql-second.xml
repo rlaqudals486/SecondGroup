@@ -4,11 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.second.group.mapper.SecondMapper">
-
 	<select id="selectSecondHomeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
-				idx, title, user_user_idx,
+				idx, title, user_user_idx, recommend,
 			DATE_FORMAT
 				(created_datetime, '%Y.%m.%d') 
 			AS 
@@ -40,7 +39,7 @@
 	<select id="selectSecondList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT
-				idx, created_datetime, title, recommend
+				idx, created_datetime, title, recommend,recipe_file_path
 			FROM
 			    recipe
 			WHERE
@@ -122,4 +121,19 @@
 				user_pw = #{userPw}
 		 ]]>
 	</select>
+	<select id="searchSecondList" resultType="com.second.group.dto.SecondRecipeDto">
+		<![CDATA[ 
+		SELECT
+			 * 
+		FROM 
+			recipe 
+		WHERE 
+			title 
+		LIKE 
+			CONCAT
+			('%',#{search},'%')
+		]]>
+	</select>
+
+
 </mapper>
