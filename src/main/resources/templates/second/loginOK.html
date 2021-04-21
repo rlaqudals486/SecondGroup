@@ -71,10 +71,9 @@
 
 <script th:inline="javascript">
 	$(document).ready(function() {
-		var url = [[${url}]];
 		
 		setTimeout(function() {
-			location.href=url;
+			location.href="/second";
 		}, 2000);
 	});
 </script>
