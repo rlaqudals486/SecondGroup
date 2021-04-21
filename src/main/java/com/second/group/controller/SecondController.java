@@ -271,6 +271,7 @@ public class SecondController {
 				session.setAttribute("userGender", userInfo.getUserGender().toString());
 				session.setAttribute("userLevel", userInfo.getUserLevel().toString());
 				session.setAttribute("userComment", userInfo.getUserComment().toString());
+				session.setAttribute("storedFilePath", userInfo.getStoredFilePath().toString());
 				session.setMaxInactiveInterval(600);
 				return "redirect:/second/loginOK";
 			}
@@ -354,12 +355,6 @@ public class SecondController {
 		
 	}
 	
-	@RequestMapping(value = "/second/mypageUpdate", method = {RequestMethod.GET, RequestMethod.PUT})
-	public String mypageUpdate() throws Exception {
-
-		return "/second/mypageUpdate";
-	}
-	
 	@RequestMapping(value = "/second/myPageDelete", method = {RequestMethod.GET, RequestMethod.DELETE})
 	public String deleteMypage(@RequestParam("idx") List<String> idx) throws Exception {
 		if (idx == null || idx.size() > 0) {
@@ -406,6 +401,27 @@ public class SecondController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)
+	public String MypageFile() throws Exception {
+		return "/second/mypageUpdate";
+	}
+	
+	/*
+	 * @RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)
+	 * public ModelAndView MypageFile(HttpServletRequest request) throws Exception {
+	 * 
+	 * ModelAndView mv = new ModelAndView("/second/mypageUpdate"); HttpSession
+	 * session = request.getSession();
+	 * 
+	 * String userId1 = ""; if (session.getAttribute("userId") != null) { userId1 =
+	 * session.getAttribute("userId").toString(); List<SecondUserDto> list =
+	 * secondService.MypageFile(userId1); mv.addObject("data", list); }
+	 * List<SecondRecipeDto> list = secondService.selectSecondList(userId1);
+	 * mv.addObject("data", list);
+	 * 
+	 * return mv; }
+	 */
 	
 }
 

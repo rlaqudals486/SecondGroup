@@ -33,5 +33,7 @@ public interface SecondService {
 	void bannedUser(String userId) throws Exception;
 	SecondFileDto selectSecondFileInformation(int fidx, int boardIdx) throws Exception;
 	
+	List<SecondUserDto> MypageFile() throws Exception;
+	
 
 }

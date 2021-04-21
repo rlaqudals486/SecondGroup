@@ -51,5 +51,7 @@ public interface SecondMapper {
 	void bannedUser(@Param("userId") String userId) throws Exception;
 	
 	List<SecondUserDto> searchAdminUser(@Param("keyword") String keyword) throws Exception;
+	
+	List<SecondUserDto> MypageFile() throws Exception;
   
 }
