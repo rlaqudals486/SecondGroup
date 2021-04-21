@@ -13,9 +13,12 @@ import com.second.group.dto.SecondUserDto;
 @Mapper
 public interface SecondMapper {
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
+
 	List<SecondUserDto> selectUserList() throws Exception;
+
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
-  
+
+
 	List<SecondRecipeDto> selectSecondList() throws Exception;
 	
 	List<SecondRecipeDto> selectSecondRecipeList() throws Exception;
@@ -53,5 +56,9 @@ public interface SecondMapper {
 	List<SecondUserDto> searchAdminUser(@Param("keyword") String keyword) throws Exception;
 	
 	List<SecondUserDto> MypageFile() throws Exception;
-  
+
+	List<SecondRecipeDto> searchSecondList(@Param("search") String search) throws Exception;
+
+	
 }
+

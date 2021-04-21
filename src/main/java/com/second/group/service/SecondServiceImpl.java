@@ -120,5 +120,11 @@ public class SecondServiceImpl implements SecondService {
 	public List<SecondUserDto> MypageFile() throws Exception {
 		return secondMapper.MypageFile();
 	}
+  
+  @Override
+  public List<SecondRecipeDto> searchSecondList(String search) throws Exception{
+	  return secondMapper.searchSecondList(search);
+	  
+  }
 
 }
