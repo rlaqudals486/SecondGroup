@@ -95,12 +95,13 @@
 	<insert id="insertRecipe" parameterType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[ 
 			INSERT INTO recipe
-				(title, ingredient, cook_comment, cook_point, cook_time, created_datetime, recipe_cover_img, classification_class_code)
+				(title, ingredient, cooking, cook_comment, cook_point, cook_time, created_datetime, classification_class_code)
 				
 			VALUES
-    			(#{title}, #{ingredient}, #{cookComment}, #{cookPoint}, #{cookTime}, NOW(), #{recipeCoverImg}, #{classificationClassCode});
+    			(#{title}, #{ingredient}, #{cooking}, #{cookComment}, #{cookPoint}, #{cookTime}, NOW(), #{classificationClassCode});
 		]]>
 	</insert>
+	
 
 	<!-- 회원가입 -->
 	<select id="insertSecondJoin" parameterType="com.second.group.dto.SecondUserDto">
@@ -155,7 +156,6 @@
 				file_size, created_id, created_datetime)
 			VALUES
 		]]>
-		
 		<foreach collection="list" item="item" separator=",">
 			(
 				#{item.boardIdx},
@@ -189,6 +189,7 @@
 			SET
 				title = #{title},
 				ingredient = #{ingredient},
+				cooking = #{cooking},
 				cook_time = #{cookTime},
 				cook_comment = #{cookComment},
 				cook_point = #{cookPoint},

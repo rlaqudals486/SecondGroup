@@ -22,7 +22,7 @@ public class SecondRecipeDto {
 	public String recommend;
 	public int classificationClassCode;
 	public String classificationClassName;
-  public String keywords;
+	public String keywords;
 	public List<SecondFileDto> fileList; 
 	
 }
