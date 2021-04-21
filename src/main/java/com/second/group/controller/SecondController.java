@@ -2,9 +2,6 @@ package com.second.group.controller;
 
 
 
-import java.io.File;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -12,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +19,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.second.group.dto.SecondCommentDto;
-import com.second.group.dto.SecondFileDto;
 import com.second.group.dto.SecondRecipeDto;
 import com.second.group.dto.SecondUserDto;
 import com.second.group.service.SecondService;
@@ -83,17 +77,6 @@ public class SecondController {
 		return mv;
 	}
 	
-
-	@RequestMapping(value = "/second/secondList", method = RequestMethod.GET)
-	public ModelAndView SecondList() throws Exception {
-		ModelAndView mv = new ModelAndView("/second/secondList");
-		
-		List<SecondRecipeDto> recipeList = secondService.selectSecondRecipeList();
-
-		mv.addObject("list", recipeList);
-		return mv;
-		
-	}
 	
 	@RequestMapping(value = "/second/secondDetail", method = RequestMethod.GET)
 	public ModelAndView SecondDetail(@RequestParam int idx) throws Exception {
@@ -426,6 +409,19 @@ public class SecondController {
 	public String MypageFile() throws Exception {
 		return "/second/mypageUpdate";
 	}
+	
+	@RequestMapping(value = "/second/secondList", method = RequestMethod.GET)
+	   public ModelAndView SecondList(@RequestParam("search") String search) throws Exception {
+	      ModelAndView mv = new ModelAndView("/second/secondList");
+	      
+	      // 검색어를 매개변수로 사용하는 서비스의 조회부분
+	      List<SecondRecipeDto> recipeList = secondService.searchSecondList1(search);
+	         System.out.println(search);
+	      
+	      mv.addObject("list", recipeList);
+	      return mv;
+	      
+	   }
 	
 	/*
 	 * @RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)

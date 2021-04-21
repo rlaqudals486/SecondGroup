@@ -57,7 +57,7 @@ public interface SecondMapper {
 	
 	List<SecondUserDto> MypageFile() throws Exception;
 
-	List<SecondRecipeDto> searchSecondList(@Param("search") String search) throws Exception;
+	List<SecondRecipeDto> searchSecondList1(@Param("search") String search) throws Exception;
 
 	
 }

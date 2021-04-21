@@ -150,19 +150,19 @@
 		 ]]>
 	</select>
 
-	<select id="searchSecondList" resultType="com.second.group.dto.SecondRecipeDto">
-		<![CDATA[ 
-		SELECT
-			 * 
-		FROM 
-			recipe 
-		WHERE 
-			title 
-		LIKE 
-			CONCAT
-			('%',#{search},'%')
-		]]>
-	</select>
+	 <select id="searchSecondList1" resultType="com.second.group.dto.SecondRecipeDto">
+	      <![CDATA[ 
+	      SELECT
+	          * 
+	      FROM 
+	         recipe 
+	      WHERE 
+	         title 
+	      LIKE 
+	         CONCAT
+	         ('%',#{search},'%')
+	      ]]>
+   	</select>
 	
 	<insert id="insertSecondFileList" parameterType="com.second.group.dto.SecondFileDto">
 		<![CDATA[
@@ -292,7 +292,7 @@
 		 ]]>
 	</select>
 	
-	<select id="MypageFile" resultType="com.second.group.dto.SecondUserDto">
+	<!--<select id="MypageFile" resultType="com.second.group.dto.SecondUserDto">
 		<![CDATA[ 
 			SELECT
 				user_year, user_phone, user_gender, user,comment, stored_file_path
@@ -301,5 +301,5 @@
 			WHERE
 				user_id = #{userId}
 		 ]]>
-	</select>
+	</select>-->
 </mapper>
