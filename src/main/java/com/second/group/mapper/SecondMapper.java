@@ -34,6 +34,7 @@ public interface SecondMapper {
 	void insertRecipe(SecondRecipeDto recipe) throws Exception;
 	
 	void insertSecondFileList(List<SecondFileDto> fileList) throws Exception;
+	void insertSecondFileList2(List<SecondFileDto> fileList) throws Exception;
 	
 	void updateRecipe(SecondRecipeDto recipe) throws Exception;
 	
@@ -55,10 +56,11 @@ public interface SecondMapper {
 	
 	List<SecondUserDto> searchAdminUser(@Param("keyword") String keyword) throws Exception;
 	
-	List<SecondUserDto> MypageFile() throws Exception;
+	SecondUserDto MypageList(String userId1) throws Exception;
 
 	List<SecondRecipeDto> searchSecondList1(@Param("search") String search) throws Exception;
 
-	
+//	void MypageUpdate(SecondUserDto userId, MultipartHttpServletRequest uploadFiles) throws Exception;
+	void MypageUpdate(SecondUserDto userId) throws Exception;
 }
 

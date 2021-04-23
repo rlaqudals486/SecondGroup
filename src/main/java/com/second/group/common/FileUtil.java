@@ -31,7 +31,7 @@ public class FileUtil {
 		ZonedDateTime current = ZonedDateTime.now(); 
 		
 
-		String path = "images/" + current.format(format);
+		String path = "/img/" + current.format(format);
 		
 
 		File file = new File(path);
