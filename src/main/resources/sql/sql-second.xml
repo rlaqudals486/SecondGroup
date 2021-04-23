@@ -4,11 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.second.group.mapper.SecondMapper">
-
 	<select id="selectSecondHomeList" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
 			SELECT 
-				idx, title, user_user_idx,
+				idx, title, user_user_idx, recommend,
 			DATE_FORMAT
 				(created_datetime, '%Y.%m.%d') 
 			AS 
@@ -53,6 +52,8 @@
 			ORDER BY idx DESC
 		]]>
 	</select>
+  
+  
 	
 	<select id="searchSecondList" parameterType="String" resultType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[
@@ -170,6 +171,20 @@
 				user_pw = #{userPw}
 		 ]]>
 	</select>
+
+	 <select id="searchSecondList1" resultType="com.second.group.dto.SecondRecipeDto">
+	      <![CDATA[ 
+	      SELECT
+	          * 
+	      FROM 
+	         recipe 
+	      WHERE 
+	         title 
+	      LIKE 
+	         CONCAT
+	         ('%',#{search},'%')
+	      ]]>
+   	</select>
 	
 	<insert id="insertSecondFileList" parameterType="com.second.group.dto.SecondFileDto">
 		<![CDATA[
@@ -181,6 +196,24 @@
 		<foreach collection="list" item="item" separator=",">
 			(
 				#{item.boardIdx},
+				#{item.fileName},
+				#{item.storedFilePath},
+				#{item.fileSize},
+				'admin',
+				NOW()
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="insertSecondFileList2" parameterType="com.second.group.dto.SecondFileDto">
+		<![CDATA[
+			INSERT INTO file
+				(file_name, stored_file_path, 
+				file_size, created_id, created_datetime)
+			VALUES
+		]]>
+		<foreach collection="list" item="item" separator=",">
+			(
 				#{item.fileName},
 				#{item.storedFilePath},
 				#{item.fileSize},
@@ -298,4 +331,30 @@
 			ORDER BY user_level DESC
 		 ]]>
 	</select>
+	
+	<select id="MypageList" resultType="com.second.group.dto.SecondUserDto">
+		<![CDATA[ 
+			SELECT
+				user_year, user_phone, user_gender, user_comment, stored_file_path
+			FROM
+				user
+			WHERE
+				user_id = #{userId}
+		 ]]>
+	</select>
+	
+	<update id="MypageUpdate" parameterType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			UPDATE user 
+			SET 
+				user_pw = #{userPw},
+			    user_year = #{userYear},
+			    user_phone = #{userPhone},
+				user_comment = #{userComment},
+				file_name = #{fileName},
+				stored_file_path = #{storedFilePath}
+			WHERE
+			    user_id = #{userId}
+		]]>
+	</update>
 </mapper>

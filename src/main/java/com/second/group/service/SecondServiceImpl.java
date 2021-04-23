@@ -141,8 +141,18 @@ public class SecondServiceImpl implements SecondService {
 		
 	}
 	
+	@Override
+	public void insertSecondFileList2(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception {
+		
+		List<SecondFileDto> fileList = fileUtil.parseFileInfo(recipe.getIdx(), uploadFiles);
+		
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			secondMapper.insertSecondFileList(fileList);
+		}
+		
+	}
 	
-
+	@Override
 	public List<SecondRecipeDto> selectSecondList(String userId) throws Exception {
 
 		return secondMapper.selectSecondList(userId);
@@ -164,23 +174,50 @@ public class SecondServiceImpl implements SecondService {
 		return secondMapper.selectSecondFileInformation(fidx, boardIdx);
 	}
 	
+	@Override
 	public List<SecondRecipeDto> searchSecondList(String userId, String keyword) throws Exception {
 		return secondMapper.searchSecondList(userId, keyword);
 	}
 	
+	@Override
 	public void deleteMypage(int idx) throws Exception {
 		secondMapper.deleteMypage(idx);
 	}
 	
+	@Override
 	public void bannedUser(String userId) throws Exception {
 		secondMapper.bannedUser(userId);
 	}
 	
+	@Override
 	public List<SecondUserDto> searchAdminUser(String keyword) throws Exception {
 		
 		return secondMapper.searchAdminUser(keyword);
 	}
-
-
-
+	
+	@Override
+	public SecondUserDto MypageList(String userId1) throws Exception {
+		return secondMapper.MypageList(userId1);
+	}
+  
+	@Override
+	public List<SecondRecipeDto> searchSecondList1(String search) throws Exception{
+	    return secondMapper.searchSecondList1(search);
+	}
+	
+	@Override
+	public void MypageUpdate(SecondUserDto userId, MultipartHttpServletRequest uploadFiles) throws Exception {
+		
+		List<SecondFileDto> fileList = fileUtil.parseFileInfo(userId.getUserIdx(), uploadFiles);
+		
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			secondMapper.insertSecondFileList(fileList);
+			for (SecondFileDto item : fileList) {
+				userId.setFileName(item.getFileName());
+				userId.setStoredFilePath(item.getStoredFilePath());
+			}
+		}
+		
+		secondMapper.MypageUpdate(userId);
+	}
 }

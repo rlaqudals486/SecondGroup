@@ -14,6 +14,9 @@ public interface SecondService {
 	void insertSecondJoin(SecondUserDto userData) throws Exception; // 회원가입
 	int idCheck(String userId) throws Exception; // 아이디 중복 검사
 	int selectUserInfoYn(String userId, String userPw) throws Exception; // 로그인
+
+
+
 	SecondUserDto selectUserInfo(String userId, String userPw) throws Exception;
 	
 	List<SecondRecipeDto> selectSecondHomeList() throws Exception;
@@ -33,8 +36,11 @@ public interface SecondService {
 	void deleteComment(int cmtidx) throws Exception;
 	int CommentCount(int recipeIdx) throws Exception;
 	
+
 	public void insertRecipe(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
 	public void insertSecondFileList(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
+	public void insertSecondFileList2(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
+	List<SecondRecipeDto> searchSecondList1(String search) throws Exception;
 	void updateRecipe(SecondRecipeDto recipe) throws Exception;
 	
 	void deleteRecipe(int idx) throws Exception;
@@ -42,5 +48,7 @@ public interface SecondService {
 	void bannedUser(String userId) throws Exception;
 	SecondFileDto selectSecondFileInformation(int fidx, int boardIdx) throws Exception;
 	
+	SecondUserDto MypageList(String userId1) throws Exception;
+	void MypageUpdate(SecondUserDto userId, MultipartHttpServletRequest uploadFiles) throws Exception;
 
 }
