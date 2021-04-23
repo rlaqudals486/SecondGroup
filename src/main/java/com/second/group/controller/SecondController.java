@@ -2,11 +2,14 @@ package com.second.group.controller;
 
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,6 +106,73 @@ public class SecondController {
 		mv.addObject("recipe", recipe);
 		
 		return mv;
+	}
+	
+	@RequestMapping(value = "/second/secondCommentList", method = RequestMethod.GET)
+	public ModelAndView SecondComment(@RequestParam("recipeIdx") int recipeIdx) throws Exception {
+		ModelAndView mv = new ModelAndView("/seocnd/secondCommentList");
+		List<SecondCommentDto> comment = secondService.selectCommentList(recipeIdx);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("comment", comment);
+		
+		mv.addObject("map", map);
+		
+		mv.setViewName("/second/secondDetail");
+			
+		return mv;
+	}
+	
+	@RequestMapping("/second/secondCommentList_json")
+	public List<SecondCommentDto> secondCommentListJson(int recipeIdx) throws Exception {
+		
+		return secondService.selectCommentList(recipeIdx);
+	}
+	
+	@RequestMapping(value = "/second/secondCommentInsert", method = RequestMethod.POST)
+	public String SecondCommentinsert(@RequestParam("recipeIdx") int recipeIdx, @RequestParam("cmtContent") String cmtContent) throws Exception {
+		
+		/* 
+		 * if(session.getAttribute("userId") != null) { String userId =
+		 * (String)session.getAttribute("userId"); cDto.setUserUserIdx(userUserIdx);
+		 * 
+		 *   
+		 *   }
+		 */
+		
+		secondService.createComment(recipeIdx, cmtContent);
+		
+		return null;
+		
+	}
+	
+	@RequestMapping(value = "/second/secondCommentUpdate", method = RequestMethod.POST)
+	public String SecondCommentUpdate(@RequestParam("cmtidx") int cmtidx, @RequestParam("cmtContent") String cmtContent, @RequestParam("userUserIdx") int userUserIdx, @RequestParam("recipeIdx") int recipeIdx) throws Exception {
+		
+		/*
+		 * cDto.setCmtidx(cmtidx); cDto.setCmtContent(cmtContent);
+		 * cDto.setUserUserIdx(userUserIdx);
+		 * 
+		 * secondService.updateComment(cDto);
+		 */
+		
+		return "";
+	}
+	
+	@RequestMapping(value = "/second/secondCommentDelete", method = {RequestMethod.GET, RequestMethod.POST})
+	public String SecondCommentDelete(@RequestParam("cmtidx") int cmtidx, @RequestParam("recipeIdx") int recipeIdx) throws Exception {
+		
+		secondService.deleteComment(cmtidx);
+					
+		return "";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/second/secondRecommend", method = RequestMethod.POST) 
+	public Object SecondRecommend (@RequestParam("idx") int idx) throws Exception {
+		secondService.updateRecommend(idx);
+		return null;
 	}
 	
 	@RequestMapping(value = "/second/secondWrite", method = RequestMethod.GET)

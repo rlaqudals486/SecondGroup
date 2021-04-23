@@ -93,6 +93,28 @@
 		]]>
 	</select>
 	
+	<insert id="createComment" parameterType="com.second.group.dto.SecondCommentDto">
+		<![CDATA[ 
+			INSERT INTO comment
+				(cmtidx, recipe_idx, cmt_content)
+				
+			VALUES
+    			(#{cmtidx}, #{recipeIdx}, #{cmtContent})
+		]]>
+	</insert>	
+	
+	<update id="updateRecommend" parameterType="int">
+		<![CDATA[ 
+			UPDATE
+				recipe
+			SET
+				recommend = (recommend + 1)
+				
+			WHERE
+				idx = #{idx}
+		]]>
+	</update>
+	
 	<insert id="insertRecipe" parameterType="com.second.group.dto.SecondRecipeDto">
 		<![CDATA[ 
 			INSERT INTO recipe

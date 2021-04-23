@@ -29,7 +29,19 @@ public interface SecondMapper {
   
 	List<SecondFileDto> selectSecondFileList(int boardIdx) throws Exception;
 	
+	List<SecondCommentDto> selectCommentList(int cmtidx) throws Exception;
+	
 	SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
+	
+	void createComment(@Param("recipeIdx") int recipeIdx, @Param("cmtCotent") String cmtContent) throws Exception;
+	
+	int CommentCount(SecondCommentDto cDto) throws Exception;
+	
+	void updateComment(SecondCommentDto cDto) throws Exception;
+	
+	void deleteComment(int cmtidx) throws Exception;
+	
+	void updateRecommend(@Param("idx") int idx) throws Exception;
 	
 	void insertRecipe(SecondRecipeDto recipe) throws Exception;
 	

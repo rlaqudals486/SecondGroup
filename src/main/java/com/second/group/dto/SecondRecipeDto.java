@@ -19,7 +19,7 @@ public class SecondRecipeDto {
 	public String recipeFilePath;
 	public String userUserIdx;
 	public String userUserId;
-	public String recommend;
+	public int recommend;
 	public int classificationClassCode;
 	public String classificationClassName;
 	public String keywords;

@@ -68,7 +68,9 @@
 
 	.bubble {
 		position: relative;
-		width: 220px;
+
+		width: 280px;
+
 		height: 110px;
 		padding: 0px;
 		background: #faf5eb;
@@ -301,6 +303,76 @@
         });
      });
         /*]]>*/
+
+        
+        
+//	 댓글 기능 동작 안 함        
+     $(document).ready(function() {
+    	listReply();
+    	
+    	$("#btnComment").click(function() {
+    		var cmtContent = $("#cmtContent").val();
+    		var idx = '[[${recipe.idx}]]'
+    		var datas = {
+    				cmtContent: cmtContent,
+    				recipeIdx: idx
+    		};
+    		
+    		$.ajax({
+    			url: "/second/secondCommentInsert",
+    			type: "post",
+    			data: datas,
+    			success: function(data) {
+    				alert("댓글이 등록되었습니다.");
+    				listReply2();
+    			},
+    			error() {
+    				alert("오류가 발생하였습니다.")
+    			}
+    		});
+    	});
+     });
+        
+     function listReply() {
+    	 var url = '[[${recipe.idx}]]'
+    	 
+    	 $.ajax({
+    		url: "/second/secondCommentList?recipeIdx=" + url,
+    		type: "get",
+    		success: function(result) {
+    			$("#listReply").html(result);
+    		}
+    		
+    	 });
+     }
+     
+     function listReply2() {
+    	 $.ajax({
+    		 url: "/second/secondCommentList_json?idx=",
+    		 type: "get",
+    		 contentType: "json",
+    		 success: function(result) {
+    			 var output = "<table>";
+    			 for (var i in result) {
+    				 var repl = result[i].replytext;
+    				 repl = repl.replace(/  /gi,"&nbsp;&nbsp");//공백 처리
+    				 repl = repl.replace(/</gi,"&lt;"); //태그문자 처리
+   	                 repl = repl.replace(/>/gi,"&gt;");
+   	                 repl = repl.replace(/\n/gi,"<br>"); //줄바꿈 처리
+   	                 
+   	              	 output += "<tr><td>"+result[i].name;
+                  	 date = changeDate(result[i].regdate);
+                  	 output += "("+date+")";
+                  	 output += "<br>"+repl+"</td></tr>";
+    			 }
+    			 
+    			 output += "</table>";
+    			 $("#listReply").html(output);
+    		 }
+    	 
+    	 });
+     }
+
   </script>
 </head>
 
@@ -399,7 +471,8 @@
 
             </ul>
             <form action="" id="frm">
-            <ul class="justify-content-end d-flex">
+            <ul class="justify-content-end d-flex mr-4">
+
                  <li>
                    <div>
                      <a href="" id="aRecommend"><i class="far fa-thumbs-up"></i> 추천</a>
@@ -413,7 +486,9 @@
             <div class="row">
               <div class="pictureBox ml-4 mr-3 col-md-7 p-0"
                 style="border : 2px solid #fff; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.3); display: inline-block;">
-                <img class="p-1 imgCover" src="./images/파스타.PNG" alt="">
+
+                <img class="p-1 imgCover" src="/images/파스타.PNG" alt="">
+
                 <div class="subPicture"></div>
               </div>
               <div class="detail col-md-4">
@@ -473,18 +548,24 @@
           </div>
           <div class="reviewBox container p-4">
             <div class="reviewArea p-3" style="background: #f5f5f0;">
+
               <form action="" id="reviewForm" method="post" enctype="multipart/form-data">
+
                 <input type="hidden" name="mode" id="review-mode" value="post_review">
                 <input type="hidden" name="last_review_id" id="last-review-id" value="0">
                 <input type="hidden" name="recipe_id" value="408846">
                 <input type="hidden" name="user_id" value="230316">
-                <textarea class="p-1" name="commentArea" id="review-comment" placeholder="맛있습니다."></textarea>
+
+                <textarea class="p-1" name="commentArea" id="cmtContent" placeholder="맛있습니다."></textarea>
                 <div id="review-message"></div>
                 <div>
-                  <button class="btn btn-block mt-3"
+                  <button class="btn btn-block mt-3" id ="btnComment"
                     style="background : #5a320a; color: white; font-size: 13px;">작성</button>
                 </div>
-              </form>
+                <div id="listReply">
+                
+                </div>
+
             </div>
           </div>    
         </section>
