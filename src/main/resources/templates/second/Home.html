@@ -67,6 +67,11 @@ html {
 	height: 100%;
 }
 
+body {
+		overflow-x:hidden; 
+		overflow-y:auto;
+	}
+	
 #main, footer {
 	min-height: 100%;
 	background-image: url("./img/배경.webp");
@@ -112,6 +117,14 @@ input {
 	width: 777px;
 	height: 500px;
 }
+
+#footer {
+		position:absolute;
+		width: 100%;
+		height: 10%;
+		text-align: center;
+		color: light;
+	}
 </style>
 
 </head>
@@ -348,5 +361,10 @@ input {
 			<h5 class="text-center">Made by 2조</h5>
 		</div>
 	</main>
+	<footer class="jumbotron">
+		<div class="container">
+			<h5 class="text-center text-light">made by HOME recipe</h5>
+		</div>
+	</footer>
 </body>
 </html>
