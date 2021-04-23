@@ -32,6 +32,7 @@ public interface SecondService {
 
 	public void insertRecipe(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
 	public void insertSecondFileList(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
+	public void insertSecondFileList2(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
 	List<SecondRecipeDto> searchSecondList1(String search) throws Exception;
 	void updateRecipe(SecondRecipeDto recipe) throws Exception;
 	
@@ -40,6 +41,7 @@ public interface SecondService {
 	void bannedUser(String userId) throws Exception;
 	SecondFileDto selectSecondFileInformation(int fidx, int boardIdx) throws Exception;
 	
-	List<SecondUserDto> MypageFile() throws Exception;
+	SecondUserDto MypageList(String userId1) throws Exception;
+	void MypageUpdate(SecondUserDto userId, MultipartHttpServletRequest uploadFiles) throws Exception;
 
 }

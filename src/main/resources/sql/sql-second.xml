@@ -183,6 +183,24 @@
 		</foreach>
 	</insert>
 	
+	<insert id="insertSecondFileList2" parameterType="com.second.group.dto.SecondFileDto">
+		<![CDATA[
+			INSERT INTO file
+				(file_name, stored_file_path, 
+				file_size, created_id, created_datetime)
+			VALUES
+		]]>
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.fileName},
+				#{item.storedFilePath},
+				#{item.fileSize},
+				'admin',
+				NOW()
+			)
+		</foreach>
+	</insert>
+	
 	<select id="selectSecondFileList" parameterType="int" resultType="com.second.group.dto.SecondFileDto">
 		<![CDATA[
 			SELECT
@@ -292,14 +310,29 @@
 		 ]]>
 	</select>
 	
-	<!--<select id="MypageFile" resultType="com.second.group.dto.SecondUserDto">
+	<select id="MypageList" resultType="com.second.group.dto.SecondUserDto">
 		<![CDATA[ 
 			SELECT
-				user_year, user_phone, user_gender, user,comment, stored_file_path
+				user_year, user_phone, user_gender, user_comment, stored_file_path
 			FROM
 				user
 			WHERE
 				user_id = #{userId}
 		 ]]>
-	</select>-->
+	</select>
+	
+	<update id="MypageUpdate" parameterType="com.second.group.dto.SecondUserDto">
+		<![CDATA[
+			UPDATE user 
+			SET 
+				user_pw = #{userPw},
+			    user_year = #{userYear},
+			    user_phone = #{userPhone},
+				user_comment = #{userComment},
+				file_name = #{fileName},
+				stored_file_path = #{storedFilePath}
+			WHERE
+			    user_id = #{userId}
+		]]>
+	</update>
 </mapper>

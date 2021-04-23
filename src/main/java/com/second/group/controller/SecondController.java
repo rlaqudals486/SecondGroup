@@ -36,12 +36,12 @@ public class SecondController {
 	}
 	
 
-	@RequestMapping(value="/second/mypage", method=RequestMethod.GET)
-	public String SecondMypage(HttpServletRequest request) throws Exception {
-		
-		return "/second/mypage";
-	}
-
+	/*
+	 * @RequestMapping(value="/second/mypage", method=RequestMethod.GET) public
+	 * String SecondMypage(HttpServletRequest request) throws Exception {
+	 * 
+	 * return "/second/mypage"; }
+	 */
 	@RequestMapping(value = "/second/myBoard", method = RequestMethod.GET)
 	public ModelAndView SelectSecondList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("/second/myBoard");
@@ -241,11 +241,11 @@ public class SecondController {
 		response.addCookie(cookie);
 		
 		if (session.getAttribute("userId") != null) {
-			return "/second/myPage";
+			return "redirect:/second/mypage";
 		}
 		
 		else {
-			return "/second/SecondLogin";
+			return "redirect:/second/SecondLogin";
 		}
 	}
 	
@@ -421,11 +421,6 @@ public class SecondController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)
-	public String MypageFile() throws Exception {
-		return "/second/mypageUpdate";
-	}
-	
 	@RequestMapping(value = "/second/secondList", method = RequestMethod.GET)
 	   public ModelAndView SecondList(@RequestParam("search") String search) throws Exception {
 	      ModelAndView mv = new ModelAndView("/second/secondList");
@@ -439,21 +434,43 @@ public class SecondController {
 	      
 	   }
 	
-	/*
-	 * @RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)
-	 * public ModelAndView MypageFile(HttpServletRequest request) throws Exception {
-	 * 
-	 * ModelAndView mv = new ModelAndView("/second/mypageUpdate"); HttpSession
-	 * session = request.getSession();
-	 * 
-	 * String userId1 = ""; if (session.getAttribute("userId") != null) { userId1 =
-	 * session.getAttribute("userId").toString(); List<SecondUserDto> list =
-	 * secondService.MypageFile(userId1); mv.addObject("data", list); }
-	 * List<SecondRecipeDto> list = secondService.selectSecondList(userId1);
-	 * mv.addObject("data", list);
-	 * 
-	 * return mv; }
-	 */
+	
+	  @RequestMapping(value = "/second/mypage", method = RequestMethod.GET)
+	  public ModelAndView MypageList(HttpServletRequest request) throws Exception {
+	  
+	  ModelAndView mv = new ModelAndView("/second/mypage"); 
+	  HttpSession session = request.getSession();
+	  
+	  if (session.getAttribute("userId") != null) { 
+		  SecondUserDto list = secondService.MypageList(session.getAttribute("userId").toString());
+		  mv.addObject("data", list);
+		  }
+	  
+	  return mv; 
+	  
+	  }
+	  
+	  @RequestMapping(value = "/second/mypageUpdate", method = RequestMethod.GET)
+		public ModelAndView MypageUpdateList(HttpServletRequest request) throws Exception {
+			
+		  	ModelAndView mv = new ModelAndView("/second/mypageUpdate");
+		  	HttpSession session = request.getSession();
+		  	if (session.getAttribute("userId") != null) { 
+				  SecondUserDto list = secondService.MypageList(session.getAttribute("userId").toString());
+				  mv.addObject("data", list);
+				  }
+		  	
+			return mv;
+	  }
+	  
+	  @RequestMapping(value = "/second/mypageEdit", method = RequestMethod.POST)
+		public String MypageUpdate(SecondUserDto userId, MultipartHttpServletRequest uploadFiles) throws Exception {
+		  
+		  	secondService.MypageUpdate(userId, uploadFiles);
+		  	
+			return "redirect:/second/mypage";
+	  }
+	 
 	
 }
 
