@@ -32,7 +32,7 @@ body {
 	font-family: fontAwesome;
 }
 
-ul, li {
+ul {
 	list-style: none;
 }
 
@@ -80,13 +80,13 @@ a {
 /*         .list_wrap .item .cont { */
 /*             padding: 20px; */
 /*         } */
+.list_wrap .item strong {
+	display: block;
+	margin: 0 0 10px 0;
+	font-size: 16px;
+	letter-spacing: -1px;
+}
 
- .list_wrap .item strong { 
-             display: block; 
-             margin: 0 0 10px 0; 
-             font-size: 16px; 
-            letter-spacing: -1px; 
-         } 
 .list_wrap .item p {
 	font-size: 13px;
 	letter-spacing: -1px;
@@ -144,35 +144,37 @@ a {
 		</div>
 	</header>
 	<main class="container">
-			<div class="d-inline-flex p-2">
-				<h5 th:text="${#lists.size(list)}"></h5>
-				<p>개 검색 되었습니다.</p>
-			</div>
-		<div class="list_wrap container mb-5   d-flex justify-content-center">
-			<ul class="m-3"
-				th:if="${#lists.size(list)} > 0" th:each="list : ${list}">
-				<li class="item item1 d-inline">
-					<div class="card">
-						<a href="/second/secondDetail?idx="
-							th:attrappend="href=${list.idx}"> 
-							<img
-							th:src="@{${list.recipeFilePath}}" th:title="${list.title}"
-							th:alt="${list.title}" class="card-img-top" style="width: 288px;"></a>
-						<div class="card-body text-center">
+		<div class="d-inline-flex p-2">
+			<h5 th:text="${#lists.size(list)}"></h5>
+			<p>개 검색 되었습니다.</p>
+		</div>
+		<div >
+			<div class="list_wrap mb-5 row justify-content-between">
+				<ul class="" th:if="${#lists.size(list)} > 0"
+					th:each="list : ${list}">
+					<li class="item item1 d-inline">
+						<div class="card">
 							<a href="/second/secondDetail?idx="
-								th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
-							<p>
-								등록일<span class="" th:text="${list.createdDatetime}"></span>
-							</p>
-							<p>
-								추천 <span class="" th:text="${list.recommend}"></span>
-							</p>
+								th:attrappend="href=${list.idx}"> <img
+								th:src="@{${list.recipeFilePath}}" th:title="${list.title}"
+								th:alt="${list.title}" class="card-img-top"
+								style="width: 288px;"></a>
+							<div class="card-body text-center">
+								<a href="/second/secondDetail?idx="
+									th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
+								<p>
+									등록일<span class="" th:text="${list.createdDatetime}"></span>
+								</p>
+								<p>
+									추천 <span class="" th:text="${list.recommend}"></span>
+								</p>
+							</div>
 						</div>
-					</div>
-				</li>
-			</ul>
-			<div th:unless="${#lists.size(list)} > 0">
-				<p>조회된 결과가 없습니다.</p>
+					</li>
+				</ul>
+				<div th:unless="${#lists.size(list)} > 0">
+					<p>조회된 결과가 없습니다.</p>
+				</div>
 			</div>
 		</div>
 		<div class="container d-flex justify-content-end"

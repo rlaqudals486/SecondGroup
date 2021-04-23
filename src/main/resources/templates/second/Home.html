@@ -40,25 +40,23 @@
 	// 	})
 </script>
 <script>
-	 $(function(){
-		    $("#btnLogin").bind("click", function(){
-		        if($("#btnLogin").val()==0){
-		            $("#btnLogin").val(1); 
-		        }
-		        else{
-		            $("#btnLogin").val(0);
-		        }
-		        var isHide=$("#btnLogin").val();
-		        if(isHide==1){
-		            // Button 숨기기
-		            $("#btnLogout").hide();
-		        }
-		        else{
-		            // Button 보이기
-		            $("#btnLogout").show();
-		        }
-		    });
+	$(function() {
+		$("#btnLogin").bind("click", function() {
+			if ($("#btnLogin").val() == 0) {
+				$("#btnLogin").val(1);
+			} else {
+				$("#btnLogin").val(0);
+			}
+			var isHide = $("#btnLogin").val();
+			if (isHide == 1) {
+				// Button 숨기기
+				$("#btnLogout").hide();
+			} else {
+				// Button 보이기
+				$("#btnLogout").show();
+			}
 		});
+	});
 </script>
 
 
@@ -147,22 +145,22 @@ input {
 					</a> <a href="second/secondDetail" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="far fa-edit ml-5"></i>
-					</a> <a href="#" class="text-dark"
+					</a> <a href="/second/secondList?search=" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
 						<i class="fas fa-book ml-5"></i>
 					</a>
-					<div>
-						<p th:if="${session.userId} != null"
-							th:text="|${session.userId} 님 안녕하세요|"></p>
-						<a href="/second/SecondLogin" class="btn btn-outline-primary ml-5"
-							id="btnLogin">로그인</a>
-						<p th:if="${session.userId} != null"
-							th:text="|${session.userId} 님 안녕하세요|"></p>
-						<a href="/second/logout" class="btn btn-outline-primary ml-2"
-							id="btnLogout">로그 아웃</a>
+					<div >
+						<div th:if="${session.userId} != null" class="ml-5">
+							<p th:text="|${session.userId} 님 안녕하세요|"></p>
+							<a href="/second/logout" class="btn btn-outline-primary"
+								id="btnLogout">로그 아웃</a>
+						</div>
+						<div th:unless="${session.userId} != null">
+							<a href="/second/SecondLogin"
+								class="btn btn-outline-primary ml-5 mt-3" id="btnLogin">로그인</a>
+						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<div class="bg-danger">
@@ -178,7 +176,7 @@ input {
 						</div>
 					</div>
 					<div class="dropdown px-5">
-						<button class="dropbtn btn btn-danger" data-toggle="dropdown">찌게</button>
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">분류</button>
 						<div class="dropdown-menu">
 							<a href="#" class="dropdown-item">홈</a> <a href="#"
 								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
@@ -186,7 +184,7 @@ input {
 						</div>
 					</div>
 					<div class="dropdown px-5">
-						<button class="dropbtn btn btn-danger" data-toggle="dropdown">구이</button>
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">추천</button>
 						<div class="dropdown-menu">
 							<a href="#" class="dropdown-item">홈</a> <a href="#"
 								class="dropdown-item">회사소개</a> <a href="#" class="dropdown-item">제품소개</a>
@@ -288,10 +286,10 @@ input {
 						<col width="20%" />
 					</colgroup>
 
-					<tbody class="bg-white">
+					<tbody class="bg-white text-dark">
 						<tr th:if="${#lists.size(data)} > 0" th:each="item : ${data}">
 							<td th:text="${item.idx}"></td>
-							<td><a href="/second/secondDetail?idx="
+							<td><a class="text-dark" href="/second/secondDetail?idx="
 								th:attrappend="href=${item.idx}" th:text="${item.title}"></a></td>
 							<td th:text="${item.createdDatetime}"></td>
 						</tr>
@@ -329,8 +327,10 @@ input {
 				<tbody class="bg-white">
 					<tr th:if="${#lists.size(comment)} > 0"
 						th:each="commentList : ${comment}">
-						<td th:text="${commentList.cmtidx}"></td>
-						<td><a href="#" th:attrappend="href=${commentList.cmtidx}"
+						<td  th:text="${commentList.cmtidx}"></td>
+
+						<td><a  class="text-dark" href="/second/secondDetail?idx="
+							th:attrappend="href=${commentList.cmtidx}"
 							th:text="${commentList.cmtContent}"></a></td>
 						<td th:text="${commentList.cmtDatetime}"></td>
 					</tr>
