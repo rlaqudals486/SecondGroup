@@ -23,8 +23,15 @@ public interface SecondService {
 	List<SecondUserDto> selectUserList() throws Exception;
 	List<SecondCommentDto> selectCommentHomeList() throws Exception;
 	List<SecondRecipeDto> selectSecondRecipeList() throws Exception;
+	List<SecondCommentDto> selectCommentList(int cmtidx) throws Exception;
 	
 	SecondRecipeDto selectRecipeDetail(int idx) throws Exception;
+	void updateRecommend(int idx) throws Exception;
+	
+	void createComment(int recipeIdx, String cmtComment) throws Exception;
+	void updateComment(SecondCommentDto cDto) throws Exception;
+	void deleteComment(int cmtidx) throws Exception;
+	int CommentCount(int recipeIdx) throws Exception;
 	
 	public void insertRecipe(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
 	public void insertSecondFileList(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;

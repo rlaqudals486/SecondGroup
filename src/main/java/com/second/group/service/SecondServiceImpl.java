@@ -2,6 +2,7 @@ package com.second.group.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -62,7 +63,13 @@ public class SecondServiceImpl implements SecondService {
 	public List<SecondRecipeDto> selectSecondRecipeList() throws Exception {
 		return secondMapper.selectSecondRecipeList();
 	}
-
+	
+	@Override
+	public List<SecondCommentDto> selectCommentList(int cmtidx) throws Exception {
+		
+		return secondMapper.selectCommentList(cmtidx);
+	}
+	
 
 	@Override
 	public SecondRecipeDto selectRecipeDetail(int idx) throws Exception {
@@ -74,6 +81,40 @@ public class SecondServiceImpl implements SecondService {
 		
 		
 		return recipe;
+	}
+	
+	@Override
+	public void createComment(int recipeIdx, String cmtContent) throws Exception {
+		
+		secondMapper.createComment(recipeIdx, cmtContent);
+	}
+	
+	@Override
+	public void updateComment(SecondCommentDto cDto) throws Exception {
+		
+		secondMapper.updateComment(cDto);
+		
+	}
+
+	@Override
+	public void deleteComment(int cmtidx) throws Exception {
+		
+		secondMapper.deleteComment(cmtidx);
+		
+	}
+
+	@Override
+	public int CommentCount(int recipeIdx) throws Exception {
+		
+		return 0;
+	}
+	
+	
+	
+	@Override
+	public void updateRecommend(int idx) throws Exception {
+
+		secondMapper.updateRecommend(idx);
 	}
 
 	@Override
@@ -136,6 +177,7 @@ public class SecondServiceImpl implements SecondService {
 	}
 	
 	public List<SecondUserDto> searchAdminUser(String keyword) throws Exception {
+		
 		return secondMapper.searchAdminUser(keyword);
 	}
 

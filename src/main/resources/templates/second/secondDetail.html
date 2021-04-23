@@ -2,81 +2,107 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <title>레시피 상세</title>
+<meta charset="UTF-8">
+<title>레시피 상세</title>
 
-  <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
 
-  <style>
-    body {
-      background-color: wheat;
-    }
+<style>
 
-    input {
-      width: 100%;
-      border-radius: 20px;
-      border: 1px solid #bbb;
-      margin: 10px 0;
-      padding: 10px 12px;
-      font-family: fontAwesome;
-    }
+	body {
+		overflow-x:hidden; 
+		overflow-y:auto; 
+	}
 
-    ul>li {
-      list-style: none;
-      padding-right: 28px;
-      float: left;
-    }
+	input {
+		width: 100%;
+		border-radius: 20px;
+		border: 1px solid #bbb;
+		margin: 10px 0;
+		padding: 10px 12px;
+		font-family: fontAwesome;
+	}
+	
+	.dropdown-menu {
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+	}
+	
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+	
+	.dropbtn {
+	/* 	color: white; */
+		font-size: 2rem;
+		border: none;
+	}
+	
+	.dropdown:hover .dropdown-menu {
+		display: block;
+	}
 
-    .pictureBox {
-      width: 409px;
-      height: 614px;
-      overflow: hidden;
-      margin: 0 auto;
-    }
+	ul>li {
+		list-style: none;
+		padding-right: 28px;
+		float: left;
+	}
 
-    .imgCover {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+	.pictureBox {
+		width: 409px;
+		height: 614px;
+		overflow: hidden;
+		margin: 0 auto;
+	}
 
-    .bubble {
-      position: relative;
-      width: 220px;
-      height: 110px;
-      padding: 0px;
-      background: #faf5eb;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      border: #d2c8be solid 1px;
-    }
+	.imgCover {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 
-    .bubble:after {
-      content: '';
-      position: absolute;
-      border-style: solid;
-      border-width: 6px 7px 6px 0;
-      border-color: transparent #faf5eb;
-      display: block;
-      width: 0;
-      z-index: 1;
-      left: -7px;
-      top: 15px;
-    }
+	.bubble {
+		position: relative;
+		width: 280px;
+		height: 110px;
+		padding: 0px;
+		background: #faf5eb;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+		border: #d2c8be solid 1px;
+	}
 
-    .bubble:before {
-      content: '';
-      position: absolute;
-      border-style: solid;
-      border-width: 6px 7px 6px 0;
-      border-color: transparent #d2c8be;
-      display: block;
-      width: 0;
-      z-index: 0;
-      left: -8px;
-      top: 15px;
-    }
+	.bubble:after {
+		content: '';
+		position: absolute;
+		border-style: solid;
+		border-width: 6px 7px 6px 0;
+		border-color: transparent #faf5eb;
+		display: block;
+		width: 0;
+		z-index: 1;
+		left: -7px;
+		top: 15px;
+	}
+
+	.bubble:before {
+		content: '';
+		position: absolute;
+		border-style: solid;
+		border-width: 6px 7px 6px 0;
+		border-color: transparent #d2c8be;
+		display: block;
+		width: 0;
+		z-index: 0;
+		left: -8px;
+		top: 15px;
+	}
 
     .bubble2 {
       position: relative;
@@ -166,260 +192,406 @@
     a:hover {
       text-decoration: none;
     }
-  </style>
+    
+    #footer {
+		position:absolute;
+		width: 100%;
+		height: 10%;
+		text-align: center;
+		color: light;
+	}
+	
+	#image_preview2 {
+		width: 100px;
+		height: 100px; 
+		border-radius: 70%;
+		overflow: hidden;
+		text-align: center;
+	}
+	
+	#img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	} 
+	
+</style>
 
-  <script src="https://kit.fontawesome.com/3c25fcea14.js" crossorigin="anonymous"></script>
-  <script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
-  <script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
-  <script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
-  
+<script src="https://kit.fontawesome.com/3c25fcea14.js" crossorigin="anonymous"></script>
+<script src="/js/jquery-3.5.1.js" th:src="@{/js/jquery-3.5.1.js}"></script>
+<script src="/js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+<script src="/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
   <script th:inline="javascript">
-  	var stepCount = 1;
+     var stepCount = 1;
   
-  	/*<![CDATA[*/
-  	$(document).ready(function() {
-  		var ingredient = /*[[${recipe.ingredient}]]*/
-  		
-  		// 오류 나는 거 정상임
-  		var arringred = ingredient.split("&");
-  		
-  		for (var i = 0; i < arringred.length; i++) {
-  			var items = arringred[i];
-  			console.log(items);
-  			
-  			var tag = "<tr class='Tableigredient p-1' style='border-bottom: 1px dotted #d2c8be;''>";
-  			
-  			
-  			var arrItems = items.split(",");
-  			
-  			for (var j = 0; j < arrItems.length; j++) {
-  				console.log(arrItems[j]);
-  				tag += "<td>" + arrItems[j] + "</td>";
-  			}
-  			
-  			tag += "</tr>";
-  		
-  			$("#ingredientBody").append(tag);
-  		}
-  	});
-  	/*]]>*/
-  	
-  	/*<![CDATA[*/
-  	$(document).ready(function() {
-  		var cooking= /*[[${recipe.cooking}]]*/
-  		
-  		// 오류 나는 거 정상임
-  		var arrCooking = cooking.split("&");
-  		
-  		for (var c = 0; c < arrCooking.length; c++) {
-  			var step = arrCooking[c];
-  			console.log(step);
-  			
-  			var ctag = "<tr>";
-  			ctag += "<td>" + stepCount++ + "</td>";
-  			ctag += "<td>" + arrCooking[c] + "</td>";		
-  			ctag += "<td></td>"
-  			ctag += "</tr>";
-  		
-  			$("#stepBody").append(ctag);
-  		}
-  	});
-  	/*]]>*/
+     /*<![CDATA[*/
+     $(document).ready(function() {
+        var ingredient = /*[[${recipe.ingredient}]]*/
+        
+        // 오류 나는 거 정상임
+        var arringred = ingredient.split("&");
+        
+        for (var i = 0; i < arringred.length; i++) {
+           var items = arringred[i];
+           console.log(items);
+           
+           var tag = "<tr class='Tableigredient p-1' style='border-bottom: 1px dotted #d2c8be;''>";
+           
+           
+           var arrItems = items.split(",");
+           
+           for (var j = 0; j < arrItems.length; j++) {
+              console.log(arrItems[j]);
+              tag += "<td>" + arrItems[j] + "</td>";
+           }
+           
+           tag += "</tr>";
+        
+           $("#ingredientBody").append(tag);
+        }
+     });
+     /*]]>*/
+     
+     /*<![CDATA[*/
+     $(document).ready(function() {
+        var cooking= /*[[${recipe.cooking}]]*/
+        
+        // 오류 나는 거 정상임
+        var arrCooking = cooking.split("&");
+        
+        for (var c = 0; c < arrCooking.length; c++) {
+           var step = arrCooking[c];
+           console.log(step);
+           
+           var ctag = "<tr>";
+           ctag += "<td>" + stepCount++ + "</td>";
+           ctag += "<td>" + arrCooking[c] + "</td>";      
+           ctag += "<td></td>"
+           ctag += "</tr>";
+        
+           $("#stepBody").append(ctag);
+        }
+     });
+     /*]]>*/
+     
+     /*<![CDATA[*/
+     $(document).ready(function() {
+        $("#aRecommend").click(function() {
+           var idx = /*[[${recipe.idx}]]*/
+//            var recommend = $("#recommed").val();
+           
+           var datas = {                 
+               idx : Number(idx)
+           }
+           
+         $.ajax({
+            url: "/second/secondRecommend",
+            type: "post",
+            data: datas,
+            dataType: "text",
+            success: function(data) {
+               alert("이 레시피를 추천하였습니다.");
+               location.reload();
+            },
+            error: function() {
+               alert("오류 발생")
+            }
+         });
+        });
+     });
+        /*]]>*/
+        
+        
+//	 댓글 기능 동작 안 함        
+     $(document).ready(function() {
+    	listReply();
+    	
+    	$("#btnComment").click(function() {
+    		var cmtContent = $("#cmtContent").val();
+    		var idx = '[[${recipe.idx}]]'
+    		var datas = {
+    				cmtContent: cmtContent,
+    				recipeIdx: idx
+    		};
+    		
+    		$.ajax({
+    			url: "/second/secondCommentInsert",
+    			type: "post",
+    			data: datas,
+    			success: function(data) {
+    				alert("댓글이 등록되었습니다.");
+    				listReply2();
+    			},
+    			error() {
+    				alert("오류가 발생하였습니다.")
+    			}
+    		});
+    	});
+     });
+        
+     function listReply() {
+    	 var url = '[[${recipe.idx}]]'
+    	 
+    	 $.ajax({
+    		url: "/second/secondCommentList?recipeIdx=" + url,
+    		type: "get",
+    		success: function(result) {
+    			$("#listReply").html(result);
+    		}
+    		
+    	 });
+     }
+     
+     function listReply2() {
+    	 $.ajax({
+    		 url: "/second/secondCommentList_json?idx=",
+    		 type: "get",
+    		 contentType: "json",
+    		 success: function(result) {
+    			 var output = "<table>";
+    			 for (var i in result) {
+    				 var repl = result[i].replytext;
+    				 repl = repl.replace(/  /gi,"&nbsp;&nbsp");//공백 처리
+    				 repl = repl.replace(/</gi,"&lt;"); //태그문자 처리
+   	                 repl = repl.replace(/>/gi,"&gt;");
+   	                 repl = repl.replace(/\n/gi,"<br>"); //줄바꿈 처리
+   	                 
+   	              	 output += "<tr><td>"+result[i].name;
+                  	 date = changeDate(result[i].regdate);
+                  	 output += "("+date+")";
+                  	 output += "<br>"+repl+"</td></tr>";
+    			 }
+    			 
+    			 output += "</table>";
+    			 $("#listReply").html(output);
+    		 }
+    	 
+    	 });
+     }
   </script>
 </head>
 
-<body>
-  <header style="background-color: white;">
-    <div class="row">
-      <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
-        <div class="col-md-2">
-          <a class="display-4 text-warning" style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
-            href="/second">HOME recipe</a>
-        </div>
+<body style="background-color: #f2f2f2;">
 
-        <div class="col-md-6">
-          <form action="" method="GET" class="form-group">
-            <div class="input-group">
-              <input name="" type="search" class="form-control" placeholder="&#xf002; Search...">
+<header class="bg-white">
+		<div class="row">
+			<div class="d-flex justify-content-center mt-4 search-bar input-group mb-3">
+				<div class="col-sm-3 mr-4 pr-4">
+					<a class="text-warning"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;" href="/second">HOME recipe</a>
+				</div>
+				<div class="col-sm-5">
+					<form action="" method="GET" class="form-group">
+						<div class="input-group">
+							<input name="" type="search" class="form-control mt-3" placeholder="&#xf002; 검색어를 입력하세요.">
+							<button type="submit" class="btn btn-outline-danger" style="border: 0;">
+								<i id="searchBtn" class="fas fa-search mt-3" style="font-size: 1.5em;"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+				<div class="input-group-append col-sm-3">
+					<a href="/second/SecondLogin" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-user ml-5"></i>
+					</a> <a href="/second/recipeDetailed" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="far fa-edit ml-5"></i>
+					</a> <a href="#" class="text-dark"
+						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+						<i class="fas fa-book ml-5"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	<div class="bg-danger">
+			<div class="container">
+				<nav class="topnav d-flex justify-content-center" id="myTopnav">
+					<div class="dropdown px-5">
+						<button id="btn1" class="dropbtn btn btn-danger " data-toggle="dropdown">목록</button>
+						<div class="dropdown-menu ">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">찌게</button>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#"	class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+					<div class="dropdown px-5">
+						<button class="dropbtn btn btn-danger" data-toggle="dropdown">구이</button>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item">홈</a> 
+							<a href="#" class="dropdown-item">회사소개</a> 
+							<a href="#" class="dropdown-item">제품소개</a>
+							<a href="#" class="dropdown-item">오시는길</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
 
-              <button type="submit" class="btn btn-outline-success" style="border: 0;">
-                <i class="fas fa-search" style="font-size: 1.5em;"></i>
-              </button>
-            </div>
-          </form>
-        </div>
+	</header>
 
-        <div class="input-group-append col-md-2 ">
-          <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-            <i class="far fa-user ml-5"></i>
-          </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-            <i class="far fa-edit ml-5"></i>
-          </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-            <i class="fas fa-book ml-5"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <div class="container mb-5">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="container mt-4 p-0 pb-3"
-            style="border: 1px dotted #d2c8be; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.2); background-color: white;">
-            <div class="recipeNameArea">
-              <h1 class="recipeName mt-3 pl-4" style="display: inline-block;" th:text="${recipe.title}"></h1>
-              <ul class="recipeInfo mt-4 p-0">
-                <li class="update pr-0" style="padding-left: 25px;">
-                  <p class="recipeDay"><i class="far fa-calendar-check pr-2"></i> <span
-                      th:text="${recipe.createdDatetime}"></span></p>
-                </li>
-                <li class="recipeID pr-0">
-                  <ul>
-                    <li class="mr-1 pr-1 pl-1 mr-2" style="background-color: darkgoldenrod; color: white;">레시피 번호
-                    <li th:text="${recipe.idx}"></li>
-                </li>
-              </ul>
+<main>
+	<div class="container mb-5 pt-3 pb-5">
+		<div class="row">
+		<div class="col-md-10">
+		<div class="container mt-4 p-0 pb-3" style="border: 1px dotted #d2c8be; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.2); background-color: white;">
+          <div class="recipeNameArea">
+            <h1 class="recipeName mt-3 pl-4" style="display: inline-block;" th:text="${recipe.title}"></h1>
+            <ul class="recipeInfo mt-4 p-0">
+              <li class="update pr-0" style="padding-left: 25px;">
+                <p class="recipeDay"><i class="far fa-calendar-check pr-2"></i> <span
+                    th:text="${recipe.createdDatetime}"></span></p>
               </li>
-              <li class="recipeType">
-              	<li class="mr-2 pr-1 pl-1" style="background-color: darkgoldenrod; color: white;">분류</li>
-              <li th:text="${recipe.classificationClassName}">
-              <li></li>
+              <li class="recipeID pr-0">
+                <ul>
+                  <li class="mr-1 pr-1 pl-1 mr-2" style="background-color: darkgoldenrod; color: white;">레시피 번호
+                  <li th:text="${recipe.idx}"></li>
+              </li>
+            </ul>
+            </li>
+            <li class="recipeType">
+               <li class="mr-2 pr-1 pl-1" style="background-color: darkgoldenrod; color: white;">분류</li>
+            <li th:text="${recipe.classificationClassName}">
+            <li></li>
 
-              </ul>
-              <ul class="justify-content-end d-flex">
-                <li class="">
-                  <div>
-                    <a href="#"><i class="far fa-thumbs-up"></i> 좋아요</a>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="recipeBlock container">
-              <div class="row">
-                <div class="pictureBox ml-4 mr-3 col-md-7 p-0"
-                  style="border : 2px solid #fff; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.3); display: inline-block;">
-                  <img class="p-1 imgCover" src="./images/파스타.PNG" alt="">
-                  <div class="subPicture"></div>
-                </div>
-                <div class="detail col-md-4">
-                  <div class="bubble m-0" style="height:auto; padding: 10px;">
-                    <p class="comment pb-1 mb-0">코멘트</p>
-                    <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;"
-                      th:text="${recipe.cookComment}">코멘트 텍스트</p>
-                  </div>
-                  <p class="time mt-2 m-0"><i class="far fa-clock mr-2"></i>조리시간 : <span class="mr-2"
-                      th:text="${recipe.cookTime}"></span></p>
-                  <p class="igredient mt-2 mb-0 pb-1" style="border-bottom: 1px solid #d2c8be;"><span>재료</span></p>
-                  <table>
-                    <tbody id="ingredientBody">
-                      <!-- <tr class="Tableigredient p-1" style="border-bottom: 1px dotted #d2c8be;">
-                        <td></td>
-                        <td></td>
-                      </tr> -->
-                    </tbody>
-                  </table>
-                </div>
+            </ul>
+            <form action="" id="frm">
+            <ul class="justify-content-end d-flex mr-4">
+                 <li>
+                   <div>
+                     <a href="" id="aRecommend"><i class="far fa-thumbs-up"></i> 추천</a>
+                     <span class="ml-1" th:text="${recipe.recommend}"></span>
+                   </div>
+                 </li>
+               </ul>              
+            </form>
+          </div>
+          <div class="recipeBlock container">
+            <div class="row">
+              <div class="pictureBox ml-4 mr-3 col-md-7 p-0"
+                style="border : 2px solid #fff; box-shadow : 0 0 2px rgba(0, 0, 0 ,0.3); display: inline-block;">
+                <img class="p-1 imgCover" src="/images/파스타.PNG" alt="">
+                <div class="subPicture"></div>
               </div>
-            </div>
-            <div class="stepBox container pt-5">
-              <p class="pb-2 mb-0" style="border-bottom: 1px solid #d2c8be;">조리 과정</p>
-              <table style="width: 100%;">
-                <tbody id="stepBody">
-                  <!-- <tr>
-                    <td>1</td>
-                    <td class="contents"></td>
-                    <td></td>
-                  </tr> -->
-                </tbody>
-              </table>
-              <div class="bubble2 m-3" style="height:auto; padding: 10px;">
-                <p class="comment pb-1 mb-0">코멘트</p>
-                <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;" th:text="${recipe.cookPoint}">
-                  코멘트 텍스트</p>
-              </div>
-            </div>
-            <div class="keyword" style="width: auto; border-top: 1px dotted #d2c8be;">
-              <div class="tag d-flex">
-                <dl class="pr-4">이 레시피의 키워드</dl>
-                <dd>
-                  <a href="#">키워드</a>
-                  <a href="#">키워드</a>
-                  <a href="#">키워드</a>
-                  <a href="#">키워드</a>
-                  <a href="#">키워드</a>
-                  <a href="#">키워드</a>
-                </dd>
+              <div class="detail col-md-4">
+                <div class="bubble m-0" style="height:auto; padding: 10px;">
+                  <p class="comment pb-1 mb-0">코멘트</p>
+                  <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;"
+                    th:text="${recipe.cookComment}">코멘트 텍스트</p>
+                </div>
+                <p class="time mt-2 m-0"><i class="far fa-clock mr-2"></i>조리시간 : <span class="mr-2"
+                    th:text="${recipe.cookTime}"></span></p>
+                <p class="igredient mt-2 mb-0 pb-1" style="border-bottom: 1px solid #d2c8be;"><span>재료</span></p>
+                <table>
+                  <tbody id="ingredientBody">
+                    <!-- <tr class="Tableigredient p-1" style="border-bottom: 1px dotted #d2c8be;">
+                      <td></td>
+                      <td></td>
+                    </tr> -->
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-          <section class="commentBox mt-5 bg-white">
-            <div class="p-2" style="border-bottom: 1px solid #d2c8be; border-top: 3px solid #5a320a;">
-              <h2>코멘트 박스</h2>
+          <div class="stepBox container pt-5">
+            <p class="pb-2 mb-0" style="border-bottom: 1px solid #d2c8be;">조리 과정</p>
+            <table style="width: 100%;">
+              <tbody id="stepBody">
+                <!-- <tr>
+                  <td>1</td>
+                  <td class="contents"></td>
+                  <td></td>
+                </tr> -->
+              </tbody>
+            </table>
+            <div class="bubble2 m-3" style="height:auto; padding: 10px;">
+              <p class="comment pb-1 mb-0">코멘트</p>
+              <p class="commentText pt-1 mb-0" style="border-top: 1px dotted #d2c8be;" th:text="${recipe.cookPoint}">
+                코멘트 텍스트</p>
             </div>
-            <div class="reviewBox container p-4">
-              <div class="reviewArea p-3" style="background: #f5f5f0;">
-                <form action="" id="reviewForm" method="post" enctype="multipart/form-data">
-                  <input type="hidden" name="mode" id="review-mode" value="post_review">
-                  <input type="hidden" name="last_review_id" id="last-review-id" value="0">
-                  <input type="hidden" name="recipe_id" value="408846">
-                  <input type="hidden" name="user_id" value="230316">
-                  <textarea class="p-1" name="commentArea" id="review-comment" placeholder="맛있습니다."></textarea>
-                  <div id="review-message"></div>
-                  <div>
-                    <button class="btn btn-block mt-3"
-                      style="background : #5a320a; color: white; font-size: 13px;">작성</button>
-                  </div>
-                </form>
-              </div>
-            </div>    
-          </section>
-          <div class="d-flex justify-content-end mt-4">
-            <a href="/second/secondList" class="btn btn-primary">목록으로</a>
-            <a type="button" class="btn btn-success ml-2" href="/second/secondEdit?idx=" th:attrappend="href=${recipe.idx}">수정하기</a>
-            <a type="button" class="btn btn-danger ml-2" href="/second/secondRemove?idx=" th:attrappend="href=${recipe.idx}">삭제하기</a>
+          </div>
+          <div class="keyword" style="width: auto; border-top: 1px dotted #d2c8be;">
+            <div class="tag d-flex">
+              <dl class="pr-4">이 레시피의 키워드</dl>
+              <dd>
+                <a href="#">키워드</a>
+                <a href="#">키워드</a>
+                <a href="#">키워드</a>
+                <a href="#">키워드</a>
+                <a href="#">키워드</a>
+                <a href="#">키워드</a>
+              </dd>
+            </div>
           </div>
         </div>
-          <div>
-          	<a th:each="list : ${recipe.fileList}" th:href="@{/second/secondFileDownload(fidx=${recipe.fidx}, boardIdx=${recipe.boardIdx})}" th:text="|${recipe.fileName} (${recipe.fileSize} kb)|"></a>
-          </div>							
-        <div class="col-md-3">
-          <div class="profileBox mt-4 p-2 pb-0"
-            style="border: 1px solid #d2c8be; border-top: 3px solid #5a320a; background-color: white; width: 100%;">
-            <li style="border-bottom: 1px solid #d2c8be;">
-              <h4>프로필</h4>
-            </li>
-            <li>
-              <a href="">
-                <div class="Thumbnail">
-                  <div class="photoThumb pt-2 d-flex mb-5">
-                    <div>
-                      <img class="" src="./images/pengsu03.jpg" alt=""
-                        style="width: 100%; max-width: 130px; height: 100%;">
-                    </div>
-                    <div class="detailThumb pl-2">
-                      <p class="userName m-0">펭수</p>
-                      <p>파스타파스파</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <button class="btn btn-block" style="background : #5a320a; color: white; font-size: 13px;">레시피 일람</button>
-            </li>
+        <section class="commentBox mt-5 bg-white">
+          <div class="p-2" style="border-bottom: 1px solid #d2c8be; border-top: 3px solid #5a320a;">
+            <h2>코멘트 박스</h2>
           </div>
+          <div class="reviewBox container p-4">
+            <div class="reviewArea p-3" style="background: #f5f5f0;">
+                <input type="hidden" name="mode" id="review-mode" value="post_review">
+                <input type="hidden" name="last_review_id" id="last-review-id" value="0">
+                <input type="hidden" name="recipe_id" value="408846">
+                <input type="hidden" name="user_id" value="230316">
+                <textarea class="p-1" name="commentArea" id="cmtContent" placeholder="맛있습니다."></textarea>
+                <div id="review-message"></div>
+                <div>
+                  <button class="btn btn-block mt-3" id ="btnComment"
+                    style="background : #5a320a; color: white; font-size: 13px;">작성</button>
+                </div>
+                <div id="listReply">
+                
+                </div>
+            </div>
+          </div>    
+        </section>
+        
+        <div class="d-flex justify-content-end mt-4">
+          <a href="/second/secondList" class="btn btn-primary">목록으로</a>
+          <a type="button" class="btn btn-success ml-2" href="/second/secondEdit?idx=" th:attrappend="href=${recipe.idx}">수정하기</a>
+          <a type="button" class="btn btn-danger ml-2" href="/second/secondRemove?idx=" th:attrappend="href=${recipe.idx}">삭제하기</a>
         </div>
       </div>
-    </div>
-  </main>
+        <div>
+           <a th:each="list : ${recipe.fileList}" th:href="@{/second/secondFileDownload(fidx=${recipe.fidx}, boardIdx=${recipe.boardIdx})}" th:text="|${recipe.fileName} (${recipe.fileSize} kb)|"></a>
+        </div>
 
-  <footer>
-    <div class="bg-primary" style="height: 200px;"></div>
-  </footer>
-</body>
+		<div class="col-md-2">
+			<div class="profileBox mt-4 p-2 pb-0" style="border: 1px solid #d2c8be; border-top: 3px solid #5a320a; background-color: white; width: 100%;">
+				<div class="text-center"style="border-bottom: 1px solid #d2c8be;">
+					<div>
+						<div class="col-md-4 py-4" style="border: none;">
+							<img th:src="@{${session.storedFilePath}}" class="mx-auto d-block" id="image_preview2"></img>
+						</div>
+						<div class="detailThumb pl-2">
+							<p class="userName m-0" th:text="|${session.userId}|" style="font-weight: bold"></p>
+							<p th:text="|${session.userComment}|"></p>
+						</div>
+						<button class="btn btn-block" style="background : #5a320a; color: white; font-size: 13px;">레시피 일람</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+  </div>
+</main>
+
+	<footer class="jumbotron my-auto">
+		<div class="container">
+			<h5 class="text-center text-light">made by HOME recipe</h5>
+		</div>
+	</footer>
 
 </html>
