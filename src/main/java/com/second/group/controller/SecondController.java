@@ -59,6 +59,21 @@ public class SecondController {
 		return mv;
 	}
 	
+
+	// 검색, 리스트
+	@RequestMapping(value ="/second/secondList", method = RequestMethod.GET)
+	public ModelAndView SecondList(@RequestParam("search") String search) throws Exception {
+		ModelAndView mv = new ModelAndView("/second/secondList");
+		
+		// 검색어를 매개변수로 사용하는 서비스의 조회부분
+	
+		List<SecondRecipeDto> searchRecipeList = secondService.searchSecondList(search);
+//		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
+			System.out.println(search);
+		mv.addObject("list", searchRecipeList);
+//		mv.addObject("lists", recipeList);
+}
+  
 	@RequestMapping(value = "/second/mySearch", method = RequestMethod.GET)
 	public ModelAndView SearchSecondList(HttpServletRequest request, String keyword) throws Exception {
 		ModelAndView mv = new ModelAndView("/second/myBoard");
@@ -74,6 +89,7 @@ public class SecondController {
 			e.printStackTrace();
 		}
 		
+
 		return mv;
 	}
 	
