@@ -176,7 +176,7 @@
 	<main class="container">
 		<section class="row">
 			<article class="col-sm-6 mx-auto">
-				<form id="frm" name="frm" action="/second/SecondJoin" method="POST">
+				<form id="frm" name="frm" action="/second/SecondJoin" method="POST" enctype="multipart/form-data">
 					<!-- userId, userPw, userYear, userGender, userComment, fileName,  -->
 					
 					<div class="form-group">
@@ -223,7 +223,7 @@
 					<div class="form-group">
 						<label for="image">프로필 사진</label>
 						<br>
-						<input type="file" class="form-controll" name="fileName" id="fileName">
+						<input type="file" class="form-controll" name="files" id="fileName">
 					</div>
 					<div id="image_preview" style="display: none;">
 						<div id="image_preview2">

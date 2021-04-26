@@ -2,7 +2,6 @@ package com.second.group.service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -31,7 +30,18 @@ public class SecondServiceImpl implements SecondService {
 	}
 	
 	@Override
-	public void insertSecondJoin(SecondUserDto userData) throws Exception {
+	public void insertSecondJoin(SecondUserDto userData, MultipartHttpServletRequest uploadFiles) throws Exception {
+		List<SecondFileDto> fileList = fileUtil.parseFileInfo(userData.getUserIdx(), uploadFiles);
+		
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			secondMapper.insertSecondFileList(fileList);
+			for (SecondFileDto item : fileList) {
+				userData.setFileName(item.getFileName());
+				userData.setStoredFilePath(item.getStoredFilePath());
+			}
+			
+		}
+		
 		secondMapper.insertSecondJoin(userData);
 	}
 	
