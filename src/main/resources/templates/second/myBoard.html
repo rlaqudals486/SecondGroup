@@ -191,74 +191,59 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 	<header class="bg-whight">
-		<div class="row">
-			<div class="d-flex justify-content-center mt-4 search-bar input-group mb-3">
-				<div class="col-sm-3 mr-4 pr-4">
-					<a class="text-warning"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;" href="/second">HOME recipe</a>
-				</div>
-				<div class="col-sm-5">
-					<form action="" method="GET" class="form-group">
-						<div class="input-group">
-							<input name="" type="search" class="form-control mt-3" placeholder="&#xf002; 검색어를 입력하세요.">
-							<button type="submit" class="btn btn-outline-danger" style="border: 0;">
-								<i id="searchBtn" class="fas fa-search mt-3" style="font-size: 1.5em;"></i>
-							</button>
-						</div>
-					</form>
-				</div>
-				<div class="input-group-append col-sm-3">
-					<a href="/second/SecondLogin" class="text-dark"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-						<i class="far fa-user ml-5"></i>
-					</a> <a href="/second/recipeDetailed" class="text-dark"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-						<i class="far fa-edit ml-5"></i>
-					</a> <a href="#" class="text-dark"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-book ml-5"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-<div class="bg-danger">
-			<div class="container">
-				<nav class="topnav d-flex justify-content-center" id="myTopnav">
-					<div class="dropdown px-5">
-						<button id="btn1" class="dropbtn btn btn-danger " data-toggle="dropdown">목록</button>
-						<div class="dropdown-menu ">
-							<a href="#" class="dropdown-item">홈</a> 
-							<a href="#"	class="dropdown-item">회사소개</a> 
-							<a href="#" class="dropdown-item">제품소개</a>
-							<a href="#" class="dropdown-item">오시는길</a>
-						</div>
-					</div>
-					<div class="dropdown px-5">
-						<button class="dropbtn btn btn-danger" data-toggle="dropdown">찌게</button>
-						<div class="dropdown-menu">
-							<a href="#" class="dropdown-item">홈</a> 
-							<a href="#"	class="dropdown-item">회사소개</a> 
-							<a href="#" class="dropdown-item">제품소개</a>
-							<a href="#" class="dropdown-item">오시는길</a>
-						</div>
-					</div>
-					<div class="dropdown px-5">
-						<button class="dropbtn btn btn-danger" data-toggle="dropdown">구이</button>
-						<div class="dropdown-menu">
-							<a href="#" class="dropdown-item">홈</a> 
-							<a href="#" class="dropdown-item">회사소개</a> 
-							<a href="#" class="dropdown-item">제품소개</a>
-							<a href="#" class="dropdown-item">오시는길</a>
-						</div>
-					</div>
-				</nav>
-			</div>
-		</div>
+      <div class="row">
+         <div
+            class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3" style="position: relative; right: -100px">
+            <div class="col-sm-2">
+               <a class="display-4 text-warning"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+                  href="/second">HOME recipe</a>
+            </div>
+            <!-- 검색창 -->
+            <div class="col-sm-4">
+               <form action="/second/secondList" method="GET" class="form-group">
+                  <div class="input-group">
+                     <input name="search" type="search" class="form-control"
+                        placeholder="&#xf002; Search...">
+                        
+                     <button type="submit" class="btn btn-outline-danger"
+                        style="position: relative; border: 0; height: 39px; top: 9px">
+                        <i class="fas fa-search" style="font-size: 1.5em; position: relative; top: 1px"></i>
+                     </button>
+                  </div>
+               </form>
+            </div>
 
-	</header>
+            <div class="input-group-append col-sm-4 ">
+               <a href="/second/SecondIcon1" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="far fa-user ml-5"></i>
+               </a> <a href="/second/SecondIcon2" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="far fa-edit ml-5"></i>
+               </a> <a href="/second/secondList?search=" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="fas fa-book ml-5"></i>
+               </a>
+               <div >
+                  <div th:if="${session.userId} != null" class="ml-5">
+                     <p th:text="|${session.userId} 님 안녕하세요|"></p>
+                     <a href="/second/logout" class="btn btn-outline-primary"
+                        id="btnLogout">로그아웃</a>
+                  </div>
+                  <div th:unless="${session.userId} != null">
+                     <a href="/second/SecondLogin"
+                        class="btn btn-outline-primary ml-5 mt-3" id="btnLogin">로그인</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </header>
 	
-	<main class="pb-4 mb-4 mt-4">
-		<div class="container" style="background-color: #f2f2f2;">
+	<main class="pb-4 pt-4" style="background-color: wheat; ">
+		<div class="container" style="background-color: #f2f2f2; border: 1px solid #d2c8be;">
 			<div class="row wrapper">
 				<!-- 사이드바 -->
 				<div class="col-md-3 px-0" id="sidebar">
