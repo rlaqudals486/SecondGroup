@@ -2,14 +2,13 @@ package com.second.group.controller;
 
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +69,13 @@ public class SecondController {
 		
 		// 검색어를 매개변수로 사용하는 서비스의 조회부분
 	
-		List<SecondRecipeDto> searchRecipeList = secondService.searchSecondList(search);
+		List<SecondRecipeDto> searchRecipeList = secondService.searchSecondList1(search);
 //		List<SecondRecipeDto> recipeList = secondService.selectSecondList();
 			System.out.println(search);
 		mv.addObject("list", searchRecipeList);
 //		mv.addObject("lists", recipeList);
+		
+		return mv;
 }
   
 	@RequestMapping(value = "/second/mySearch", method = RequestMethod.GET)
@@ -491,20 +492,7 @@ public class SecondController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/second/secondList", method = RequestMethod.GET)
-	   public ModelAndView SecondList(@RequestParam("search") String search) throws Exception {
-	      ModelAndView mv = new ModelAndView("/second/secondList");
-	      
-	      // 검색어를 매개변수로 사용하는 서비스의 조회부분
-	      List<SecondRecipeDto> recipeList = secondService.searchSecondList1(search);
-	         System.out.println(search);
-	      
-	      mv.addObject("list", recipeList);
-	      return mv;
-	      
-	   }
-	
-	
+
 	  @RequestMapping(value = "/second/mypage", method = RequestMethod.GET)
 	  public ModelAndView MypageList(HttpServletRequest request) throws Exception {
 	  
