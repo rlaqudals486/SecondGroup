@@ -24,9 +24,8 @@ body {
 	background-color: wheat;
 }
 
-.header-input {
+.search-head > input  {
 	width: 100%;
-	border-radius: 20px;
 	border: 1px solid #bbb;
 	margin: 10px 0;
 	padding: 10px 12px;
@@ -191,7 +190,8 @@ html {
 </head>
 
 <body>
-	<header class="bg-white">
+
+	 <header class="bg-white">
       <div class="row">
          <div
             class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3" style="position: relative; right: -100px">
@@ -203,11 +203,11 @@ html {
             <!-- 검색창 -->
             <div class="col-sm-4">
                <form action="/second/secondList" method="GET" class="form-group">
-                  <div class="input-group">
+                  <div class="input-group search-head">
                      <input name="search" type="search" class="form-control"
                         placeholder="&#xf002; Search...">
                         
-                     <button type="submit" class="btn btn-outline-danger"
+                     <button type="submit" class="btn btn-outline-success"
                         style="position: relative; border: 0; height: 39px; top: 9px">
                         <i class="fas fa-search" style="font-size: 1.5em; position: relative; top: 1px"></i>
                      </button>
@@ -279,7 +279,7 @@ html {
 			</div>
 		</div>
 		<div class="container d-flex justify-content-end"
-			style="position: relative; left: -55px; top: -20px;">
+			style="position: relative; left: -110px; top: -20px;">
 			<a href="/second/secondWrite" class="btn btn-primary">글 쓰기</a>
 		</div>
 

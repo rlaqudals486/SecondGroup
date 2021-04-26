@@ -37,7 +37,7 @@ public interface SecondService {
 	int CommentCount(int recipeIdx) throws Exception;
 	
 
-	public void insertRecipe(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
+	public void insertRecipe(SecondRecipeDto recipe/* , MultipartHttpServletRequest uploadFiles */) throws Exception;
 	public void insertSecondFileList(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
 	public void insertSecondFileList2(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception;
 	List<SecondRecipeDto> searchSecondList1(String search) throws Exception;

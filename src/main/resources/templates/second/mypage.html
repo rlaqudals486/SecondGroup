@@ -222,100 +222,101 @@
       </div>
 
    </header>
-   
-   <main class="pb-4 pt-4" style="background-color: wheat; ">
-      <div class="container" style="background-color: #f2f2f2;border: 1px solid #d2c8be;">
-         <div class="row wrapper">
-            <!-- 사이드바 -->
-            <div class="col-md-3 px-0" id="sidebar">
-               <div class="content">
-                  <form action="/second/mypage">
-                     <div class="sidenav" id="mySidenav">
-                        <div class="menuMark">
-                           <span style="font-size:35px;cursor:pointer" onclick="openNav()">&#9776;</span>
-                        </div>
-                        <a href="javascript:void(0)" class="closebtn mt-4 pb-4" style="font-size: 45px;"id="closebtn" onclick="closeNav()">&times;</a>
-                        <a href="/second/mypage" class="form-inline mt-4">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="26" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                           </svg>
-                        <span class="" id="menuSpan1" style="font-weight: bold;">내 정보</span>
-                        </a>
-                        <a href="/second/myBoard" class="form-inline pt-4 mt-2">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 16">
-                           <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
-                           <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
-                           </svg>
-                           <span class="m-0 mb-4 pb-4" id="menuSpan2" style="font-weight: bold;">작성글 관리</span>
-                        </a>
-                        <div th:if="${session.userLevel} == A">
-                           <a href="/second/adminPage" class="form-inline pt-4 pb-4 mt-2" >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-     <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                              </svg>
-                              <span class="" id="menuSpan1" style="font-weight: bold;">회원관리</span>
-                           </a>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-            </div>
-            <div class="col-md-9">
-               <div class="p-4">
-                  <h3 class="pt-5"><strong th:text="|${session.userId}|"></strong> 님의 마이페이지</h3><hr>
-               </div>
-               
-               <div class="row ml-1 mr-1 mb-5" id="">
-                  <div class="col-md-4" style="border: none;" >
-                     <img th:src="@{${data.storedFilePath}}"
-                           class="mx-auto d-block" id="image_preview2"></img>
-                  </div>
-                  <div class="col-md-8 pt-4 pb-4" style="border: 1px solid gray;">
-                     <h4>한줄 소개</h4><hr>
-                     <h5 th:text="|${data.userComment}|"></h5>
-                  </div>
-               </div>
-               
-               <div>
-                  <table class="table table-bordered">
-                     <tbody>
-                        <tr>
-                           <th scope="row" class="align-middle text-center" style="width:34%;">생년월일</th>
-                           <td style="width:66%;"><p class="align-middle text-center m-0" th:text="|${data.userYear}|"></p></td>
-                        </tr>
-                        <tr>
-                           <th scope="row" class="align-middle text-center">휴대폰</th>
-                           <td><p class="align-middle text-center m-0" th:text="|${data.userPhone}|"></p></td>
-                        </tr>
-                        <tr>
-                           <th scope="row" class="align-middle text-center">성별</th>
-                           <td><p class="align-middle text-center m-0" th:text="|${data.userGender}|"></p></td>
-                        </tr>
-                        
-                     </tbody>
-                  </table>
-                  <div class="mt-4">
-                     <a href="/second/mypageUpdate" class="btn btn-danger float-right pl-3 pr-3" ><strong>수정</strong></a>
-                  </div>
-                  
-               </div>
-            </div>
-         </div>
-      </div>
-   </main>
-   
-   <footer class="jumbotron">
-      <div class="container">
-         <h5 class="text-center text-light">made by HOME recipe</h5>
-      </div>
-   </footer>
-   
-   <script>
-      function openNav() {
-         document.getElementById("mySidenav").style.width = "100%";
-      }
+	
+	<main class="pb-4 pt-4" style="background-color: wheat; ">
+		<div class="container" style="background-color: #f2f2f2;border: 1px solid #d2c8be;">
+			<div class="row wrapper">
+				<!-- 사이드바 -->
+				<div class="col-md-3 px-0" id="sidebar">
+					<div class="content">
+						<form action="/second/mypage">
+							<div class="sidenav" id="mySidenav">
+								<div class="menuMark">
+									<span style="font-size:35px;cursor:pointer" onclick="openNav()">&#9776;</span>
+								</div>
+								<a href="javascript:void(0)" class="closebtn mt-4 pb-4" style="font-size: 45px;"id="closebtn" onclick="closeNav()">&times;</a>
+								<a href="/second/mypage" class="form-inline mt-4">
+									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="26" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+										<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+									</svg>
+								<span class="" id="menuSpan1" style="font-weight: bold;">내 정보</span>
+								</a>
+								<a href="/second/myBoard" class="form-inline pt-4 mt-2">
+									<svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-journal" viewBox="0 0 16 16">
+									<path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+									<path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+									</svg>
+									<span class="m-0 mb-4 pb-4" id="menuSpan2" style="font-weight: bold;">작성글 관리</span>
+								</a>
+								<div th:if="${session.userLevel} == A">
+									<a href="/second/adminPage" class="form-inline pt-4 pb-4 mt-2" >
+										<svg xmlns="http://www.w3.org/2000/svg" width="28" height="25" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+	  									<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+	  <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+	  <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+										</svg>
+										<span class="" id="menuSpan1" style="font-weight: bold;">회원관리</span>
+									</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="p-4">
+						<h3 class="pt-5"><strong th:text="|${session.userId}|"></strong> 님의 마이페이지</h3><hr>
+					</div>
+					
+					<div class="row ml-1 mr-1 mb-5" id="">
+						<div class="col-md-4" style="border: none;" >
+							<img th:src="@{${data.storedFilePath}}"
+									class="mx-auto d-block" id="image_preview2"></img>
+						</div>
+						<div class="col-md-8 pt-4 pb-4" style="border: 1px solid gray;">
+							<h4>한줄 소개</h4><hr>
+							<h5 th:text="|${data.userComment}|"></h5>
+						</div>
+					</div>
+					
+					<div>
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<th scope="row" class="align-middle text-center" style="width:34%;">생년월일</th>
+									<td style="width:66%;"><p class="align-middle text-center m-0" th:text="|${data.userYear}|"></p></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle text-center">휴대폰</th>
+									<td><p class="align-middle text-center m-0" th:text="|${data.userPhone}|"></p></td>
+								</tr>
+								<tr>
+									<th scope="row" class="align-middle text-center">성별</th>
+									<td><p class="align-middle text-center m-0" th:text="|${data.userGender}|"></p></td>
+								</tr>
+								
+							</tbody>
+						</table>
+						<div class="mt-4">
+							<a href="/second/mypageUpdate" class="btn btn-danger float-right pl-3 pr-3" ><strong>수정</strong></a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	
+	<footer class="jumbotron">
+		<div class="container">
+			<h5 class="text-center text-light">made by HOME recipe</h5>
+		</div>
+	</footer>
+	
+	<script>
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "100%";
+		}
+
 
       function closeNav() {
          document.getElementById("mySidenav").style.width = "0%";
