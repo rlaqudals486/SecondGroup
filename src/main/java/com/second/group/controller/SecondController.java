@@ -431,8 +431,8 @@ public class SecondController {
 	}
 
 	@RequestMapping(value = "/second/SecondJoin", method = RequestMethod.POST)
-	public String insertSecondJoin(SecondUserDto userData) throws Exception {
-		secondService.insertSecondJoin(userData);
+	public String insertSecondJoin(SecondUserDto userData, MultipartHttpServletRequest uploadFiles) throws Exception {
+		secondService.insertSecondJoin(userData, uploadFiles);
 
 		return "redirect:/second/SecondLogin";
 	}

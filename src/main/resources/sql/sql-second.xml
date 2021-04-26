@@ -127,7 +127,7 @@
 	
 
 	<!-- 회원가입 -->
-	<select id="insertSecondJoin" parameterType="com.second.group.dto.SecondUserDto">
+	<insert id="insertSecondJoin" parameterType="com.second.group.dto.SecondUserDto">
 		<![CDATA[
 			INSERT INTO user 
 				(user_id, user_pw, user_phone, user_gender, user_year,
@@ -136,7 +136,7 @@
 				(#{userId}, #{userPw}, #{userPhone}, #{userGender},
 				 #{userYear}, #{userComment}, #{fileName}, #{storedFilePath})
 		]]>
-	</select>
+	</insert>
 	
 	<!-- 아이디 중복체크 -->
 	<select id="idCheck" resultType="int">

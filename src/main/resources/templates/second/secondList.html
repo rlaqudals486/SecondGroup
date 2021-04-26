@@ -100,10 +100,97 @@ a {
 	letter-spacing: -1px;
 	text-decoration: none;
 }
+html {
+      height: 100%;
+   }
+   
+   body {
+      overflow-x:hidden; 
+      overflow-y:auto;
+   }
+
+   /* #main, footer {
+      min-height: 100%;
+      background-image: url("./img/배경.webp");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+   } */
+   
+   input {
+      width: 100%;
+      border-radius: 20px;
+      border: 1px solid #bbb;
+      margin: 10px 0;
+      padding: 10px 12px;
+      font-family: fontAwesome;
+   }
+
+   .menuMark {
+      position: absolute;
+      top: 5%;
+      font-size: 36px;
+      margin-left: 10%;
+   }
+
+   .menuMark span:hover {
+      color: white;
+   }
+   
+   #footer {
+      position:absolute;
+      width: 100%;
+      height: 10%;
+      text-align: center;
+      color: light;
+   }
+   
+   .box {
+   width: 150px;
+   height: 150px; 
+   border-radius: 70%;
+   overflow: hidden;
+   }
+   
+   .profile {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+   }
+   
+
+   @media all and (min-width:480px) and (max-width:767px) { 
+      .sidenav {
+         height: 80%;
+         width: 0%;
+         z-index: 1;
+         left: 0;
+         background-color: #FFC300;
+         overflow-x: hidden;
+         transition: 0s;
+         padding-top: 0%;
+         padding-bottom: 0%;
+      }
+   }
+   
+   #image_preview2 {
+      width: 150px;
+      height: 150px; 
+      border-radius: 70%;
+      overflow: hidden;
+      text-align: center;
+   }
+   
+   #img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+   } 
 </style>
 </head>
 
 <body>
+
 	 <header class="bg-white">
       <div class="row">
          <div
@@ -155,7 +242,6 @@ a {
       </div>
 
    </header>
-   
 	<main class="container">
 		<div class="d-inline-flex p-2">
 			<h5 th:text="${#lists.size(list)}"></h5>

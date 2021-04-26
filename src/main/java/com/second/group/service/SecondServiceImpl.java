@@ -29,7 +29,18 @@ public class SecondServiceImpl implements SecondService {
 	}
 
 	@Override
-	public void insertSecondJoin(SecondUserDto userData) throws Exception {
+	public void insertSecondJoin(SecondUserDto userData, MultipartHttpServletRequest uploadFiles) throws Exception {
+		List<SecondFileDto> fileList = fileUtil.parseFileInfo(userData.getUserIdx(), uploadFiles);
+		
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			secondMapper.insertSecondFileList(fileList);
+			for (SecondFileDto item : fileList) {
+				userData.setFileName(item.getFileName());
+				userData.setStoredFilePath(item.getStoredFilePath());
+			}
+			
+		}
+		
 		secondMapper.insertSecondJoin(userData);
 	}
 
