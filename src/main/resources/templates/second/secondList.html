@@ -24,9 +24,8 @@ body {
 	background-color: wheat;
 }
 
-.header-input {
+.search-head > input  {
 	width: 100%;
-	border-radius: 20px;
 	border: 1px solid #bbb;
 	margin: 10px 0;
 	padding: 10px 12px;
@@ -105,45 +104,58 @@ a {
 </head>
 
 <body>
-	<header style="background-color: white;">
-		<div class="row">
-			<div class="text-center mx-auto mt-5 search-bar input-group mb-3">
-				<div class="col-md-2">
-					<a class="display-4 text-warning"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
-						href="/second">HOME recipe</a>
-				</div>
+	 <header class="bg-white">
+      <div class="row">
+         <div
+            class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3" style="position: relative; right: -100px">
+            <div class="col-sm-2">
+               <a class="display-4 text-warning"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+                  href="/second">HOME recipe</a>
+            </div>
+            <!-- 검색창 -->
+            <div class="col-sm-4">
+               <form action="/second/secondList" method="GET" class="form-group">
+                  <div class="input-group search-head">
+                     <input name="search" type="search" class="form-control"
+                        placeholder="&#xf002; Search...">
+                        
+                     <button type="submit" class="btn btn-outline-success"
+                        style="position: relative; border: 0; height: 39px; top: 9px">
+                        <i class="fas fa-search" style="font-size: 1.5em; position: relative; top: 1px"></i>
+                     </button>
+                  </div>
+               </form>
+            </div>
 
-				<div class="col-md-6">
-					<form action="/second/secondList" method="GET" class="form-group">
-						<div class="input-group">
-							<input name="search" type="search"
-								class="header-input form-control"
-								placeholder="&#xf002; Search...">
+            <div class="input-group-append col-sm-4 ">
+               <a href="/second/SecondIcon1" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="far fa-user ml-5"></i>
+               </a> <a href="/second/SecondIcon2" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="far fa-edit ml-5"></i>
+               </a> <a href="/second/secondList?search=" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="fas fa-book ml-5"></i>
+               </a>
+               <div >
+                  <div th:if="${session.userId} != null" class="ml-5">
+                     <p th:text="|${session.userId} 님 안녕하세요|"></p>
+                     <a href="/second/logout" class="btn btn-outline-primary"
+                        id="btnLogout">로그아웃</a>
+                  </div>
+                  <div th:unless="${session.userId} != null">
+                     <a href="/second/SecondLogin"
+                        class="btn btn-outline-primary ml-5 mt-3" id="btnLogin">로그인</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
 
-							<button type="submit" class="btn btn-outline-success"
-								style="border: 0;">
-								<i class="fas fa-search" style="font-size: 1.5em;"></i>
-							</button>
-						</div>
-					</form>
-				</div>
-
-				<div class="input-group-append col-md-2 ">
-					<a class="text-dark"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-						<i class="far fa-user ml-5"></i>
-					</a> <a class="text-dark"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-						<i class="far fa-edit ml-5"></i>
-					</a> <a class="text-dark"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-						<i class="fas fa-book ml-5"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-	</header>
+   </header>
+   
 	<main class="container">
 		<div class="d-inline-flex p-2">
 			<h5 th:text="${#lists.size(list)}"></h5>
@@ -181,7 +193,7 @@ a {
 			</div>
 		</div>
 		<div class="container d-flex justify-content-end"
-			style="position: relative; left: -55px; top: -20px;">
+			style="position: relative; left: -110px; top: -20px;">
 			<a href="/second/secondWrite" class="btn btn-primary">글 쓰기</a>
 		</div>
 
