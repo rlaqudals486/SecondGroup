@@ -22,30 +22,6 @@
 		padding: 10px 12px;
 		font-family: fontAwesome;
 	}
-	
-	.dropdown-menu {
-		display: none;
-		position: absolute;
-		background-color: #f1f1f1;
-		min-width: 160px;
-		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-		z-index: 1;
-	}
-	
-	.dropdown {
-		position: relative;
-		display: inline-block;
-	}
-	
-	.dropbtn {
-	/* 	color: white; */
-		font-size: 2rem;
-		border: none;
-	}
-	
-	.dropdown:hover .dropdown-menu {
-		display: block;
-	}
 
 	ul>li {
 		list-style: none;
@@ -376,25 +352,31 @@
   </script>
 </head>
 
-<body style="background-color: #f2f2f2;">
+<body style="background-color: wheat;">
 
 <header class="bg-white">
-		<div class="row">
-			<div class="d-flex justify-content-center mt-4 search-bar input-group mb-3">
-				<div class="col-sm-3 mr-4 pr-4">
-					<a class="text-warning"
-						style="font-size: 2.5em; font-weight: bold; text-decoration: none;" href="/second">HOME recipe</a>
-				</div>
-				<div class="col-sm-5">
-					<form action="" method="GET" class="form-group">
-						<div class="input-group">
-							<input name="" type="search" class="form-control mt-3" placeholder="&#xf002; 검색어를 입력하세요.">
-							<button type="submit" class="btn btn-outline-danger" style="border: 0;">
-								<i id="searchBtn" class="fas fa-search mt-3" style="font-size: 1.5em;"></i>
-							</button>
-						</div>
-					</form>
-				</div>
+      <div class="row">
+         <div
+            class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3" style="position: relative; right: -100px">
+            <div class="col-sm-2">
+               <a class="display-4 text-warning"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+                  href="/second">HOME recipe</a>
+            </div>
+
+				<div class="col-sm-4">
+               <form action="/second/secondList" method="GET" class="form-group">
+                  <div class="input-group search-head">
+                     <input name="search" type="search" class="form-control"
+                        placeholder="&#xf002; Search...">
+                        
+                     <button type="submit" class="btn btn-outline-success"
+                        style="position: relative; border: 0; height: 39px; top: 9px">
+                        <i class="fas fa-search" style="font-size: 1.5em; position: relative; top: 1px"></i>
+                     </button>
+                  </div>
+               </form>
+            </div>
 				<div class="input-group-append col-sm-3">
 					<a href="/second/SecondLogin" class="text-dark"
 						style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
@@ -407,39 +389,6 @@
 						<i class="fas fa-book ml-5"></i>
 					</a>
 				</div>
-			</div>
-		</div>
-	<div class="bg-danger">
-			<div class="container">
-				<nav class="topnav d-flex justify-content-center" id="myTopnav">
-					<div class="dropdown px-5">
-						<button id="btn1" class="dropbtn btn btn-danger " data-toggle="dropdown">목록</button>
-						<div class="dropdown-menu ">
-							<a href="#" class="dropdown-item">홈</a> 
-							<a href="#"	class="dropdown-item">회사소개</a> 
-							<a href="#" class="dropdown-item">제품소개</a>
-							<a href="#" class="dropdown-item">오시는길</a>
-						</div>
-					</div>
-					<div class="dropdown px-5">
-						<button class="dropbtn btn btn-danger" data-toggle="dropdown">찌게</button>
-						<div class="dropdown-menu">
-							<a href="#" class="dropdown-item">홈</a> 
-							<a href="#"	class="dropdown-item">회사소개</a> 
-							<a href="#" class="dropdown-item">제품소개</a>
-							<a href="#" class="dropdown-item">오시는길</a>
-						</div>
-					</div>
-					<div class="dropdown px-5">
-						<button class="dropbtn btn btn-danger" data-toggle="dropdown">구이</button>
-						<div class="dropdown-menu">
-							<a href="#" class="dropdown-item">홈</a> 
-							<a href="#" class="dropdown-item">회사소개</a> 
-							<a href="#" class="dropdown-item">제품소개</a>
-							<a href="#" class="dropdown-item">오시는길</a>
-						</div>
-					</div>
-				</nav>
 			</div>
 		</div>
 
@@ -571,7 +520,7 @@
         </section>
         
         <div class="d-flex justify-content-end mt-4">
-          <a href="/second/secondList" class="btn btn-primary">목록으로</a>
+          <a href="/second/secondList?search=" class="btn btn-primary">목록으로</a>
           <a type="button" class="btn btn-success ml-2" href="/second/secondEdit?idx=" th:attrappend="href=${recipe.idx}">수정하기</a>
           <a type="button" class="btn btn-danger ml-2" href="/second/secondRemove?idx=" th:attrappend="href=${recipe.idx}">삭제하기</a>
         </div>

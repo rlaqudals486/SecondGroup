@@ -65,9 +65,9 @@
        					cookComment : $("#cookComment").val(),
        					cookPoint : $("#cookPoint").val(),
        					recipeDeletedYn : $("#recipeDeletedYn").val(),
-       					fileName : $("#fileName").val(),
+       					/* fileName : $("#fileName").val(),
        					storedFilePath : $("#storedFilePath").val(),
-       					fileSize : $("#fileSize").val(),
+       					fileSize : $("#fileSize").val(), */
        					classificationClassCode : $("#classificationClassCode").val(),
        					classificationClassName	: $("#classificationClassName").val() 
        			};
@@ -85,7 +85,7 @@
             		}
             	});
             	
-            	$.ajax({
+            	/* $.ajax({
             		url: "/second/secondFileInsert",
             		type: "post",
             		enctype: "multipart/form-data",
@@ -98,7 +98,7 @@
             		error: function() {
             		}
             		
-            	});
+            	}); */
  //            	frm.submit();
                });
 
@@ -140,9 +140,6 @@
     </script>
 
     <style>
-        body {
-            background-color: wheat;
-        }
 
         li {
             list-style: none;
@@ -150,23 +147,14 @@
             margin-bottom: 15px;
         }
 
-        .header-input {
+        .search-head > input {
             width: 100%;
-            border-radius: 20px;
             border: 1px solid #bbb;
             margin: 10px 0;
             padding: 10px 12px;
             font-family: fontAwesome;
         }
 
-        .recipe-write,
-        .recipe-ingredient,
-        .recipe-step,
-        .recipe-tag,
-        .recipe-submit {
-            border: 1px solid #d2c8be;
-            background: #faf5eb;
-        }
 
         .input-write {
             width: 100%;
@@ -184,6 +172,15 @@
             padding-left: 10px;
             height: 50px;
             font-size: 16px;
+        }
+        
+        .recipe-write,
+        .recipe-ingredient,
+        .recipe-step,
+        .recipe-tag,
+        .recipe-submit {
+            border: 1px solid #d2c8be;
+            background: #faf5eb;
         }
 
         label {
@@ -261,42 +258,59 @@
 </head>
 
 <body>
-    <header style="background-color: white;">
-        <div class="row">
-            <div class="text-center mx-auto mt-5 search-bar input-group mb-3">
-                <div class="col-md-2">
-                    <a class="display-4 text-warning"
-                        style="font-size: 2.5em; font-weight: bold; text-decoration: none;" href="/second">HOME
-                        recipe</a>
-                </div>
-
-                <div class="col-md-6">
-                    <form action="" method="GET" class="form-group">
-                        <div class="input-group">
-                            <input name="" type="search" class="header-input form-control"
-                                placeholder="&#xf002; Search...">
-
-                            <button type="submit" class="btn btn-outline-success" style="border: 0;">
-                                <i class="fas fa-search" style="font-size: 1.5em;"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="input-group-append col-md-2 ">
-                    <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                        <i class="far fa-user ml-5"></i>
-                    </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                        <i class="far fa-edit ml-5"></i>
-                    </a> <a class="text-dark" style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
-                        <i class="fas fa-book ml-5"></i>
-                    </a>
-                </div>
+    <header class="bg-white">
+      <div class="row">
+         <div
+            class="text-center d-flex justify-content-center mt-4 search-bar input-group mb-3" style="position: relative; right: -100px">
+            <div class="col-sm-2">
+               <a class="display-4 text-warning"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;"
+                  href="/second">HOME recipe</a>
             </div>
-        </div>
-    </header>
+            <!-- 검색창 -->
+            <div class="col-sm-4">
+               <form action="/second/secondList" method="GET" class="form-group">
+                  <div class="input-group search-head">
+                     <input name="search" type="search" class="form-control"
+                        placeholder="&#xf002; Search...">
+                        
+                     <button type="submit" class="btn btn-outline-danger"
+                        style="position: relative; border: 0; height: 39px; top: 9px">
+                        <i class="fas fa-search" style="font-size: 1.5em; position: relative; top: 1px"></i>
+                     </button>
+                  </div>
+               </form>
+            </div>
 
-    <main>
+            <div class="input-group-append col-sm-4 ">
+               <a href="/second/SecondIcon1" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="far fa-user ml-5"></i>
+               </a> <a href="/second/SecondIcon2" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="far fa-edit ml-5"></i>
+               </a> <a href="/second/secondList?search=" class="text-dark"
+                  style="font-size: 2.5em; font-weight: bold; text-decoration: none;">
+                  <i class="fas fa-book ml-5"></i>
+               </a>
+               <div >
+                  <div th:if="${session.userId} != null" class="ml-5">
+                     <p th:text="|${session.userId} 님 안녕하세요|"></p>
+                     <a href="/second/logout" class="btn btn-outline-primary"
+                        id="btnLogout">로그아웃</a>
+                  </div>
+                  <div th:unless="${session.userId} != null">
+                     <a href="/second/SecondLogin"
+                        class="btn btn-outline-primary ml-5 mt-3" id="btnLogin">로그인</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </header>
+
+    <main class="pb-4 pt-4" style="background-color: wheat; ">
         <form action="/second/recipeInsert" method="POST" id="frm" enctype="multipart/form-data">
             <div class="container recipe-write mt-4 p-3">
                 <h4>레시피 등록</h4>
@@ -397,7 +411,7 @@
             <div class="container recipe-submit mt-4 mb-5 p-3">
                 <div class="text-center m-3">
 					<button class="lastbtn btn btn-success mr-2" type="button" value="save" id="btn-submit">저장</button>
-                    <button class="lastbtn btn btn-danger" type="reset" value="cancle" onclick = "location.href = '/second/secondList'">취소</button>
+                    <button class="lastbtn btn btn-danger" type="reset" value="cancle" onclick = "location.href = '/second/secondList?search='">취소</button>
                 </div>
             </div>
         </form>

@@ -183,9 +183,9 @@ public class SecondController {
 	}
 	
 	@RequestMapping(value = "/second/recipeInsert", method = RequestMethod.POST)
-	public String SecondInsert(SecondRecipeDto recipe, MultipartHttpServletRequest uploadFiles) throws Exception {
+	public String SecondInsert(SecondRecipeDto recipe/* , MultipartHttpServletRequest uploadFiles */) throws Exception {
 		
-		secondService.insertRecipe(recipe, uploadFiles);
+		secondService.insertRecipe(recipe/* , uploadFiles */);
 		
 		/*
 		 * HttpSession session = request.getSession();
@@ -199,15 +199,17 @@ public class SecondController {
 	}
 	
 	
-	  @RequestMapping(value = "/second/secondFileInsert", method = RequestMethod.POST) 
-	  public String SecondFileInsert(SecondRecipeDto recipeFile,
-	  MultipartHttpServletRequest uploadFiles) throws Exception {
-	  
-	  secondService.insertSecondFileList(recipeFile, uploadFiles);
-	  
-	  return "redirect:/second/secondList";
-	 
-	  }
+	/*
+	 * @RequestMapping(value = "/second/secondFileInsert", method =
+	 * RequestMethod.POST) public String SecondFileInsert(SecondRecipeDto
+	 * recipeFile, MultipartHttpServletRequest uploadFiles) throws Exception {
+	 * 
+	 * secondService.insertSecondFileList(recipeFile, uploadFiles);
+	 * 
+	 * return "redirect:/second/secondList";
+	 * 
+	 * }
+	 */
 	 
 	
 	@RequestMapping(value = "/second/secondEdit", method = RequestMethod.GET)
@@ -266,7 +268,7 @@ public class SecondController {
 	public String SecondDelete(int idx) throws Exception {
 		secondService.deleteRecipe(idx);
 		
-		return "redirect:/second/secondList";
+		return "redirect:/second/secondList?search=";
 	}
 	
 	@RequestMapping(value="/second", method=RequestMethod.GET)
